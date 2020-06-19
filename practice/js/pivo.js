@@ -103,8 +103,8 @@
     //     canvas: document.querySelector(".image-blend-canvas"),
     //     context: document.querySelector(".image-blend-canvas").getContext("2d"),
     //     imagesPath: [
-    //       "./images/blend-image-1.jpg",
-    //       "./images/blend-image-2.jpg"
+    //       "../assets/images/blend-image-1.jpg",
+    //       "../assets/images/blend-image-2.jpg"
     //     ],
     //     images: []
     //   },
@@ -131,7 +131,7 @@
     // let imgElem2;
     // for (let i = 0; i < sceneInfo[2].values.videoImageCount; i++) {
     //   imgElem2 = new Image();
-    //   imgElem2.src = `./video/002/IMG_${7027 + i}.JPG`;
+    //   imgElem2.src = `../assets/video/002/IMG_${7027 + i}.JPG`;
     //   sceneInfo[2].objs.videoImages.push(imgElem2);
     // }
 
