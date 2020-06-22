@@ -165,7 +165,7 @@ body.before-load {
 }
 
 .main-message p {
-  font-weight: bold;
+  font-weight: 700;
   text-align: center;
   line-height: 1.2;
 }
@@ -192,10 +192,7 @@ body.before-load {
   width: 100%;
 }
 
-#show-scene-0 #scroll-section-0 .sticky-elem,
-#show-scene-1 #scroll-section-1 .sticky-elem,
-#show-scene-2 #scroll-section-2 .sticky-elem,
-#show-scene-3 #scroll-section-3 .sticky-elem {
+.container .sticky-elem {
   display: block;
   will-change: transform, opacity;
 }
@@ -211,7 +208,7 @@ body.before-load {
   left: 50%;
 }
 
-#scroll-section-3 {
+.diplayFlexCentered {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -304,6 +301,12 @@ body.before-load {
 
 @media (min-width: 1024px) {
   .main-message {
+    font-size: 4vw;
+  }
+
+  .mid-message {
+    width: 1000px;
+    padding: 0;
     font-size: 4vw;
   }
 
