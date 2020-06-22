@@ -28,28 +28,44 @@
         videoImageCount: 300,
         imageSequence: [0, 299],
         canvas_opacity: [1, 0, { start: 0.9, end: 1 }],
-        messageA_opacity_in: [0, 1, { start: 0.1, end: 0.2 }],
-        messageB_opacity_in: [0, 1, { start: 0.3, end: 0.4 }],
-        messageC_opacity_in: [0, 1, { start: 0.5, end: 0.6 }],
-        messageA_translateY_in: [20, 0, { start: 0.1, end: 0.2 }],
-        messageB_translateY_in: [20, 0, { start: 0.3, end: 0.4 }],
-        messageC_translateY_in: [20, 0, { start: 0.5, end: 0.6 }],
-        messageA_opacity_out: [1, 0, { start: 0.25, end: 0.3 }],
+        messageA_opacity_in: [0, 1, { start: 0.1, end: 0.4 }],
+        messageB_opacity_in: [0, 1, { start: 0.2, end: 0.4 }],
+        messageC_opacity_in: [0, 1, { start: 0.6, end: 0.7 }],
+        messageA_translateY_in: [20, 0, { start: 0.1, end: 0.4 }],
+        messageB_translateY_in: [20, 0, { start: 0.2, end: 0.4 }],
+        messageC_translateY_in: [20, 0, { start: 0.6, end: 0.7 }],
+        messageA_opacity_out: [1, 0, { start: 0.45, end: 0.5 }],
         messageB_opacity_out: [1, 0, { start: 0.45, end: 0.5 }],
-        messageC_opacity_out: [1, 0, { start: 0.65, end: 0.7 }],
-        messageA_translateY_out: [0, -20, { start: 0.25, end: 0.3 }],
+        messageC_opacity_out: [1, 0, { start: 0.9, end: 0.95 }],
+        messageA_translateY_out: [0, -20, { start: 0.45, end: 0.5 }],
         messageB_translateY_out: [0, -20, { start: 0.45, end: 0.5 }],
-        messageC_translateY_out: [0, -20, { start: 0.65, end: 0.7 }]
+        messageC_translateY_out: [0, -20, { start: 0.9, end: 0.95 }]
       }
     },
+    // {
+    //   // 1
+    //   type: "normal",
+    //   // heightNum: 5, // type normal에서는 필요 없음
+    //   scrollHeight: 0,
+    //   prevScrollHeight: 0,
+    //   objs: {
+    //     container: document.querySelector("#scroll-section-1")
+    //   }
+    // },
     {
       // 1
-      type: "normal",
-      // heightNum: 5, // type normal에서는 필요 없음
+      type: "sticky",
+      heightNum: 5,
       scrollHeight: 0,
       prevScrollHeight: 0,
       objs: {
-        container: document.querySelector("#scroll-section-1")
+        container: document.querySelector("#scroll-section-1"),
+        podSVG: document.querySelector(".svgAnimationLetter")
+      },
+      values: {
+        opacity: [0, 1, { start: 0, end: 0.4 }],
+        svg_scale: [0.5, 1, { start: 0, end: 0.4 }],
+        svg_rotate: [0, 360, { start: 0, end: 0.4 }]
       }
     },
     {
@@ -204,7 +220,7 @@
           currentYOffset
         );
 
-        if (scrollRatio <= 0.22) {
+        if (scrollRatio <= 0.42) {
           // in
           objs.messageA.style.opacity = calcValues(
             values.messageA_opacity_in,
@@ -248,7 +264,7 @@
           )}%, 0)`;
         }
 
-        if (scrollRatio <= 0.62) {
+        if (scrollRatio <= 0.88) {
           // in
           objs.messageC.style.opacity = calcValues(
             values.messageC_opacity_in,
@@ -270,13 +286,29 @@
           )}%, 0)`;
         }
 
-        if (scrollRatio <= 0.82) {
-        } else {
-        }
-
         break;
 
       case 1:
+        if (scrollRatio < 0.7) {
+          objs.podSVG.classList.add("stickySVG");
+
+          objs.podSVG.style.transform = `translate3d(-50%, -50%, 0) scale(${calcValues(
+            values.svg_scale,
+            currentYOffset
+          )}) rotate(${calcValues(values.svg_rotate, currentYOffset)}deg)`;
+
+          objs.podSVG.style.opacity = calcValues(
+            values.opacity,
+            currentYOffset
+          );
+
+          objs.podSVG.style.marginTop = `0`;
+        } else {
+          objs.podSVG.classList.remove("stickySVG");
+          objs.podSVG.style.marginTop = `${scrollHeight * 0.7}px`;
+          objs.podSVG.style.transform = "translate3d(0, -50%, 0) scale(1)";
+        }
+
         // currentScene 3에서 쓰는 캔버스를 미리 그려주기 시작
         if (scrollRatio > 0.9) {
           const objs = sceneInfo[2].objs;
