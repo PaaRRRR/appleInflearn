@@ -139,15 +139,24 @@
     //   document.body.classList.remove("local-nav-sticky");
     // }
 
-    if (
-      sceneInfo[2].prevScrollHeight &&
-      yOffset > sceneInfo[2].prevScrollHeight - sceneHeight
-    ) {
-      document.body.classList.remove("local-nav-sticky");
-      sceneInfo[2].objs.videoContainer.classList.add("stickyVideo");
-    } else {
-      document.body.classList.add("local-nav-sticky");
-      sceneInfo[2].objs.videoContainer.classList.remove("stickyVideo");
+    if (sceneInfo[2].prevScrollHeight) {
+      const prevScrollHeight = sceneInfo[2].prevScrollHeight;
+      if (yOffset > prevScrollHeight - sceneHeight) {
+        document.body.classList.remove("local-nav-sticky");
+      } else {
+        document.body.classList.add("local-nav-sticky");
+      }
+
+      if (
+        yOffset > prevScrollHeight - sceneHeight &&
+        yOffset <
+          prevScrollHeight +
+            sceneInfo[2].scrollHeight * sceneInfo[2].values.video_scale[2].end
+      ) {
+        sceneInfo[2].objs.videoContainer.classList.add("stickyVideo");
+      } else {
+        sceneInfo[2].objs.videoContainer.classList.remove("stickyVideo");
+      }
     }
   }
 
@@ -338,6 +347,12 @@
           objs.podSVG.classList.remove("stickySVG");
           objs.podSVG.style.marginTop = `${scrollHeight * 0.7}px`;
           objs.podSVG.style.transform = "translate3d(0, -50%, 0) scale(1)";
+
+          // if (touchDown) {
+          //   sceneInfo[2].objs.videoContainer.classList.add("stickyVideo");
+          // } else {
+          //   sceneInfo[2].objs.videoContainer.classList.remove("stickyVideo");
+          // }
         }
 
         // this is imageBlend
