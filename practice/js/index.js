@@ -4,7 +4,7 @@
   let prevScrollHeight = 0; // 현재 스크롤 위치(yOffset)보다 이전에 위치한 스크롤 섹션들의 스크롤 높이값의 합
   let currentScene = 0; // 현재 활성화된(눈 앞에 보고있는) 씬(scroll-section)
   let enterNewScene = false; // 새로운 scene이 시작된 순간 true
-  let touchDown = false;
+  // let touchDown = false;
   let acc = 0.2;
   let delayedYOffset = 0;
   let rafId;
@@ -144,8 +144,10 @@
       yOffset > sceneInfo[2].prevScrollHeight - sceneHeight
     ) {
       document.body.classList.remove("local-nav-sticky");
+      sceneInfo[2].objs.videoContainer.classList.add("stickyVideo");
     } else {
       document.body.classList.add("local-nav-sticky");
+      sceneInfo[2].objs.videoContainer.classList.remove("stickyVideo");
     }
   }
 
@@ -336,12 +338,6 @@
           objs.podSVG.classList.remove("stickySVG");
           objs.podSVG.style.marginTop = `${scrollHeight * 0.7}px`;
           objs.podSVG.style.transform = "translate3d(0, -50%, 0) scale(1)";
-
-          if (touchDown) {
-            sceneInfo[2].objs.videoContainer.classList.add("stickyVideo");
-          } else {
-            sceneInfo[2].objs.videoContainer.classList.remove("stickyVideo");
-          }
         }
 
         // this is imageBlend
@@ -570,14 +566,14 @@
       enterNewScene = true;
     }
 
-    if (delayedYOffset > currentTotalHeight - sceneHeight) {
-      touchDown = true;
-    } else {
-      touchDown = false;
-    }
+    // if (delayedYOffset > currentTotalHeight - sceneHeight) {
+    //   touchDown = true;
+    // } else {
+    //   touchDown = false;
+    // }
 
     if (enterNewScene) {
-      touchDown = false;
+      // touchDown = false;
       document.body.setAttribute("id", `show-scene-${currentScene}`);
       return;
     }
@@ -633,8 +629,8 @@
 
     window.addEventListener("scroll", () => {
       yOffset = window.pageYOffset;
-      checkMenu();
       scrollLoop();
+      checkMenu();
 
       if (!rafState) {
         rafId = requestAnimationFrame(loop);
