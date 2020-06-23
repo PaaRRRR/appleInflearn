@@ -67,7 +67,7 @@
       values: {
         opacity: [0, 1, { start: 0, end: 0.4 }],
         svg_scale: [0.5, 1, { start: 0, end: 0.4 }],
-        svg_rotate: [0, 360, { start: 0, end: 0.4 }]
+        svg_rotate: [0, 180, { start: 0, end: 0.4 }]
       }
     },
     {
