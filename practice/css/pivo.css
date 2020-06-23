@@ -198,6 +198,7 @@ body.before-load {
   text-align: center;
   font-size: 20em;
   opacity: 0;
+  white-space: nowrap;
 }
 
 .svgAnimationLetter.stickySVG {

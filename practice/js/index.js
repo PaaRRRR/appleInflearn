@@ -404,7 +404,8 @@
 
         if (scrollRatio > whenEnd) {
           objs.videoContainer.classList.remove("stickyVideo");
-          objs.videoContainer.style.marginTop = `${scrollHeight * 0.7}px`;
+          objs.videoContainer.style.marginTop = `${scrollHeight * whenEnd -
+            objs.videoContainer.clientHeight / 2}px`;
         } else {
           objs.videoContainer.classList.add("stickyVideo");
           objs.videoContainer.style.marginTop = "0";
