@@ -69,7 +69,6 @@ body.before-load {
 
 .global-nav {
   position: absolute;
-  position: fixed;
   top: 0;
   left: 0;
   z-index: 10;
@@ -80,6 +79,11 @@ body.before-load {
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.7);
   border-bottom: 1px solid #ddd;
 }
+
+/* 
+.global-nav.sticky {
+  position: fixed;
+} */
 
 .local-nav-sticky .global-nav {
   position: fixed;
@@ -136,6 +140,7 @@ body.before-load {
 .scroll-section {
   position: relative;
   padding-top: 50vh;
+  z-index: 6;
 }
 
 #scroll-section-0 .a {
@@ -188,11 +193,10 @@ body.before-load {
 .svgAnimationLetter {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 0 1rem;
   font-size: 2.2rem;
   color: black;
   text-align: center;
-  font-size: 50rem;
+  font-size: 20em;
   opacity: 0;
 }
 
@@ -234,6 +238,27 @@ body.before-load {
 .image-blend-canvas.sticky {
   position: fixed;
   top: 0;
+}
+
+.videoContainer {
+  width: 100%;
+  height: 100vh;
+}
+
+.videoContainer.stickyVideo {
+  position: fixed;
+  top: 0;
+}
+
+.videoContainer video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video {
+  width: 100%;
+  height: 100%;
 }
 
 .loading {

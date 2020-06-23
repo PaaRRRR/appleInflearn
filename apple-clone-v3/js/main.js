@@ -486,6 +486,7 @@
           canvasScaleRatio = widthRatio;
         }
 
+        // 그냥 캔버스 그려준다.
         objs.canvas.style.transform = `scale(${canvasScaleRatio})`;
         objs.context.fillStyle = "white";
         objs.context.drawImage(objs.images[0], 0, 0);
@@ -560,6 +561,7 @@
             objs.canvas.height * canvasScaleRatio
           ) / 2}px`;
 
+          // 첫번째 블렌드 이미지 닿았을 때 (스케일 줄어든다.)
           if (scrollRatio > values.blendHeight[2].end) {
             values.canvas_scale[0] = canvasScaleRatio;
             values.canvas_scale[1] =
@@ -574,6 +576,7 @@
             objs.canvas.style.marginTop = 0;
           }
 
+          // 두번째 블렌드 이미지 닿았을 때 (캡션 스크립트 올라온다.)
           if (
             scrollRatio > values.canvas_scale[2].end &&
             values.canvas_scale[2].end > 0
