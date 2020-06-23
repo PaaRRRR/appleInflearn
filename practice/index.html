@@ -13,7 +13,7 @@
     <!-- <link rel="stylesheet" href="./css/main.css"> -->
     <link rel="stylesheet" href="./css/pivo.css" />
   </head>
-  <body>
+  <body class="before-load">
     <div class="loading">
       <svg class="loading-circle">
         <circle cx="50%" cy="50%" r="25"></circle>
@@ -62,7 +62,7 @@
         </div>
       </section>
 
-      <section class="scroll-section" id="scroll-section-1">
+      <!-- <section class="scroll-section" id="scroll-section-1">
         <p class="description">
           <strong>보통 스크롤 영역</strong>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae est
@@ -88,9 +88,19 @@
           obcaecati. Recusandae, sequi dignissimos in natus eum maiores dolorem,
           deleniti nobis accusantium, aspernatur beatae.
         </p>
-      </section>
+      </section> -->
 
-      <section class="scroll-section" id="scroll-section-3">
+      <section
+        class="scroll-section"
+        id="scroll-section-1"
+        style="background: mediumturquoise;"
+      >
+        <p class="svgAnimationLetter">
+          pod
+        </p>
+      </section>
+      <!-- this is imageBlend -->
+      <!-- <section class="scroll-section diplayFlexCentered" id="scroll-section-2">
         <p class="mid-message">
           <strong>Retina 머그</strong><br />
           아이디어를 광활하게 펼칠 <br />
@@ -110,9 +120,38 @@
           rem voluptas. Ratione soluta similique harum nihil vel. Quas inventore
           perferendis iusto explicabo animi eos ratione obcaecati.
         </p>
+      </section> -->
+
+      <!-- <section
+        class="scroll-section"
+        id="scroll-section-3"
+        style="background: mediumseagreen; padding-top: 0; "
+      >
+        <div class="videoContainer">
+          <video autoplay>
+            <source src="./pivo-hero-scroll.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </section> -->
+
+      <section
+        class="scroll-section"
+        id="scroll-section-2"
+        style="position: relative; background: wheat; z-index: 1;"
+      >
+        <div class="videoContainer">
+          <video
+            class="video"
+            muted
+            autoplay
+            playsinline
+            loop
+            src="https://www.apple.com//105/media/us/iphone-se/2020/90024c0f-285a-4bf5-af04-2c38de97b06e/anim/4k-video/large.mp4"
+          ></video>
+        </div>
       </section>
 
-      <section style="background: mediumseagreen; height: 100vh;"></section>
+      <section style="height: 100vh; background: mediumslateblue;"></section>
 
       <!-- <nav class="global-nav">
         <div class="global-nav-links">
@@ -131,6 +170,6 @@
         </div>
       </nav> -->
     </div>
-    <script src="./js/pivoFurther.js"></script>
+    <script src="./js/index.js"></script>
   </body>
 </html>
