@@ -27,21 +27,25 @@
         videoImages: []
       },
       values: {
-        videoImageCount: 300,
-        imageSequence: [0, 299],
-        canvas_opacity: [1, 0, { start: 0.9, end: 1 }],
-        messageA_opacity_in: [0, 1, { start: 0.1, end: 0.4 }],
-        messageB_opacity_in: [0, 1, { start: 0.2, end: 0.4 }],
-        messageC_opacity_in: [0, 1, { start: 0.6, end: 0.7 }],
-        messageA_translateY_in: [20, 0, { start: 0.1, end: 0.4 }],
-        messageB_translateY_in: [20, 0, { start: 0.2, end: 0.4 }],
-        messageC_translateY_in: [20, 0, { start: 0.6, end: 0.7 }],
-        messageA_opacity_out: [1, 0, { start: 0.45, end: 0.5 }],
-        messageB_opacity_out: [1, 0, { start: 0.45, end: 0.5 }],
-        messageC_opacity_out: [1, 0, { start: 0.9, end: 0.95 }],
-        messageA_translateY_out: [0, -20, { start: 0.45, end: 0.5 }],
-        messageB_translateY_out: [0, -20, { start: 0.45, end: 0.5 }],
-        messageC_translateY_out: [0, -20, { start: 0.9, end: 0.95 }]
+        // videoImageCount: 425,
+        // imageSequence: [0, 424, { videoEnd: 0.8 }],
+        // videoImageCount: 196,
+        // imageSequence: [0, 195, { videoEnd: 0.8 }],
+        videoImageCount: 196,
+        imageSequence: [0, 195, { videoEnd: 0.8 }],
+        canvas_opacity: [1, 0, { start: 0.7, end: 0.8 }],
+        messageA_opacity_in: [0, 1, { start: 0.2, end: 0.28 }],
+        messageB_opacity_in: [0, 1, { start: 0.24, end: 0.28 }],
+        messageC_opacity_in: [0, 1, { start: 0.48, end: 0.56 }],
+        messageA_translateY_in: [20, 0, { start: 0.2, end: 0.28 }],
+        messageB_translateY_in: [20, 0, { start: 0.24, end: 0.28 }],
+        messageC_translateY_in: [20, 0, { start: 0.48, end: 0.56 }],
+        messageA_opacity_out: [1, 0, { start: 0.32, end: 0.4 }],
+        messageB_opacity_out: [1, 0, { start: 0.32, end: 0.4 }],
+        messageC_opacity_out: [1, 0, { start: 0.64, end: 0.8 }],
+        messageA_translateY_out: [0, -20, { start: 0.32, end: 0.4 }],
+        messageB_translateY_out: [0, -20, { start: 0.32, end: 0.4 }],
+        messageC_translateY_out: [0, -20, { start: 0.64, end: 0.8 }]
       }
     },
     // {
@@ -117,9 +121,27 @@
 
   function setCanvasImages() {
     let imgElem;
+    // for (let i = 0; i < sceneInfo[0].values.videoImageCount; i++) {
+    //   imgElem = new Image();
+    //   imgElem.src = `../assets/video/001/IMG_${6726 + i}.JPG`;
+    //   sceneInfo[0].objs.videoImages.push(imgElem);
+    // }
+
+    // for (let i = 0; i < sceneInfo[0].values.videoImageCount; i++) {
+    //   imgElem = new Image();
+    //   imgElem.src = `../assets/pivoVideo/Frame (${1 + i}).png`;
+    //   sceneInfo[0].objs.videoImages.push(imgElem);
+    // }
+
+    // for (let i = 0; i < sceneInfo[0].values.videoImageCount; i++) {
+    //   imgElem = new Image();
+    //   imgElem.src = `../assets/pivoVideo2/Frame (${1 + i}).png`;
+    //   sceneInfo[0].objs.videoImages.push(imgElem);
+    // }
+
     for (let i = 0; i < sceneInfo[0].values.videoImageCount; i++) {
       imgElem = new Image();
-      imgElem.src = `../assets/video/001/IMG_${6726 + i}.JPG`;
+      imgElem.src = `../assets/pivoVideo3/Frame (${1 + i}).png`;
       sceneInfo[0].objs.videoImages.push(imgElem);
     }
 
@@ -188,6 +210,11 @@
     }
 
     document.body.setAttribute("id", `show-scene-${currentScene}`);
+    if (currentScene === 0) {
+      sceneInfo[0].objs.container.classList.add("stickyy");
+    } else {
+      sceneInfo[0].objs.container.classList.remove("stickyy");
+    }
 
     // this can be improve
     const heightRatio = sceneHeight / 1080;
@@ -200,7 +227,11 @@
     const scrollHeight = sceneInfo[currentScene].scrollHeight;
     const scrollRatio = currentYOffset / scrollHeight;
 
-    if (values.length === 3) {
+    if (values[2].videoEnd) {
+      rv =
+        (scrollRatio / values[2].videoEnd) * (values[1] - values[0]) +
+        values[0];
+    } else {
       // start ~ end 사이에 애니메이션 실행
       const partScrollStart = values[2].start * scrollHeight;
       const partScrollEnd = values[2].end * scrollHeight;
@@ -219,9 +250,30 @@
       } else if (currentYOffset > partScrollEnd) {
         rv = values[1];
       }
-    } else {
-      rv = scrollRatio * (values[1] - values[0]) + values[0];
     }
+
+    // if (values.length === 3) {
+    //   // start ~ end 사이에 애니메이션 실행
+    //   const partScrollStart = values[2].start * scrollHeight;
+    //   const partScrollEnd = values[2].end * scrollHeight;
+    //   const partScrollHeight = partScrollEnd - partScrollStart;
+
+    //   if (
+    //     currentYOffset >= partScrollStart &&
+    //     currentYOffset <= partScrollEnd
+    //   ) {
+    //     rv =
+    //       ((currentYOffset - partScrollStart) / partScrollHeight) *
+    //         (values[1] - values[0]) +
+    //       values[0];
+    //   } else if (currentYOffset < partScrollStart) {
+    //     rv = values[0];
+    //   } else if (currentYOffset > partScrollEnd) {
+    //     rv = values[1];
+    //   }
+    // } else {
+    //   rv = scrollRatio * (values[1] - values[0]) + values[0];
+    // }
 
     return rv;
   }
@@ -260,7 +312,7 @@
           currentYOffset
         );
 
-        if (scrollRatio <= 0.42) {
+        if (scrollRatio <= 0.3) {
           // in
           objs.messageA.style.opacity = calcValues(
             values.messageA_opacity_in,
@@ -282,7 +334,7 @@
           )}%, 0)`;
         }
 
-        if (scrollRatio <= 0.42) {
+        if (scrollRatio <= 0.3) {
           // in
           objs.messageB.style.opacity = calcValues(
             values.messageB_opacity_in,
@@ -304,7 +356,7 @@
           )}%, 0)`;
         }
 
-        if (scrollRatio <= 0.88) {
+        if (scrollRatio <= 0.6) {
           // in
           objs.messageC.style.opacity = calcValues(
             values.messageC_opacity_in,
@@ -590,6 +642,12 @@
     if (enterNewScene) {
       // touchDown = false;
       document.body.setAttribute("id", `show-scene-${currentScene}`);
+      if (currentScene === 0) {
+        sceneInfo[0].objs.container.classList.add("stickyy");
+      } else {
+        sceneInfo[0].objs.container.classList.remove("stickyy");
+      }
+
       return;
     }
 
@@ -609,6 +667,8 @@
           calcValues(values.imageSequence, currentYOffset)
         );
         if (objs.videoImages[sequence]) {
+          // objs.context.drawImage(objs.videoImages[0], 0, 0);
+          objs.context.clearRect(0, 0, objs.canvas.width, objs.canvas.height);
           objs.context.drawImage(objs.videoImages[sequence], 0, 0);
         }
       }
@@ -630,10 +690,12 @@
 
     let tempYOffset = yOffset;
     let tempScrollCount = 0;
+    console.log("??", tempYOffset);
     if (tempYOffset > 0) {
       let siId = setInterval(() => {
         scrollTo(0, tempYOffset);
         tempYOffset += 5;
+        console.log("asdfasdfasdf", tempYOffset);
 
         if (tempScrollCount > 20) {
           clearInterval(siId);
