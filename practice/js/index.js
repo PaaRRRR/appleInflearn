@@ -27,10 +27,6 @@
         videoImages: []
       },
       values: {
-        // videoImageCount: 425,
-        // imageSequence: [0, 424, { videoEnd: 0.8 }],
-        // videoImageCount: 196,
-        // imageSequence: [0, 195, { videoEnd: 0.8 }],
         videoImageCount: 196,
         imageSequence: [0, 195, { videoEnd: 0.8 }],
         canvas_opacity: [1, 0, { start: 0.7, end: 0.8 }],
@@ -124,18 +120,6 @@
     // for (let i = 0; i < sceneInfo[0].values.videoImageCount; i++) {
     //   imgElem = new Image();
     //   imgElem.src = `../assets/video/001/IMG_${6726 + i}.JPG`;
-    //   sceneInfo[0].objs.videoImages.push(imgElem);
-    // }
-
-    // for (let i = 0; i < sceneInfo[0].values.videoImageCount; i++) {
-    //   imgElem = new Image();
-    //   imgElem.src = `../assets/pivoVideo/Frame (${1 + i}).png`;
-    //   sceneInfo[0].objs.videoImages.push(imgElem);
-    // }
-
-    // for (let i = 0; i < sceneInfo[0].values.videoImageCount; i++) {
-    //   imgElem = new Image();
-    //   imgElem.src = `../assets/pivoVideo2/Frame (${1 + i}).png`;
     //   sceneInfo[0].objs.videoImages.push(imgElem);
     // }
 
