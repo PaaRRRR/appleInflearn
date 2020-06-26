@@ -1,7 +1,12 @@
 @charset 'utf-8';
 
+@font-face {
+  font-family: 'SofiaProSoftRegular';
+  src: url('../assets/398BB3_2_0.woff') format('woff');
+}
+
 html {
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: 'SofiaProSoftRegular', sans-serif;
   font-size: 14px;
   font-size: 62.5%;
 }
@@ -173,11 +178,17 @@ body.before-load {
 
 #scroll-section-0 .a {
   top: calc(5% + 80px);
+  top: 88px;
+  /* display: flex;
+  justify-content: center; */
 }
 
 #scroll-section-0 .b {
   bottom: 5%;
+  bottom: 88px;
   top: unset;
+  /* display: flex;
+  justify-content: center; */
 }
 
 #scroll-section-0 .c {
@@ -197,8 +208,22 @@ body.before-load {
   opacity: 0;
 }
 
+.main-message.a,
+.main-message.b {
+  opacity: 1;
+}
+
+.main-message-a-up,
+.main-message-a-down,
+.main-message-b-up,
+.main-message-b-down {
+  opacity: 0;
+  position: absolute;
+  left: 50%;
+  white-space: nowrap;
+}
+
 .main-message p {
-  font-weight: 700;
   text-align: center;
   line-height: 1.2;
 }
@@ -218,7 +243,7 @@ body.before-load {
   color: rgb(29, 29, 31);
 }
 
-.svgAnimationLetter {
+/* .svgAnimationLetter {
   max-width: 1000px;
   margin: 0 auto;
   font-size: 2.2rem;
@@ -227,6 +252,13 @@ body.before-load {
   opacity: 0;
   white-space: nowrap;
   transform-origin: 50% 61%;
+} */
+
+.svgAnimationLetter {
+  max-width: 96%;
+  margin: 0 auto;
+  opacity: 0;
+  transform-origin: center;
 }
 
 .svgAnimationLetter.stickySVG {
@@ -235,12 +267,12 @@ body.before-load {
   left: 50%;
 }
 
-/* .sticky-elem {
+.sticky-elem {
   display: none;
   position: fixed;
   left: 0;
   width: 100%;
-} */
+}
 
 .container .sticky-elem {
   display: block;
@@ -372,14 +404,14 @@ body.before-load {
 
 @media (min-width: 1024px) {
   .main-message {
-    font-size: 4vw;
+    font-size: 7rem;
   }
 
-  .mid-message {
+  /* .mid-message {
     width: 1000px;
     padding: 0;
     font-size: 4vw;
-  }
+  } */
 
   .canvas-caption {
     margin-top: -8rem;
