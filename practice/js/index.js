@@ -204,8 +204,9 @@
     // }
 
     // this can be improve
-    const heightRatio = sceneHeight / 1080;
-    sceneInfo[0].objs.canvas.style.transform = `translate3d(-50%, -50%, 0) scale(${heightRatio})`;
+    // const heightRatio = sceneHeight / 1080;
+    // sceneInfo[0].objs.canvas.style.transform = `translate3d(-50%, -50%, 0) scale(${heightRatio})`;
+    sceneInfo[0].objs.canvas.style.transform = `translate3d(-50%, -50%, 0)`;
   }
 
   function calcValues(values, currentYOffset) {
