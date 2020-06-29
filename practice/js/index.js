@@ -829,7 +829,7 @@ window.addEventListener("load", () => {
 
   window.addEventListener("resize", () => {
     if (window.innerWidth > 900) {
-      setLayout();
+      // setLayout();
       // this is imageBlend
       // this can be improve
       // sceneInfo[2].values.rectStartY = 0;
