@@ -289,9 +289,10 @@ body.before-load {
 .sticky-elem-canvas canvas {
   position: absolute;
   left: 50%;
-  bottom: 13px;
-  transform-origin: bottom;
-  /* width: auto;
+  top: 50%;
+
+  /* transform-origin: bottom;
+  width: auto;
   height: 100vh;
   top: 50%;
   width: 100%;
