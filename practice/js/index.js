@@ -712,7 +712,7 @@ function moveAnimation() {
         } else {
           objs[
             testObj[cur]
-          ].style.transform = `translate3d(-50%, ${processValue}%, 0)`;
+          ].style.transform = `translate3d(0%, ${processValue}%, 0)`;
         }
       }
     });
