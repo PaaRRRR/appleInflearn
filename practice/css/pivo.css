@@ -177,15 +177,17 @@ body.before-load {
 }
 
 #scroll-section-0 .a {
-  top: calc(5% + 80px);
-  top: 88px;
+  /* top: calc(5% + 80px);
+  top: 88px; */
+  top: 104px;
   /* display: flex;
   justify-content: center; */
 }
 
 #scroll-section-0 .b {
   bottom: 5%;
-  bottom: 88px;
+  /* bottom: 88px; */
+  bottom: 38px;
   top: unset;
   /* display: flex;
   justify-content: center; */
@@ -286,10 +288,12 @@ body.before-load {
 
 .sticky-elem-canvas canvas {
   position: absolute;
-  top: 50%;
   left: 50%;
+  bottom: 0;
+  transform-origin: bottom;
+  /* top: 50%;
   width: 100%;
-  height: 100%;
+  height: 100%; */
 }
 
 .diplayFlexCentered {
@@ -407,6 +411,10 @@ body.before-load {
 @media (min-width: 1024px) {
   .main-message {
     font-size: 7rem;
+  }
+
+  .main-message-b-down-origin-price {
+    font-size: 5.5rem;
   }
 
   /* .mid-message {
