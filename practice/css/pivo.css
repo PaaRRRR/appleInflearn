@@ -292,7 +292,7 @@ body.before-load {
   bottom: 0;
   transform-origin: bottom;
   width: auto;
-  height: 100%;
+  height: 100vh;
   /* top: 50%;
   width: 100%;
   height: 100%; */
