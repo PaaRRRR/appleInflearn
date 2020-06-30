@@ -211,7 +211,6 @@ body.before-load {
 .main-message.a,
 .main-message.b {
   opacity: 1;
-  background: radial-gradient(black, transparent);
 }
 
 .main-message-a-up,
