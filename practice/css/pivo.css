@@ -18,16 +18,20 @@ body {
   background: white;
 }
 
-.icon-pivo-logo-dark {
+/* .icon-pivo-logo-dark {
   width: 32px;
   height: 30px;
   background-image: url(https://cdn.shopify.com/s/files/1/2065/8833/files/icons.svg?46255);
   background-position: 0 -256px;
   background-repeat: no-repeat;
   transform: scale(2.8);
-  zoom: 150%;
+  zoom: 120%;
   margin-left: 30px;
-  margin-top: 2px;
+  margin-top: -3px;
+} */
+
+.icon-pivo-logo-dark {
+  width: 102px;
 }
 
 .icon-cart_icon {
@@ -78,7 +82,7 @@ body.before-load {
   left: 0;
   z-index: 10;
   width: 100%;
-  height: 80px;
+  height: 70px;
   padding: 0 1rem;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.7);
   /* border-bottom: 2px solid black; */
@@ -142,7 +146,7 @@ body.before-load {
   border-radius: 60px;
   border: none;
   padding: 5px 20px;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
 }
 
 .onlyDisplayDesktop .global-nav-item {
@@ -180,7 +184,7 @@ body.before-load {
 
 #scroll-section-0 .b {
   position: absolute;
-  bottom: 0;
+  bottom: 24px;
   width: 100%;
 }
 
@@ -207,6 +211,7 @@ body.before-load {
 .main-message.a,
 .main-message.b {
   opacity: 1;
+  background: radial-gradient(black, transparent);
 }
 
 .main-message-a-up,
@@ -218,6 +223,10 @@ body.before-load {
   left: 50%;
   */
   white-space: nowrap;
+}
+
+.main-message-b-up {
+  max-width: 11rem !important;
 }
 
 .main-message p {
@@ -285,7 +294,7 @@ body.before-load {
 
 .sticky-elem-canvas {
   top: 0;
-  height: 100%;
+  height: 100vh;
 }
 
 .sticky-elem-canvas canvas {
@@ -293,7 +302,7 @@ body.before-load {
   left: 50%;
   top: 50%;
   width: auto;
-  height: 100vh;
+  height: 100%;
 
   /* transform-origin: bottom;
   width: auto;
@@ -418,6 +427,10 @@ body.before-load {
 @media (min-width: 1024px) {
   .main-message {
     font-size: 7rem;
+  }
+
+  .main-message-b-up {
+    max-width: 21rem;
   }
 
   .main-message-b-down-origin-price {

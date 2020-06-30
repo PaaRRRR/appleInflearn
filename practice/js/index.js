@@ -94,7 +94,7 @@ const sceneInfo = [
     prevScrollHeight: 0,
     objs: {
       container: document.querySelector("#scroll-section-1"),
-      podSVG: document.querySelector(".svgAnimationLetter")
+      podSVG: document.querySelector("#scroll-section-1 .svgAnimationLetter")
     },
     values: {
       opacity: [0, 1, { start: 0, end: 0.4 }],
