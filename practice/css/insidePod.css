@@ -270,10 +270,11 @@ body.before-load {
   max-width: 96%;
   margin: 0 auto;
   opacity: 0;
+  z-index: 888;
   transform-origin: center;
 }
 
-.svgAnimationLetter {
+.svgAnimationLetter2 {
   margin: 0 auto;
   opacity: 0;
   transform-origin: center;

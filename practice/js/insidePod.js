@@ -100,10 +100,10 @@ const sceneInfo = [
       videoContainer: document.querySelector(".videoContainer2")
     },
     values: {
-      svg_opacity_in: [0, 1, { start: 0, end: 0.3 }],
-      svg_scale: [0, 10, { start: 0, end: 0.6 }],
-      svg_rotate: [0, 360, { start: 0, end: 0.6 }],
-      video_opacity_in: [0, 1, { start: 0.3, end: 0.6 }],
+      svg_opacity_in: [0.2, 1, { start: 0, end: 0.3 }],
+      svg_scale: [0, 10, { start: 0, end: 1 }],
+      svg_rotate: [0, 360, { start: 0, end: 1 }],
+      video_opacity_in: [0, 1, { start: 0.3, end: 1 }],
       video_opacity_out: [1, 0, { start: 0.85, end: 1 }]
     }
   }
@@ -401,26 +401,33 @@ function playAnimation() {
         currentYOffset
       )}) rotate(${calcValues(values.svg_rotate, currentYOffset)}deg)`;
 
-      objs.podSVG.style.opacity = calcValues(
-        values.svg_opacity_in,
-        currentYOffset
-      );
+      // objs.podSVG.style.opacity = calcValues(
+      //   values.svg_opacity_in,
+      //   currentYOffset
+      // );
+
+      objs.podSVG.style.opacity = 1;
 
       objs.podSVG.style.marginTop = "0";
 
-      if (scrollRatio <= 0.82) {
-        // in
-        objs.videoContainer.style.opacity = calcValues(
-          values.video_opacity_in,
-          currentYOffset
-        );
-      } else {
-        // out
-        objs.videoContainer.style.opacity = calcValues(
-          values.video_opacity_out,
-          currentYOffset
-        );
-      }
+      objs.videoContainer.style.opacity = calcValues(
+        values.video_opacity_in,
+        currentYOffset
+      );
+
+      // if (scrollRatio <= 0.82) {
+      //   // in
+      //   objs.videoContainer.style.opacity = calcValues(
+      //     values.video_opacity_in,
+      //     currentYOffset
+      //   );
+      // } else {
+      //   // out
+      //   objs.videoContainer.style.opacity = calcValues(
+      //     values.video_opacity_out,
+      //     currentYOffset
+      //   );
+      // }
 
       // if (scrollRatio < 0.7) {
       //   objs.podSVG.classList.add("stickySVG");
