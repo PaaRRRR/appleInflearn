@@ -96,27 +96,30 @@ const sceneInfo = [
     prevScrollHeight: 0,
     objs: {
       container: document.querySelector("#scroll-section-1"),
-      podSVG: document.querySelector("#scroll-section-1 .svgAnimationLetter")
+      podSVG: document.querySelector("#scroll-section-1 .svgAnimationLetter"),
+      videoContainer: document.querySelector(".videoContainer2")
     },
     values: {
-      opacity: [0, 1, { start: 0, end: 0.4 }],
-      svg_scale: [0.5, 1, { start: 0, end: 0.4 }],
-      svg_rotate: [0, 180, { start: 0, end: 0.4 }]
-    }
-  },
-  {
-    type: "sticky",
-    heightNum: 5,
-    scrollHeight: 0,
-    prevScrollHeight: 0,
-    objs: {
-      container: document.querySelector("#scroll-section-2"),
-      videoContainer: document.querySelector(".videoContainer")
-    },
-    values: {
-      video_scale: [1, 0.75, { start: 0, end: 0.8 }]
+      svg_opacity_in: [0, 1, { start: 0, end: 0.3 }],
+      svg_scale: [0, 10, { start: 0, end: 0.6 }],
+      svg_rotate: [0, 360, { start: 0, end: 0.6 }],
+      video_opacity_in: [0, 1, { start: 0.3, end: 0.6 }],
+      video_opacity_out: [1, 0, { start: 0.85, end: 1 }]
     }
   }
+  // {
+  //   type: "sticky",
+  //   heightNum: 5,
+  //   scrollHeight: 0,
+  //   prevScrollHeight: 0,
+  //   objs: {
+  //     container: document.querySelector("#scroll-section-2"),
+  //     videoContainer: document.querySelector(".videoContainer")
+  //   },
+  //   values: {
+  //     video_scale: [1, 0.75, { start: 0, end: 0.8 }]
+  //   }
+  // }
   // this is imageBlend
   // {
   //   // 2
@@ -391,28 +394,50 @@ function playAnimation() {
       break;
 
     case 1:
-      if (scrollRatio < 0.7) {
-        objs.podSVG.classList.add("stickySVG");
+      objs.podSVG.classList.add("stickySVG");
 
-        objs.podSVG.style.transform = `translate3d(-50%, -50%, 0) scale(${calcValues(
-          values.svg_scale,
+      objs.podSVG.style.transform = `translate3d(-50%, -50%, 0) scale(${calcValues(
+        values.svg_scale,
+        currentYOffset
+      )}) rotate(${calcValues(values.svg_rotate, currentYOffset)}deg)`;
+
+      objs.podSVG.style.opacity = calcValues(
+        values.svg_opacity_in,
+        currentYOffset
+      );
+
+      objs.podSVG.style.marginTop = "0";
+
+      if (scrollRatio <= 0.82) {
+        // in
+        objs.videoContainer.style.opacity = calcValues(
+          values.video_opacity_in,
           currentYOffset
-        )}) rotate(${calcValues(values.svg_rotate, currentYOffset)}deg)`;
-
-        objs.podSVG.style.opacity = calcValues(values.opacity, currentYOffset);
-
-        objs.podSVG.style.marginTop = "0";
+        );
       } else {
-        objs.podSVG.classList.remove("stickySVG");
-        objs.podSVG.style.marginTop = `${scrollHeight * 0.7}px`;
-        objs.podSVG.style.transform = "translate3d(0, -50%, 0) scale(1)";
-
-        // if (touchDown) {
-        //   sceneInfo[2].objs.videoContainer.classList.add("stickyVideo");
-        // } else {
-        //   sceneInfo[2].objs.videoContainer.classList.remove("stickyVideo");
-        // }
+        // out
+        objs.videoContainer.style.opacity = calcValues(
+          values.video_opacity_out,
+          currentYOffset
+        );
       }
+
+      // if (scrollRatio < 0.7) {
+      //   objs.podSVG.classList.add("stickySVG");
+
+      //   objs.podSVG.style.transform = `translate3d(-50%, -50%, 0) scale(${calcValues(
+      //     values.svg_scale,
+      //     currentYOffset
+      //   )}) rotate(${calcValues(values.svg_rotate, currentYOffset)}deg)`;
+
+      //   objs.podSVG.style.opacity = calcValues(values.opacity, currentYOffset);
+
+      //   objs.podSVG.style.marginTop = "0";
+      // } else {
+      //   objs.podSVG.classList.remove("stickySVG");
+      //   objs.podSVG.style.marginTop = `${scrollHeight * 0.7}px`;
+      //   objs.podSVG.style.transform = "translate3d(0, -50%, 0) scale(1)";
+      // }
 
       // this is imageBlend
       // currentScene 3에서 쓰는 캔버스를 미리 그려주기 시작
@@ -872,7 +897,7 @@ window.addEventListener("load", () => {
   window.addEventListener("scroll", () => {
     yOffset = window.pageYOffset;
     scrollLoop();
-    checkMenu();
+    // checkMenu();
 
     if (!rafState) {
       rafId = requestAnimationFrame(loop);
