@@ -249,7 +249,7 @@ function setLayout() {
 
       // Scale(1.2 -> 1) --> 114px -> 0 // 8.5% -> 0
       // firstCanvas.style.transform = `translate3d(-50%, 0px, 0) scale(${heightRatio})`;
-      firstCanvas.style.transform = `translate3d(-50%, -50%, 0)`;
+      firstCanvas.style.transform = `translate3d(-50%, -51%, 0)`;
 
       firstContext.clearRect(0, 0, firstCanvas.width, firstCanvas.height);
       firstContext.drawImage(
