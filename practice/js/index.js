@@ -60,7 +60,7 @@ const sceneInfo = [
     },
     values: {
       videoImageCount: 196,
-      imageSequence: [firstLoadingSequence, 195, { videoEnd: 0.8 }],
+      imageSequence: [firstLoadingSequence, 195, { start: 0.4, end: 0.8 }],
       canvas_opacity: [1, 0, { start: 0.85, end: 0.9 }],
 
       messageAUp_opacity_in: [0, 1, { start: 0.2, end: 0.28 }],
@@ -80,8 +80,10 @@ const sceneInfo = [
       messageA_translateY_out: [0, -20, { start: 0, end: 0.4 }],
       messageB_translateY_out: [0, -20, { start: 0, end: 0.4 }],
 
-      messageC_opacity_in: [0, 1, { start: 0.48, end: 0.56 }],
-      messageC_translateY_in: [20, 0, { start: 0.48, end: 0.56 }],
+      // messageC_opacity_in: [0, 1, { start: 0.48, end: 0.56 }],
+      // messageC_translateY_in: [20, 0, { start: 0.48, end: 0.56 }],
+      messageC_opacity_in: [0, 1, { start: 0.6, end: 0.7 }],
+      messageC_translateY_in: [20, 0, { start: 0.6, end: 0.7 }],
       messageC_opacity_out: [1, 0, { start: 0.85, end: 0.9 }],
       messageC_translateY_out: [0, -20, { start: 0.85, end: 0.9 }]
     }
@@ -684,16 +686,72 @@ const testObj = {
   messageBDown_translateY_in: "messageBDown"
 };
 
+// function moveAnimation() {
+//   // this is for only first time load..
+//   let targetSceneNum = 0;
+
+//   if (count <= firstLoadingSequence) {
+//     const targetScene = sceneInfo[targetSceneNum];
+//     const objs = targetScene.objs;
+//     const values = targetScene.values;
+
+//     let percentageHow = count / firstLoadingSequence;
+
+//     testArr.forEach(cur => {
+//       const targetValues = values[cur];
+
+//       if (
+//         percentageHow >= targetValues[2].start &&
+//         percentageHow <= targetValues[2].end
+//       ) {
+//         let howMuchGoOn =
+//           (percentageHow - targetValues[2].start) /
+//           (targetValues[2].end - targetValues[2].start);
+//         let processValue =
+//           howMuchGoOn * (targetValues[1] - targetValues[0]) + targetValues[0];
+//         if (cur.includes("opacity")) {
+//           objs[testObj[cur]].style.opacity = processValue;
+//         } else {
+//           objs[
+//             testObj[cur]
+//           ].style.transform = `translate3d(0%, ${processValue}%, 0)`;
+//         }
+//       }
+//     });
+
+//     roundedCount = Math.round(count);
+//     objs.context.clearRect(0, 0, objs.canvas.width, objs.canvas.height);
+//     objs.context.drawImage(
+//       objs.videoImages[currentDeviceType][roundedCount],
+//       0,
+//       0
+//     );
+//     count += 0.75;
+
+//     moveRafId = requestAnimationFrame(moveAnimation);
+//   } else {
+//     cancelAnimationFrame(moveRafId);
+//   }
+// }
+
 function moveAnimation() {
   // this is for only first time load..
   let targetSceneNum = 0;
 
-  if (count <= firstLoadingSequence) {
-    const targetScene = sceneInfo[targetSceneNum];
-    const objs = targetScene.objs;
-    const values = targetScene.values;
+  const targetScene = sceneInfo[targetSceneNum];
+  const objs = targetScene.objs;
 
-    let percentageHow = count / firstLoadingSequence;
+  if (count <= firstLoadingSequence) {
+    roundedCount = Math.round(count);
+    objs.context.clearRect(0, 0, objs.canvas.width, objs.canvas.height);
+    objs.context.drawImage(
+      objs.videoImages[currentDeviceType][roundedCount],
+      0,
+      0
+    );
+  } else {
+    const values = targetScene.values;
+    let percentageHow = (count - firstLoadingSequence) / firstLoadingSequence;
 
     testArr.forEach(cur => {
       const targetValues = values[cur];
@@ -716,14 +774,9 @@ function moveAnimation() {
         }
       }
     });
+  }
 
-    roundedCount = Math.round(count);
-    objs.context.clearRect(0, 0, objs.canvas.width, objs.canvas.height);
-    objs.context.drawImage(
-      objs.videoImages[currentDeviceType][roundedCount],
-      0,
-      0
-    );
+  if (count <= 2 * firstLoadingSequence) {
     count += 0.75;
 
     moveRafId = requestAnimationFrame(moveAnimation);

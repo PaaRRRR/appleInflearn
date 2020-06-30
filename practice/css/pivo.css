@@ -184,7 +184,7 @@ body.before-load {
 
 #scroll-section-0 .b {
   position: absolute;
-  bottom: 24px;
+  bottom: 34px;
   width: 100%;
 }
 
@@ -281,9 +281,10 @@ body.before-load {
 
 .main-message-box {
   /* background: red; */
-  top: 84px;
+  top: 70px;
   height: 100vh;
-  height: calc(100vh - 84px);
+  height: calc(100vh - 70px);
+  padding-top: 34px;
 }
 
 .container .sticky-elem {
