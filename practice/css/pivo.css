@@ -185,6 +185,7 @@ body.before-load {
 #scroll-section-0 .b {
   position: absolute;
   bottom: 34px;
+  bottom: 66px;
   width: 100%;
 }
 
@@ -206,6 +207,7 @@ body.before-load {
   opacity: 0;
 
   font-size: 2.5rem;
+  font-size: 2rem;
 }
 
 .main-message.a,
@@ -226,6 +228,7 @@ body.before-load {
 
 .main-message-b-up {
   max-width: 11rem !important;
+  max-width: 10rem !important;
 }
 
 .main-message p {
@@ -285,6 +288,7 @@ body.before-load {
   height: 100vh;
   height: calc(100vh - 70px);
   padding-top: 34px;
+  padding-top: 49px;
 }
 
 .container .sticky-elem {
