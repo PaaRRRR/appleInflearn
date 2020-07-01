@@ -16,12 +16,14 @@ const DEVICE = {
   mobile: {
     width: 360,
     height: 640,
-    videoImage: "pivoMobile"
+    videoImage: "pivoVideo4",
+    imageCount: 211
   },
   desktop: {
     width: 1440,
     height: 1080,
-    videoImage: "pivoVideo3"
+    videoImage: "pivoVideo3",
+    imageCount: 196
   }
 };
 let currentDeviceType = "mobile";
@@ -59,9 +61,9 @@ const sceneInfo = [
       }
     },
     values: {
-      videoImageCount: 196,
-      imageSequence: [firstLoadingSequence, 195, { start: 0.3, end: 0.8 }],
-      canvas_opacity: [1, 0, { start: 0.82, end: 0.85 }],
+      videoImageCount: 211,
+      imageSequence: [firstLoadingSequence, 210, { start: 0.2, end: 0.8 }],
+      canvas_opacity: [1, 0, { start: 0.82, end: 1 }],
 
       messageAUp_opacity_in: [0, 1, { start: 0.2, end: 0.28 }],
       messageAUp_translateY_in: [20, 0, { start: 0.2, end: 0.28 }],
@@ -75,17 +77,17 @@ const sceneInfo = [
       messageBDown_opacity_in: [0, 1, { start: 0.56, end: 0.8 }],
       messageBDown_translateY_in: [20, 0, { start: 0.56, end: 0.8 }],
 
-      messageA_opacity_out: [1, 0, { start: 0, end: 0.3 }],
-      messageB_opacity_out: [1, 0, { start: 0, end: 0.3 }],
-      messageA_translateY_out: [0, -20, { start: 0, end: 0.3 }],
-      messageB_translateY_out: [0, -20, { start: 0, end: 0.3 }],
+      messageA_opacity_out: [1, 0, { start: 0, end: 0.2 }],
+      messageB_opacity_out: [1, 0, { start: 0, end: 0.2 }],
+      messageA_translateY_out: [0, -20, { start: 0, end: 0.2 }],
+      messageB_translateY_out: [0, -20, { start: 0, end: 0.2 }],
 
       // messageC_opacity_in: [0, 1, { start: 0.48, end: 0.56 }],
       // messageC_translateY_in: [20, 0, { start: 0.48, end: 0.56 }],
-      messageC_opacity_in: [0, 1, { start: 0.6, end: 0.7 }],
-      messageC_translateY_in: [20, 0, { start: 0.6, end: 0.7 }],
-      messageC_opacity_out: [1, 0, { start: 0.82, end: 0.85 }],
-      messageC_translateY_out: [0, -20, { start: 0.82, end: 0.85 }]
+      messageC_opacity_in: [0, 1, { start: 0.55, end: 0.6 }],
+      messageC_translateY_in: [20, 0, { start: 0.55, end: 0.6 }],
+      messageC_opacity_out: [1, 0, { start: 0.82, end: 1 }],
+      messageC_translateY_out: [0, -20, { start: 0.82, end: 1 }]
     }
   },
   {
@@ -101,9 +103,10 @@ const sceneInfo = [
     },
     values: {
       svg_opacity_in: [0.2, 1, { start: 0, end: 0.3 }],
-      svg_scale: [0, 10, { start: 0, end: 1 }],
-      svg_rotate: [0, 360, { start: 0, end: 1 }],
-      video_opacity_in: [0, 1, { start: 0.3, end: 1 }],
+      svg_scale: [0, 11, { start: 0, end: 0.4 }],
+      svg_rotate: [0, 360, { start: 0, end: 0.4 }],
+      video_opacity_in: [0, 1, { start: 0.2, end: 0.4 }],
+      video_scale: [1, 0.75, { start: 0.4, end: 0.8 }],
       video_opacity_out: [1, 0, { start: 0.85, end: 1 }]
     }
   }
@@ -151,6 +154,9 @@ const sceneInfo = [
 ];
 
 function setCanvasImages() {
+  sceneInfo[0].values.videoImageCount = currentDevice.imageCount;
+  sceneInfo[0].values.imageSequence[1] = currentDevice.imageCount - 1;
+
   if (
     sceneInfo[0].objs.videoImages[currentDeviceType] &&
     sceneInfo[0].objs.videoImages[currentDeviceType].length > 0
@@ -162,7 +168,13 @@ function setCanvasImages() {
 
   for (let i = 0; i < sceneInfo[0].values.videoImageCount; i++) {
     imgElem = new Image();
-    imgElem.src = `./assets/${currentDevice.videoImage}/Frame (${1 + i}).png`;
+    if (currentDeviceType == "mobile") {
+      imgElem.src = `./assets/${
+        currentDevice.videoImage
+      }/2020.06.24_Animation_06.351.${1 + i}.png`;
+    } else {
+      imgElem.src = `./assets/${currentDevice.videoImage}/Frame (${1 + i}).png`;
+    }
     sceneInfo[0].objs.videoImages[currentDeviceType].push(imgElem);
   }
 
@@ -394,8 +406,6 @@ function playAnimation() {
       break;
 
     case 1:
-      objs.podSVG.classList.add("stickySVG");
-
       objs.podSVG.style.transform = `translate3d(-50%, -50%, 0) scale(${calcValues(
         values.svg_scale,
         currentYOffset
@@ -414,6 +424,23 @@ function playAnimation() {
         values.video_opacity_in,
         currentYOffset
       );
+      if (scrollRatio > 0.4) {
+        objs.videoContainer.style.transform = `scale(${calcValues(
+          values.video_scale,
+          currentYOffset
+        )})`;
+
+        const whenEnd = values.video_scale[2].end;
+
+        if (scrollRatio > whenEnd) {
+          objs.videoContainer.classList.remove("sticky-elem2");
+          objs.videoContainer.style.marginTop = `${scrollHeight * whenEnd -
+            objs.videoContainer.clientHeight / 2}px`;
+        } else {
+          objs.videoContainer.classList.add("sticky-elem2");
+          objs.videoContainer.style.marginTop = "0";
+        }
+      }
 
       // if (scrollRatio <= 0.82) {
       //   // in
@@ -497,21 +524,21 @@ function playAnimation() {
       break;
 
     case 2:
-      objs.videoContainer.style.transform = `scale(${calcValues(
-        values.video_scale,
-        currentYOffset
-      )})`;
+      // objs.videoContainer.style.transform = `scale(${calcValues(
+      //   values.video_scale,
+      //   currentYOffset
+      // )})`;
 
-      const whenEnd = values.video_scale[2].end;
+      // const whenEnd = values.video_scale[2].end;
 
-      if (scrollRatio > whenEnd) {
-        objs.videoContainer.classList.remove("stickyVideo");
-        objs.videoContainer.style.marginTop = `${scrollHeight * whenEnd -
-          objs.videoContainer.clientHeight / 2}px`;
-      } else {
-        objs.videoContainer.classList.add("stickyVideo");
-        objs.videoContainer.style.marginTop = "0";
-      }
+      // if (scrollRatio > whenEnd) {
+      //   objs.videoContainer.classList.remove("stickyVideo");
+      //   objs.videoContainer.style.marginTop = `${scrollHeight * whenEnd -
+      //     objs.videoContainer.clientHeight / 2}px`;
+      // } else {
+      //   objs.videoContainer.classList.add("stickyVideo");
+      //   objs.videoContainer.style.marginTop = "0";
+      // }
 
       break;
 
@@ -658,12 +685,14 @@ function scrollLoop() {
 
   const targetScene = sceneInfo[currentScene];
   prevScrollHeight = targetScene.prevScrollHeight;
+
   const scrollHeight = targetScene.scrollHeight;
 
   const currentTotalHeight = prevScrollHeight + scrollHeight;
 
   // this can be merged..
   if (delayedYOffset > currentTotalHeight) {
+    if (currentScene === 1) return;
     currentScene++;
     enterNewScene = true;
   } else if (delayedYOffset < prevScrollHeight) {
@@ -679,8 +708,11 @@ function scrollLoop() {
   // }
 
   if (enterNewScene) {
-    // touchDown = false;
-    document.body.setAttribute("id", `show-scene-${currentScene}`);
+    if (currentScene < sceneInfo.length) {
+      document.body.setAttribute("id", `show-scene-${currentScene}`);
+    } else {
+      document.body.setAttribute("id", "");
+    }
     // if (currentScene === 0 || currentScene === 1) {
     //   sceneInfo[0].objs.container.classList.add("stickyy");
     // } else {
@@ -923,6 +955,7 @@ window.addEventListener("load", () => {
     currentDeviceType = checkDevice();
     currentDevice = DEVICE[currentDeviceType];
     setCanvasImages();
+
     // this is imageBlend
     // this can be improve
     // if (currentScene === 2) {
