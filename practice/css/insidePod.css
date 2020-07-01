@@ -163,18 +163,6 @@ body.before-load {
   z-index: 6;
 }
 
-.scroll-section.stickyy .sticky-elem-canvas {
-  position: fixed;
-  left: 0;
-  width: 100%;
-}
-
-.scroll-section.stickyy .main-message {
-  position: fixed;
-  left: 0;
-  width: 100%;
-}
-
 #scroll-section-0,
 #scroll-section-1 {
   color: white;
@@ -191,9 +179,11 @@ body.before-load {
 
 #scroll-section-0 .c {
   position: absolute;
-  bottom: 65px;
+  bottom: 6px;
   left: 20px;
   width: 100%;
+  font-size: 3.25rem;
+  font-weight: 700;
 }
 
 .main-message {
@@ -208,7 +198,7 @@ body.before-load {
 
   /* font-size: 2.5rem;
   font-size: 2rem; */
-  font-size: 2.9rem;
+  font-size: 2.25rem;
 }
 
 .main-message.a,
@@ -228,7 +218,7 @@ body.before-load {
 }
 
 .main-message-b-up {
-  max-width: 10rem;
+  max-width: 9rem;
 }
 
 .main-message-b-down-origin-price {
@@ -280,17 +270,33 @@ body.before-load {
   transform-origin: center;
 }
 
-.svgAnimationLetter.stickySVG {
+#show-scene-1 .svgAnimationLetter.stickySVG {
   position: fixed;
   top: 50%;
   left: 50%;
 }
 
-.sticky-elem {
-  display: none;
+#show-scene-0 .sticky-elem {
+  /* display: none; */
   position: fixed;
   left: 0;
   width: 100%;
+}
+
+#show-scene-1 .sticky-elem2 {
+  /* display: none; */
+  position: fixed;
+  width: 100%;
+}
+
+.sticky-image {
+  top: 50%;
+  left: 50%;
+}
+
+.sticky-video {
+  top: 0;
+  left: 0;
 }
 
 .main-message-box {
@@ -345,13 +351,10 @@ body.before-load {
 }
 
 .videoContainer2 {
-  position: fixed;
-  top: 0;
   opacity: 0;
 }
 
-.videoContainer.stickyVideo,
-.videoContainer2.stickyVideo {
+.videoContainer.stickyVideo {
   position: fixed;
   top: 0;
 }
@@ -451,6 +454,11 @@ body.before-load {
 @media (min-width: 1024px) {
   .main-message {
     font-size: 7rem;
+  }
+
+  #scroll-section-0 .c {
+    font-size: 7rem;
+
   }
 
   .main-message-b-up {
