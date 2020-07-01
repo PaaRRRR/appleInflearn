@@ -29,6 +29,10 @@ const DEVICE = {
 let currentDeviceType = "mobile";
 let currentDevice = DEVICE[currentDeviceType];
 
+let imgElem2;
+imgElem2 = new Image();
+imgElem2.src = "./assets/images/pod_mask2.svg";
+
 const sceneInfo = [
   {
     // 0
@@ -99,11 +103,14 @@ const sceneInfo = [
     objs: {
       container: document.querySelector("#scroll-section-1"),
       podSVG: document.querySelector("#scroll-section-1 .svgAnimationLetter"),
-      videoContainer: document.querySelector(".videoContainer2")
+      videoContainer: document.querySelector(".videoContainer2"),
+      canvas: document.querySelector("#video-canvas-1"),
+      context: document.querySelector("#video-canvas-1").getContext("2d"),
+      videoImages: imgElem2
     },
     values: {
       svg_opacity_in: [0.2, 1, { start: 0, end: 0.3 }],
-      svg_scale: [0, 6, { start: 0, end: 0.4 }],
+      svg_scale: [0, 3, { start: 0, end: 0.4 }],
       svg_rotate: [0, 360, { start: 0, end: 0.4 }],
       video_opacity_in: [0, 1, { start: 0.2, end: 0.4 }],
       video_scale: [1, 0.75, { start: 0.4, end: 0.8 }],
@@ -273,6 +280,24 @@ function setLayout() {
         0
       );
     }
+
+    if (sceneInfo[1].objs.canvas) {
+      const objs = sceneInfo[1].objs;
+      const firstCanvas = objs.canvas;
+      const firstContext = objs.context;
+      firstCanvas.width = currentDevice.width;
+      firstCanvas.height = currentDevice.height;
+
+      const canvasHeight = firstCanvas.height;
+      const heightRatio = sceneHeight / canvasHeight;
+
+      // Scale(1.2 -> 1) --> 114px -> 0 // 8.5% -> 0
+      // firstCanvas.style.transform = `translate3d(-50%, 0px, 0) scale(${heightRatio})`;
+      firstCanvas.style.transform = `translate3d(-50%, -50%, 0)`;
+
+      firstContext.clearRect(0, 0, firstCanvas.width, firstCanvas.height);
+      firstContext.drawImage(objs.videoImages, 0, 0);
+    }
   }
 }
 
@@ -406,19 +431,20 @@ function playAnimation() {
       break;
 
     case 1:
-      objs.podSVG.style.transform = `translate3d(-50%, -50%, 0) scale(${calcValues(
-        values.svg_scale,
-        currentYOffset
-      )}) rotate(${calcValues(values.svg_rotate, currentYOffset)}deg)`;
+      // objs.podSVG.style.transform = `translate3d(-50%, -50%, 0) scale(${calcValues(
+      //   values.svg_scale,
+      //   currentYOffset
+      // )}) rotate(${calcValues(values.svg_rotate, currentYOffset)}deg)`;
+
+      // objs.canvas.style.transform = `translate3d(-50%, -50%, 0) scale(2) rotate(${calcValues(
+      //   values.svg_rotate,
+      //   currentYOffset
+      // )}deg)`;
 
       // objs.podSVG.style.opacity = calcValues(
       //   values.svg_opacity_in,
       //   currentYOffset
       // );
-
-      objs.podSVG.style.opacity = 1;
-
-      objs.podSVG.style.marginTop = "0";
 
       objs.videoContainer.style.opacity = calcValues(
         values.video_opacity_in,
@@ -864,10 +890,10 @@ function loop() {
 
   if (!enterNewScene) {
     // this can be improve
+    const currentYOffset = delayedYOffset - prevScrollHeight;
+    const objs = sceneInfo[currentScene].objs;
+    const values = sceneInfo[currentScene].values;
     if (currentScene === 0) {
-      const currentYOffset = delayedYOffset - prevScrollHeight;
-      const objs = sceneInfo[currentScene].objs;
-      const values = sceneInfo[currentScene].values;
       let sequence = Math.round(
         calcValues(values.imageSequence, currentYOffset)
       );
@@ -881,6 +907,39 @@ function loop() {
           0
         );
       }
+    } else if (currentScene === 1) {
+      objs.context.clearRect(0, 0, objs.canvas.width, objs.canvas.height);
+
+      // objs.canvas.style.transform = `translate3d(-50%, -50%, 0) scale(2) rotate(${calcValues(
+      //   values.svg_rotate,
+      //   currentYOffset
+      // )}deg)`;
+
+      const canvasW = objs.canvas.width;
+      const canvasH = objs.canvas.height;
+      const curRatio = calcValues(values.svg_scale, currentYOffset);
+      const scaledW = canvasW * curRatio;
+      const scaledH = canvasH * curRatio;
+
+      // objs.context.translate(canvasW / 2, canvasH / 2);
+      // objs.context.rotate(
+      //   `${calcValues(values.svg_rotate, currentYOffset)}deg`
+      // );
+
+      // objs.context.drawImage(
+      //   objs.videoImages,
+      //   -objs.videoImages.width / 2,
+      //   -objs.videoImages.width / 2
+      // );
+
+      objs.context.drawImage(
+        objs.videoImages,
+        (canvasW - scaledW) / 2,
+        (canvasH - scaledH) / 2,
+        scaledW,
+        scaledH
+      );
+      console.log("adfasdfsadf", curRatio, scaledH, scaledW);
     }
   }
 
@@ -901,6 +960,8 @@ window.addEventListener("load", () => {
     0,
     0
   );
+
+  sceneInfo[1].objs.context.drawImage(sceneInfo[1].objs.videoImages, 0, 0);
 
   let tempYOffset = window.pageYOffset;
   let tempScrollCount = 0;

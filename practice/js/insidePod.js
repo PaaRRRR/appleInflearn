@@ -103,7 +103,7 @@ const sceneInfo = [
     },
     values: {
       svg_opacity_in: [0.2, 1, { start: 0, end: 0.3 }],
-      svg_scale: [0, 6, { start: 0, end: 0.4 }],
+      svg_scale: [0, 11, { start: 0, end: 0.4 }],
       svg_rotate: [0, 360, { start: 0, end: 0.4 }],
       video_opacity_in: [0, 1, { start: 0.2, end: 0.4 }],
       video_scale: [1, 0.75, { start: 0.4, end: 0.8 }],
@@ -171,7 +171,7 @@ function setCanvasImages() {
     if (currentDeviceType == "mobile") {
       imgElem.src = `./assets/${
         currentDevice.videoImage
-      }/2020.06.24_Animation_06.348.${1 + i}.png`;
+      }/2020.06.24_Animation_06.351.${1 + i}.png`;
     } else {
       imgElem.src = `./assets/${currentDevice.videoImage}/Frame (${1 + i}).png`;
     }
