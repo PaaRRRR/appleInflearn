@@ -17,13 +17,13 @@ const DEVICE = {
     width: 360,
     height: 640,
     videoImage: "pivoVideo4_mobile",
-    imageCount: 211
+    imageCount: 278
   },
   desktop: {
     width: 1440,
     height: 1080,
     videoImage: "pivoVideo4_desktop",
-    imageCount: 211
+    imageCount: 290
   }
 };
 let currentDeviceType = "mobile";
@@ -41,6 +41,9 @@ const sceneInfo = [
       messageA: document.querySelector("#scroll-section-0 .main-message.a"),
       messageB: document.querySelector("#scroll-section-0 .main-message.b"),
       messageC: document.querySelector("#scroll-section-0 .main-message.c"),
+      gradientOverlay: document.querySelector(
+        "#scroll-section-0 .gradient-overlay"
+      ),
       messageAUp: document.querySelector(
         "#scroll-section-0 .main-message-a-up"
       ),
@@ -82,12 +85,16 @@ const sceneInfo = [
       messageA_translateY_out: [0, -20, { start: 0, end: 0.2 }],
       messageB_translateY_out: [0, -20, { start: 0, end: 0.2 }],
 
-      // messageC_opacity_in: [0, 1, { start: 0.48, end: 0.56 }],
-      // messageC_translateY_in: [20, 0, { start: 0.48, end: 0.56 }],
-      messageC_opacity_in: [0, 1, { start: 0.55, end: 0.6 }],
-      messageC_translateY_in: [20, 0, { start: 0.55, end: 0.6 }],
-      messageC_opacity_out: [1, 0, { start: 0.82, end: 1 }],
-      messageC_translateY_out: [0, -20, { start: 0.82, end: 1 }]
+      // messageC_opacity_in: [0, 1, { start: 0.55, end: 0.6 }],
+      // messageC_translateY_in: [7, 0, { start: 0.55, end: 0.6 }],
+      // messageC_opacity_out: [1, 0, { start: 0.82, end: 1 }],
+      // messageC_translateY_out: [0, -7, { start: 0.82, end: 1 }],
+      // gradientOverlay: [1, 0, { start: 0.55, end: 0.6 }]
+      messageC_opacity_in: [0, 1, { start: 0.37, end: 0.43 }],
+      messageC_translateY_in: [7, 0, { start: 0.37, end: 0.43 }],
+      messageC_opacity_out: [1, 0, { start: 0.59, end: 0.62 }],
+      messageC_translateY_out: [0, -7, { start: 0.59, end: 0.62 }],
+      gradientOverlay: [1, 0, { start: 0.45, end: 0.5 }]
     }
   },
   {
@@ -262,12 +269,14 @@ function setLayout() {
       firstCanvas.width = currentDevice.width;
       firstCanvas.height = currentDevice.height;
 
+      console.log("asdfasdfasdf", firstCanvas.width, firstCanvas.height);
+
       const canvasHeight = firstCanvas.height;
       const heightRatio = sceneHeight / canvasHeight;
 
       // Scale(1.2 -> 1) --> 114px -> 0 // 8.5% -> 0
       // firstCanvas.style.transform = `translate3d(-50%, 0px, 0) scale(${heightRatio})`;
-      firstCanvas.style.transform = `translate3d(-50%, -51%, 0)`;
+      firstCanvas.style.transform = `translate3d(-50%, -50%, 0)`;
 
       firstContext.clearRect(0, 0, firstCanvas.width, firstCanvas.height);
       firstContext.drawImage(
@@ -366,6 +375,11 @@ function playAnimation() {
         currentYOffset
       );
 
+      objs.gradientOverlay.style.opacity = calcValues(
+        values.gradientOverlay,
+        currentYOffset
+      );
+
       objs.messageA.style.opacity = calcValues(
         values.messageA_opacity_out,
         currentYOffset
@@ -384,12 +398,13 @@ function playAnimation() {
         currentYOffset
       )}%, 0)`;
 
-      if (scrollRatio <= 0.8) {
+      if (scrollRatio <= 0.5) {
         // in
         objs.messageC.style.opacity = calcValues(
           values.messageC_opacity_in,
           currentYOffset
         );
+
         objs.messageC.style.transform = `translate3d(0, ${calcValues(
           values.messageC_translateY_in,
           currentYOffset
@@ -912,7 +927,6 @@ window.addEventListener("load", () => {
     let siId = setInterval(() => {
       scrollTo(0, tempYOffset);
       tempYOffset += 5;
-      // console.log("asdfasdfasdf", tempYOffset);
 
       if (tempScrollCount > 20) {
         clearInterval(siId);
@@ -927,7 +941,6 @@ window.addEventListener("load", () => {
   //   let siId = setInterval(() => {
   //     scrollTo(0, tempYOffset);
   //     tempYOffset += 5;
-  //     // console.log("asdfasdfasdf", tempYOffset);
 
   //     if (tempScrollCount > 20) {
   //       clearInterval(siId);
