@@ -16,14 +16,14 @@ const DEVICE = {
   mobile: {
     width: 360,
     height: 640,
-    videoImage: "pivoVideo4",
+    videoImage: "pivoVideo4_mobile",
     imageCount: 211
   },
   desktop: {
     width: 1440,
     height: 1080,
-    videoImage: "pivoVideo3",
-    imageCount: 196
+    videoImage: "pivoVideo4_desktop",
+    imageCount: 211
   }
 };
 let currentDeviceType = "mobile";
@@ -105,8 +105,8 @@ const sceneInfo = [
       svg_opacity_in: [0.2, 1, { start: 0, end: 0.3 }],
       svg_scale: [0, 11, { start: 0, end: 0.4 }],
       svg_rotate: [0, 360, { start: 0, end: 0.4 }],
-      video_opacity_in: [0, 1, { start: 0.2, end: 0.4 }],
-      video_scale: [1, 0.75, { start: 0.4, end: 0.8 }],
+      video_opacity_in: [0, 1, { start: 0.075, end: 0.4 }],
+      video_scale: [1, 0.75, { start: 0.5, end: 0.8 }],
       video_opacity_out: [1, 0, { start: 0.85, end: 1 }]
     }
   }
@@ -173,7 +173,10 @@ function setCanvasImages() {
         currentDevice.videoImage
       }/2020.06.24_Animation_06.351.${1 + i}.png`;
     } else {
-      imgElem.src = `./assets/${currentDevice.videoImage}/Frame (${1 + i}).png`;
+      imgElem.src = `./assets/${
+        currentDevice.videoImage
+      }/2020.06.24_Animation_06.353.${1 + i}.png`;
+      // imgElem.src = `./assets/${currentDevice.videoImage}/Frame (${1 + i}).png`;
     }
     sceneInfo[0].objs.videoImages[currentDeviceType].push(imgElem);
   }

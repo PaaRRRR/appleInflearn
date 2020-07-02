@@ -16,14 +16,14 @@ const DEVICE = {
   mobile: {
     width: 360,
     height: 640,
-    videoImage: "pivoVideo4",
+    videoImage: "pivoVideo4_mobile",
     imageCount: 211
   },
   desktop: {
     width: 1440,
     height: 1080,
-    videoImage: "pivoVideo3",
-    imageCount: 196
+    videoImage: "pivoVideo4_desktop",
+    imageCount: 211
   }
 };
 let currentDeviceType = "mobile";
@@ -169,7 +169,10 @@ function setCanvasImages() {
         currentDevice.videoImage
       }/2020.06.24_Animation_06.348.${1 + i}.png`;
     } else {
-      imgElem.src = `./assets/${currentDevice.videoImage}/Frame (${1 + i}).png`;
+      imgElem.src = `./assets/${
+        currentDevice.videoImage
+      }/2020.06.24_Animation_06.353.${1 + i}.png`;
+      // imgElem.src = `./assets/${currentDevice.videoImage}/Frame (${1 + i}).png`;
     }
     sceneInfo[0].objs.videoImages[currentDeviceType].push(imgElem);
   }

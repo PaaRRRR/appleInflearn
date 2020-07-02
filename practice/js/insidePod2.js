@@ -16,14 +16,14 @@ const DEVICE = {
   mobile: {
     width: 360,
     height: 640,
-    videoImage: "pivoVideo4",
+    videoImage: "pivoVideo4_mobile",
     imageCount: 211
   },
   desktop: {
     width: 1440,
     height: 1080,
-    videoImage: "pivoVideo3",
-    imageCount: 196
+    videoImage: "pivoVideo4_desktop",
+    imageCount: 211
   }
 };
 let currentDeviceType = "mobile";
@@ -178,9 +178,12 @@ function setCanvasImages() {
     if (currentDeviceType == "mobile") {
       imgElem.src = `./assets/${
         currentDevice.videoImage
-      }/2020.06.24_Animation_06.348.${1 + i}.png`;
+      }/2020.06.24_Animation_06.351.${1 + i}.png`;
     } else {
-      imgElem.src = `./assets/${currentDevice.videoImage}/Frame (${1 + i}).png`;
+      imgElem.src = `./assets/${
+        currentDevice.videoImage
+      }/2020.06.24_Animation_06.353.${1 + i}.png`;
+      // imgElem.src = `./assets/${currentDevice.videoImage}/Frame (${1 + i}).png`;
     }
     sceneInfo[0].objs.videoImages[currentDeviceType].push(imgElem);
   }
@@ -436,7 +439,7 @@ function playAnimation() {
       //   currentYOffset
       // )}) rotate(${calcValues(values.svg_rotate, currentYOffset)}deg)`;
 
-      // objs.canvas.style.transform = `translate3d(-50%, -50%, 0) scale(2) rotate(${calcValues(
+      // objs.canvas.style.transform = `translate3d(-50%, -50%, 0) rotate(${calcValues(
       //   values.svg_rotate,
       //   currentYOffset
       // )}deg)`;
@@ -908,38 +911,50 @@ function loop() {
         );
       }
     } else if (currentScene === 1) {
-      objs.context.clearRect(0, 0, objs.canvas.width, objs.canvas.height);
-
+      // const canvas = objs.canvas;
+      // const ctx = objs.context;
+      // const canvasW = canvas.width;
+      // const canvasH = canvas.height;
+      // const curRatio = calcValues(values.svg_scale, currentYOffset);
+      // const scaledW = canvasW * curRatio;
+      // const scaledH = canvasH * curRatio;
+      // ctx.save();
+      // ctx.rotate(-Math.PI / 2);
+      // ctx.fillStyle = "steelblue";
+      // ctx.fillText("pod", 0, 0);
+      // ctx.restore();
+      // objs.context.clearRect(0, 0, objs.canvas.width, objs.canvas.height);
+      // ctx.rotate(Math.PI);
+      // objs.context.drawImage(
+      //   objs.videoImages,
+      //   (canvasW - scaledW) / 2,
+      //   (canvasH - scaledH) / 2,
+      //   scaledW,
+      //   scaledH
+      // );
+      // ctx.restore();
+      // objs.context.clearRect(0, 0, objs.canvas.width, objs.canvas.height);
       // objs.canvas.style.transform = `translate3d(-50%, -50%, 0) scale(2) rotate(${calcValues(
       //   values.svg_rotate,
       //   currentYOffset
       // )}deg)`;
-
-      const canvasW = objs.canvas.width;
-      const canvasH = objs.canvas.height;
-      const curRatio = calcValues(values.svg_scale, currentYOffset);
-      const scaledW = canvasW * curRatio;
-      const scaledH = canvasH * curRatio;
-
       // objs.context.translate(canvasW / 2, canvasH / 2);
       // objs.context.rotate(
       //   `${calcValues(values.svg_rotate, currentYOffset)}deg`
       // );
-
       // objs.context.drawImage(
       //   objs.videoImages,
       //   -objs.videoImages.width / 2,
       //   -objs.videoImages.width / 2
       // );
-
-      objs.context.drawImage(
-        objs.videoImages,
-        (canvasW - scaledW) / 2,
-        (canvasH - scaledH) / 2,
-        scaledW,
-        scaledH
-      );
-      console.log("adfasdfsadf", curRatio, scaledH, scaledW);
+      // objs.context.drawImage(
+      //   objs.videoImages,
+      //   (canvasW - scaledW) / 2,
+      //   (canvasH - scaledH) / 2,
+      //   scaledW,
+      //   scaledH
+      // );
+      // console.log("adfasdfsadf", curRatio, scaledH, scaledW);
     }
   }
 
@@ -961,7 +976,20 @@ window.addEventListener("load", () => {
     0
   );
 
-  sceneInfo[1].objs.context.drawImage(sceneInfo[1].objs.videoImages, 0, 0);
+  // sceneInfo[1].objs.context.drawImage(sceneInfo[1].objs.videoImages, 0, 0);
+
+  const canvas = sceneInfo[1].objs.canvas;
+  const ctx = sceneInfo[1].objs.context;
+
+  const canvasW = canvas.width;
+  const canvasH = canvas.height;
+
+  // ctx.rotate(-Math.PI / 2);
+  // ctx.fillStyle = "steelblue";
+  // ctx.fillText("pod", 0, 0);
+
+  // ctx.font = "20px Georgia";
+  // ctx.fillText("pod", 10, 50);
 
   let tempYOffset = window.pageYOffset;
   let tempScrollCount = 0;
