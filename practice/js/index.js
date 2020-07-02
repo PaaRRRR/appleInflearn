@@ -23,7 +23,7 @@ const DEVICE = {
     width: 1440,
     height: 1080,
     videoImage: "pivoVideo4_desktop",
-    imageCount: 211
+    imageCount: 313
   }
 };
 let currentDeviceType = "mobile";
