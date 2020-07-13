@@ -81,10 +81,22 @@
       }
 
       function moveAnimation() {
-        // ctx2.clearRect(0, 0, canvasWidth, canvasHeight);
         const recalculatedImgWidth = canvasWidth * count;
         const recalculatedImgHeight = canvasHeight * count;
 
+        ctx2.save();
+
+        ctx2.clearRect(0, 0, canvasWidth, canvasHeight);
+
+        ctx2.translate(canvasWidth * 0.5, canvasHeight * 0.5);
+        ctx2.rotate(DegToRad(180 * count));
+        // // ctx2.translate(-canvasWidth * 0.5, -canvasHeight * 0.5);
+        // // ctx2.drawImage(canvasImg, 0, 0);
+        // ctx2.drawImage(canvasImg, -imgWidth * 0.5, -imgHeight * 0.5);
+
+        // ctx2.translate(calcWidth * 0.5, calcHeight * 0.5);
+        // ctx2.rotate(DegToRad(180 * count));
+        // ctx2.translate(-calcWidth * 0.5, -calcHeight * 0.5);
         // ctx2.drawImage(
         //   canvasImg,
         //   canvasWidth / 2 - recalculatedImgWidth / 2,
@@ -92,28 +104,6 @@
         //   canvasWidth * count,
         //   canvasHeight * count
         // );
-
-        ctx2.save();
-
-        ctx2.clearRect(0, 0, canvasWidth, canvasHeight);
-        // Translate to the center point of our image
-
-        ctx2.translate(calcWidth * 0.5, calcHeight * 0.5);
-        // Perform the rotation
-        ctx2.rotate(DegToRad(180 * count));
-        // Translate back to the top left of our image
-
-        ctx2.translate(-calcWidth * 0.5, -calcHeight * 0.5);
-        // Finally we draw the image
-        // ctx2.drawImage(canvasImg, 0, 0);
-
-        ctx2.drawImage(
-          canvasImg,
-          canvasWidth / 2 - recalculatedImgWidth / 2,
-          canvasHeight / 2 - recalculatedImgHeight / 2,
-          canvasWidth * count,
-          canvasHeight * count
-        );
 
         ctx2.restore();
 
