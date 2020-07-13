@@ -65,7 +65,7 @@ const sceneInfo = [
     },
     values: {
       videoImageCount: 211,
-      imageSequence: [firstLoadingSequence, 210, { start: 0.2, end: 0.8 }],
+      imageSequence: [firstLoadingSequence, 210, { start: 0.1, end: 0.8 }],
       canvas_opacity: [1, 0, { start: 0.82, end: 1 }],
 
       messageAUp_opacity_in: [0, 1, { start: 0.2, end: 0.28 }],
@@ -80,10 +80,10 @@ const sceneInfo = [
       messageBDown_opacity_in: [0, 1, { start: 0.56, end: 0.8 }],
       messageBDown_translateY_in: [20, 0, { start: 0.56, end: 0.8 }],
 
-      messageA_opacity_out: [1, 0, { start: 0, end: 0.2 }],
-      messageB_opacity_out: [1, 0, { start: 0, end: 0.2 }],
-      messageA_translateY_out: [0, -20, { start: 0, end: 0.2 }],
-      messageB_translateY_out: [0, -20, { start: 0, end: 0.2 }],
+      messageA_opacity_out: [1, 0, { start: 0, end: 0.1 }],
+      messageB_opacity_out: [1, 0, { start: 0, end: 0.1 }],
+      messageA_translateY_out: [0, -20, { start: 0, end: 0.1 }],
+      messageB_translateY_out: [0, -20, { start: 0, end: 0.1 }],
 
       // messageC_opacity_in: [0, 1, { start: 0.55, end: 0.6 }],
       // messageC_translateY_in: [7, 0, { start: 0.55, end: 0.6 }],
@@ -891,6 +891,18 @@ function loop() {
       );
       firstSceneSequence = sequence;
       if (objs.videoImages[currentDeviceType][sequence]) {
+        // here it
+        const firstCanvas = objs.canvas;
+        if (sequence < 113) {
+          firstCanvas.style.transform = `translate3d(-50%, -50%, 0)`;
+          firstCanvas.style.right = "0px";
+          firstCanvas.style.left = "50%";
+        } else {
+          firstCanvas.style.transform = `translate3d(0, -50%, 0)`;
+          firstCanvas.style.right = "0px";
+          firstCanvas.style.left = "unset";
+        }
+
         // objs.context.drawImage(objs.videoImages[0], 0, 0);
         objs.context.clearRect(0, 0, objs.canvas.width, objs.canvas.height);
         objs.context.drawImage(

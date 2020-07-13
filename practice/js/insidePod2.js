@@ -17,21 +17,17 @@ const DEVICE = {
     width: 360,
     height: 640,
     videoImage: "pivoVideo4_mobile",
-    imageCount: 211
+    imageCount: 278
   },
   desktop: {
     width: 1440,
     height: 1080,
     videoImage: "pivoVideo4_desktop",
-    imageCount: 313
+    imageCount: 290
   }
 };
 let currentDeviceType = "mobile";
 let currentDevice = DEVICE[currentDeviceType];
-
-let imgElem2;
-imgElem2 = new Image();
-imgElem2.src = "./assets/images/pod_mask2.svg";
 
 const sceneInfo = [
   {
@@ -45,6 +41,10 @@ const sceneInfo = [
       messageA: document.querySelector("#scroll-section-0 .main-message.a"),
       messageB: document.querySelector("#scroll-section-0 .main-message.b"),
       messageC: document.querySelector("#scroll-section-0 .main-message.c"),
+      messageD: document.querySelector("#scroll-section-0 .main-message.d"),
+      gradientOverlay: document.querySelector(
+        "#scroll-section-0 .gradient-overlay"
+      ),
       messageAUp: document.querySelector(
         "#scroll-section-0 .main-message-a-up"
       ),
@@ -66,7 +66,7 @@ const sceneInfo = [
     },
     values: {
       videoImageCount: 211,
-      imageSequence: [firstLoadingSequence, 210, { start: 0.2, end: 0.8 }],
+      imageSequence: [firstLoadingSequence, 210, { start: 0.1, end: 0.8 }],
       canvas_opacity: [1, 0, { start: 0.82, end: 1 }],
 
       messageAUp_opacity_in: [0, 1, { start: 0.2, end: 0.28 }],
@@ -81,17 +81,23 @@ const sceneInfo = [
       messageBDown_opacity_in: [0, 1, { start: 0.56, end: 0.8 }],
       messageBDown_translateY_in: [20, 0, { start: 0.56, end: 0.8 }],
 
-      messageA_opacity_out: [1, 0, { start: 0, end: 0.2 }],
-      messageB_opacity_out: [1, 0, { start: 0, end: 0.2 }],
-      messageA_translateY_out: [0, -20, { start: 0, end: 0.2 }],
-      messageB_translateY_out: [0, -20, { start: 0, end: 0.2 }],
+      messageA_opacity_out: [1, 0, { start: 0, end: 0.1 }],
+      messageB_opacity_out: [1, 0, { start: 0, end: 0.1 }],
+      messageA_translateY_out: [0, -20, { start: 0, end: 0.1 }],
+      messageB_translateY_out: [0, -20, { start: 0, end: 0.1 }],
 
-      // messageC_opacity_in: [0, 1, { start: 0.48, end: 0.56 }],
-      // messageC_translateY_in: [20, 0, { start: 0.48, end: 0.56 }],
-      messageC_opacity_in: [0, 1, { start: 0.55, end: 0.6 }],
-      messageC_translateY_in: [20, 0, { start: 0.55, end: 0.6 }],
-      messageC_opacity_out: [1, 0, { start: 0.82, end: 1 }],
-      messageC_translateY_out: [0, -20, { start: 0.82, end: 1 }]
+      // messageC_opacity_in: [0, 1, { start: 0.55, end: 0.6 }],
+      // messageC_translateY_in: [7, 0, { start: 0.55, end: 0.6 }],
+      // messageC_opacity_out: [1, 0, { start: 0.82, end: 1 }],
+      // messageC_translateY_out: [0, -7, { start: 0.82, end: 1 }],
+      // gradientOverlay: [1, 0, { start: 0.55, end: 0.6 }]
+      messageC_opacity_in: [0, 1, { start: 0.37, end: 0.43 }],
+      messageC_translateY_in: [7, 0, { start: 0.37, end: 0.43 }],
+      messageC_opacity_out: [1, 0, { start: 0.59, end: 0.62 }],
+      messageC_translateY_out: [0, -7, { start: 0.59, end: 0.62 }],
+      gradientOverlay: [1, 0, { start: 0.45, end: 0.5 }],
+      messageD_opacity_in: [0, 1, { start: 0.7, end: 0.75 }]
+      // messageD_opacity_out: [1, 0, { start: 0.59, end: 0.62 }]
     }
   },
   {
@@ -103,17 +109,14 @@ const sceneInfo = [
     objs: {
       container: document.querySelector("#scroll-section-1"),
       podSVG: document.querySelector("#scroll-section-1 .svgAnimationLetter"),
-      videoContainer: document.querySelector(".videoContainer2"),
-      canvas: document.querySelector("#video-canvas-1"),
-      context: document.querySelector("#video-canvas-1").getContext("2d"),
-      videoImages: imgElem2
+      videoContainer: document.querySelector(".videoContainer2")
     },
     values: {
       svg_opacity_in: [0.2, 1, { start: 0, end: 0.3 }],
-      svg_scale: [0, 3, { start: 0, end: 0.4 }],
+      svg_scale: [0, 11, { start: 0, end: 0.4 }],
       svg_rotate: [0, 360, { start: 0, end: 0.4 }],
-      video_opacity_in: [0, 1, { start: 0.2, end: 0.4 }],
-      video_scale: [1, 0.75, { start: 0.4, end: 0.8 }],
+      video_opacity_in: [0, 1, { start: 0.075, end: 0.4 }],
+      video_scale: [1, 0.75, { start: 0.5, end: 0.8 }],
       video_opacity_out: [1, 0, { start: 0.85, end: 1 }]
     }
   }
@@ -269,27 +272,7 @@ function setLayout() {
       firstCanvas.width = currentDevice.width;
       firstCanvas.height = currentDevice.height;
 
-      const canvasHeight = firstCanvas.height;
-      const heightRatio = sceneHeight / canvasHeight;
-
-      // Scale(1.2 -> 1) --> 114px -> 0 // 8.5% -> 0
-      // firstCanvas.style.transform = `translate3d(-50%, 0px, 0) scale(${heightRatio})`;
-      firstCanvas.style.transform = `translate3d(-50%, -51%, 0)`;
-
-      firstContext.clearRect(0, 0, firstCanvas.width, firstCanvas.height);
-      firstContext.drawImage(
-        objs.videoImages[currentDeviceType][firstSceneSequence],
-        0,
-        0
-      );
-    }
-
-    if (sceneInfo[1].objs.canvas) {
-      const objs = sceneInfo[1].objs;
-      const firstCanvas = objs.canvas;
-      const firstContext = objs.context;
-      firstCanvas.width = currentDevice.width;
-      firstCanvas.height = currentDevice.height;
+      console.log("asdfasdfasdf", firstCanvas.width, firstCanvas.height);
 
       const canvasHeight = firstCanvas.height;
       const heightRatio = sceneHeight / canvasHeight;
@@ -299,7 +282,11 @@ function setLayout() {
       firstCanvas.style.transform = `translate3d(-50%, -50%, 0)`;
 
       firstContext.clearRect(0, 0, firstCanvas.width, firstCanvas.height);
-      firstContext.drawImage(objs.videoImages, 0, 0);
+      firstContext.drawImage(
+        objs.videoImages[currentDeviceType][firstSceneSequence],
+        0,
+        0
+      );
     }
   }
 }
@@ -391,6 +378,11 @@ function playAnimation() {
         currentYOffset
       );
 
+      objs.gradientOverlay.style.opacity = calcValues(
+        values.gradientOverlay,
+        currentYOffset
+      );
+
       objs.messageA.style.opacity = calcValues(
         values.messageA_opacity_out,
         currentYOffset
@@ -409,12 +401,13 @@ function playAnimation() {
         currentYOffset
       )}%, 0)`;
 
-      if (scrollRatio <= 0.8) {
+      if (scrollRatio <= 0.5) {
         // in
         objs.messageC.style.opacity = calcValues(
           values.messageC_opacity_in,
           currentYOffset
         );
+
         objs.messageC.style.transform = `translate3d(0, ${calcValues(
           values.messageC_translateY_in,
           currentYOffset
@@ -431,23 +424,27 @@ function playAnimation() {
         )}%, 0)`;
       }
 
+      objs.messageD.style.opacity = calcValues(
+        values.messageD_opacity_in,
+        currentYOffset
+      );
+
       break;
 
     case 1:
-      // objs.podSVG.style.transform = `translate3d(-50%, -50%, 0) scale(${calcValues(
-      //   values.svg_scale,
-      //   currentYOffset
-      // )}) rotate(${calcValues(values.svg_rotate, currentYOffset)}deg)`;
-
-      // objs.canvas.style.transform = `translate3d(-50%, -50%, 0) rotate(${calcValues(
-      //   values.svg_rotate,
-      //   currentYOffset
-      // )}deg)`;
+      objs.podSVG.style.transform = `translate3d(-50%, -50%, 0) scale(${calcValues(
+        values.svg_scale,
+        currentYOffset
+      )}) rotate(${calcValues(values.svg_rotate, currentYOffset)}deg)`;
 
       // objs.podSVG.style.opacity = calcValues(
       //   values.svg_opacity_in,
       //   currentYOffset
       // );
+
+      objs.podSVG.style.opacity = 1;
+
+      objs.podSVG.style.marginTop = "0";
 
       objs.videoContainer.style.opacity = calcValues(
         values.video_opacity_in,
@@ -893,10 +890,10 @@ function loop() {
 
   if (!enterNewScene) {
     // this can be improve
-    const currentYOffset = delayedYOffset - prevScrollHeight;
-    const objs = sceneInfo[currentScene].objs;
-    const values = sceneInfo[currentScene].values;
     if (currentScene === 0) {
+      const currentYOffset = delayedYOffset - prevScrollHeight;
+      const objs = sceneInfo[currentScene].objs;
+      const values = sceneInfo[currentScene].values;
       let sequence = Math.round(
         calcValues(values.imageSequence, currentYOffset)
       );
@@ -910,51 +907,6 @@ function loop() {
           0
         );
       }
-    } else if (currentScene === 1) {
-      // const canvas = objs.canvas;
-      // const ctx = objs.context;
-      // const canvasW = canvas.width;
-      // const canvasH = canvas.height;
-      // const curRatio = calcValues(values.svg_scale, currentYOffset);
-      // const scaledW = canvasW * curRatio;
-      // const scaledH = canvasH * curRatio;
-      // ctx.save();
-      // ctx.rotate(-Math.PI / 2);
-      // ctx.fillStyle = "steelblue";
-      // ctx.fillText("pod", 0, 0);
-      // ctx.restore();
-      // objs.context.clearRect(0, 0, objs.canvas.width, objs.canvas.height);
-      // ctx.rotate(Math.PI);
-      // objs.context.drawImage(
-      //   objs.videoImages,
-      //   (canvasW - scaledW) / 2,
-      //   (canvasH - scaledH) / 2,
-      //   scaledW,
-      //   scaledH
-      // );
-      // ctx.restore();
-      // objs.context.clearRect(0, 0, objs.canvas.width, objs.canvas.height);
-      // objs.canvas.style.transform = `translate3d(-50%, -50%, 0) scale(2) rotate(${calcValues(
-      //   values.svg_rotate,
-      //   currentYOffset
-      // )}deg)`;
-      // objs.context.translate(canvasW / 2, canvasH / 2);
-      // objs.context.rotate(
-      //   `${calcValues(values.svg_rotate, currentYOffset)}deg`
-      // );
-      // objs.context.drawImage(
-      //   objs.videoImages,
-      //   -objs.videoImages.width / 2,
-      //   -objs.videoImages.width / 2
-      // );
-      // objs.context.drawImage(
-      //   objs.videoImages,
-      //   (canvasW - scaledW) / 2,
-      //   (canvasH - scaledH) / 2,
-      //   scaledW,
-      //   scaledH
-      // );
-      // console.log("adfasdfsadf", curRatio, scaledH, scaledW);
     }
   }
 
@@ -976,21 +928,6 @@ window.addEventListener("load", () => {
     0
   );
 
-  // sceneInfo[1].objs.context.drawImage(sceneInfo[1].objs.videoImages, 0, 0);
-
-  const canvas = sceneInfo[1].objs.canvas;
-  const ctx = sceneInfo[1].objs.context;
-
-  const canvasW = canvas.width;
-  const canvasH = canvas.height;
-
-  // ctx.rotate(-Math.PI / 2);
-  // ctx.fillStyle = "steelblue";
-  // ctx.fillText("pod", 0, 0);
-
-  // ctx.font = "20px Georgia";
-  // ctx.fillText("pod", 10, 50);
-
   let tempYOffset = window.pageYOffset;
   let tempScrollCount = 0;
 
@@ -998,7 +935,6 @@ window.addEventListener("load", () => {
     let siId = setInterval(() => {
       scrollTo(0, tempYOffset);
       tempYOffset += 5;
-      // console.log("asdfasdfasdf", tempYOffset);
 
       if (tempScrollCount > 20) {
         clearInterval(siId);
@@ -1013,7 +949,6 @@ window.addEventListener("load", () => {
   //   let siId = setInterval(() => {
   //     scrollTo(0, tempYOffset);
   //     tempYOffset += 5;
-  //     // console.log("asdfasdfasdf", tempYOffset);
 
   //     if (tempScrollCount > 20) {
   //       clearInterval(siId);
