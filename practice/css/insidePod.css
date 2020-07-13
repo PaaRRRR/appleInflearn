@@ -189,6 +189,8 @@ body.before-load {
   left: 20px;
   width: 100%;
   font-size: 3.5rem;
+  bottom: 142px;
+  font-size: 2.9rem;
   font-family: "CarosSoftExtraBold";
   font-weight: 700;
 }
