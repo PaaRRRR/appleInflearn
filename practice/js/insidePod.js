@@ -710,7 +710,7 @@ function scrollLoop() {
 
   // this can be merged..
   if (delayedYOffset > currentTotalHeight) {
-    if (currentScene === 1) return;
+    if (currentScene === sceneInfo.length - 1) return;
     currentScene++;
     enterNewScene = true;
   } else if (delayedYOffset < prevScrollHeight) {
@@ -891,18 +891,6 @@ function loop() {
       );
       firstSceneSequence = sequence;
       if (objs.videoImages[currentDeviceType][sequence]) {
-        // here it
-        const firstCanvas = objs.canvas;
-        if (sequence < 113) {
-          firstCanvas.style.transform = `translate3d(-50%, -50%, 0)`;
-          firstCanvas.style.right = "0px";
-          firstCanvas.style.left = "50%";
-        } else {
-          firstCanvas.style.transform = `translate3d(0, -50%, 0)`;
-          firstCanvas.style.right = "0px";
-          firstCanvas.style.left = "unset";
-        }
-
         // objs.context.drawImage(objs.videoImages[0], 0, 0);
         objs.context.clearRect(0, 0, objs.canvas.width, objs.canvas.height);
         objs.context.drawImage(
