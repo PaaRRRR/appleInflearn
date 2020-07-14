@@ -710,7 +710,7 @@ function scrollLoop() {
 
   // this can be merged..
   if (delayedYOffset > currentTotalHeight) {
-    if (currentScene === 1) return;
+    if (currentScene === sceneInfo.length - 1) return;
     currentScene++;
     enterNewScene = true;
   } else if (delayedYOffset < prevScrollHeight) {

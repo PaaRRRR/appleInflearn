@@ -40,6 +40,9 @@
       <canvas id="myCanvas2" width="1440" height="1080">
         Your browser does not support the canvas element.
       </canvas>
+      <canvas id="myCanvas3" width="1440" height="1080">
+        Your browser does not support the canvas element.
+      </canvas>
       <div class="checkBall"></div>
     </div>
 
@@ -48,6 +51,8 @@
         ctx,
         canvas2,
         ctx2,
+        canvas3,
+        ctx3,
         centerOfCanvas,
         imgElem2,
         canvasImg,
@@ -82,6 +87,9 @@
         canvas2 = document.getElementById("myCanvas2");
         ctx2 = canvas2.getContext("2d");
 
+        canvas3 = document.getElementById("myCanvas3");
+        ctx3 = canvas3.getContext("2d");
+
         centerOfCanvas = [0, 0];
         imgElem2 = new Image();
         // imgElem2.src = "./assets/images/pod_mask2.svg";
@@ -110,6 +118,9 @@
 
         canvas2.width = canvasWidth;
         canvas2.height = canvasHeight;
+
+        canvas3.width = canvasWidth;
+        canvas3.height = canvasHeight;
       }
 
       function checkDeviceWH() {}
@@ -178,6 +189,53 @@
 
         ctx2.restore();
 
+        /*
+         *
+         * ctx3
+         *
+         */
+
+        drawing(recalculatedImgHeight);
+
+        // ctx3.save();
+        // ctx3.clearRect(0, 0, canvasWidth, canvasHeight);
+        // ctx3.fillRect(0, 0, canvasWidth, canvasHeight / 2 - radius);
+        // ctx3.fillRect(
+        //   0,
+        //   canvasHeight / 2 + radius,
+        //   canvasWidth,
+        //   canvasHeight / 2 - radius
+        // );
+        // ctx3.beginPath();
+        // // left
+        // ctx3.moveTo(0, canvasHeight / 2 - radius);
+        // ctx3.lineTo(canvasWidth / 2, canvasHeight / 2 - radius);
+        // ctx3.arc(
+        //   canvasWidth * 0.5,
+        //   canvasHeight * 0.5,
+        //   radius,
+        //   -Math.PI / 2,
+        //   Math.PI / 2,
+        //   true
+        // );
+        // ctx3.lineTo(0, canvasHeight / 2 + radius);
+        // ctx3.lineTo(0, canvasHeight / 2 - radius);
+        // // right
+        // ctx3.moveTo(canvasWidth, canvasHeight / 2 - radius);
+        // ctx3.lineTo(canvasWidth / 2, canvasHeight / 2 - radius);
+        // ctx3.arc(
+        //   canvasWidth * 0.5,
+        //   canvasHeight * 0.5,
+        //   radius,
+        //   -Math.PI / 2,
+        //   Math.PI / 2,
+        //   false
+        // );
+        // ctx3.lineTo(canvasWidth, canvasHeight / 2 + radius);
+        // ctx3.lineTo(canvasWidth, canvasHeight / 2 - radius);
+        // ctx3.fill();
+        // ctx3.restore();
+
         // count += 1 / 180;
         // angle++;
         // moveRafId = requestAnimationFrame(moveAnimation);
@@ -190,6 +248,51 @@
         }
       }
 
+      function drawing(radius) {
+        ctx3.save();
+        ctx3.clearRect(0, 0, canvasWidth, canvasHeight);
+        // ctx3.fillRect(0, 0, canvasWidth, canvasHeight / 2 - radius);
+        // ctx3.fillRect(
+        //   0,
+        //   canvasHeight / 2 + radius,
+        //   canvasWidth,
+        //   canvasHeight / 2 - radius
+        // );
+        ctx3.beginPath();
+        // left
+        ctx3.moveTo(0, 0);
+        ctx3.lineTo(canvasWidth / 2, 0);
+        ctx3.lineTo(canvasWidth / 2, canvasHeight / 2 - radius);
+        ctx3.arc(
+          canvasWidth * 0.5,
+          canvasHeight * 0.5,
+          radius,
+          -Math.PI / 2,
+          Math.PI / 2,
+          true
+        );
+        ctx3.lineTo(canvasWidth / 2, canvasHeight);
+        ctx3.lineTo(0, canvasHeight);
+        ctx3.lineTo(0, 0);
+        // right
+        ctx3.moveTo(canvasWidth, 0);
+        ctx3.lineTo(canvasWidth / 2, 0);
+        ctx3.lineTo(canvasWidth / 2, canvasHeight / 2 - radius);
+        ctx3.arc(
+          canvasWidth * 0.5,
+          canvasHeight * 0.5,
+          radius,
+          -Math.PI / 2,
+          Math.PI / 2,
+          false
+        );
+        ctx3.lineTo(canvasWidth / 2, canvasHeight);
+        ctx3.lineTo(canvasWidth, canvasHeight);
+        ctx3.lineTo(canvasWidth, 0);
+        ctx3.fill();
+        ctx3.restore();
+      }
+
       window.addEventListener("load", function() {
         init();
         setLayout();
@@ -199,6 +302,12 @@
 
         ctx.fillStyle = "#FF0000";
         ctx.fillRect(centerOfCanvas[0], centerOfCanvas[1], 150, 75);
+
+        ctx3.fillStyle = "#888888";
+        // ctx3.strokeStyle = "#FF0000";
+
+        // drawing();
+        // ctx3.fillRect(centerOfCanvas[0], centerOfCanvas[1], 150, 75);
 
         setCanvasImg();
         moveAnimation();
