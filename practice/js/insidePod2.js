@@ -106,25 +106,7 @@ const sceneInfo = [
     objs: {
       container: document.querySelector("#scroll-section-1"),
       podSVG: document.querySelector("#scroll-section-1 .svgAnimationLetter"),
-      videoContainer: document.querySelector(".videoContainer2")
-    },
-    values: {
-      svg_opacity_in: [0.2, 1, { start: 0, end: 0.3 }],
-      svg_scale: [0, 11, { start: 0, end: 0.4 }],
-      svg_rotate: [0, 360, { start: 0, end: 0.4 }],
-      video_opacity_in: [0, 1, { start: 0.075, end: 0.4 }],
-      video_scale: [1, 0.75, { start: 0.5, end: 0.8 }],
-      video_opacity_out: [1, 0, { start: 0.85, end: 1 }]
-    }
-  },
-  {
-    // 2
-    type: "sticky",
-    heightNum: 5,
-    scrollHeight: 0,
-    prevScrollHeight: 0,
-    objs: {
-      container: document.querySelector("#scroll-section-2"),
+      videoContainer: document.querySelector(".videoContainer2"),
       canvas: document.querySelector("#image-canvas"),
       context: document.querySelector("#image-canvas").getContext("2d"),
       image: "",
@@ -133,18 +115,11 @@ const sceneInfo = [
     },
     values: {
       svg_opacity_in: [0.2, 1, { start: 0, end: 0.3 }],
-      svg_scale: [0.3, 10, { start: 0, end: 0.4 }],
+      svg_scale: [0.4, 10, { start: 0, end: 0.4 }],
       svg_rotate: [0, 360, { start: 0, end: 0.4 }],
       video_opacity_in: [0, 1, { start: 0.075, end: 0.4 }],
       video_scale: [1, 0.75, { start: 0.5, end: 0.8 }],
       video_opacity_out: [1, 0, { start: 0.85, end: 1 }]
-      // rect1X: [0, 0, { start: 0, end: 0 }],
-      // rect2X: [0, 0, { start: 0, end: 0 }],
-      // blendHeight: [0, 0, { start: 0, end: 0 }],
-      // canvas_scale: [0, 0, { start: 0, end: 0 }],
-      // canvasCaption_opacity: [0, 1, { start: 0, end: 0 }],
-      // canvasCaption_translateY: [20, 0, { start: 0, end: 0 }],
-      // rectStartY: 0
     }
   }
 ];
@@ -180,12 +155,12 @@ function setCanvasImages() {
   let imgElem2 = new Image();
   // imgElem2.src = "./assets/images/LightBox.jpg";
   imgElem2.src = "./assets/images/pod_logo_final.svg";
-  sceneInfo[2].objs.image = imgElem2;
+  sceneInfo[1].objs.image = imgElem2;
 
   // let imgWidth = imgElem2.width;
   // let imgHeight = imgElem2.height;
 
-  // sceneInfo[2].objs.imageWHRatio = imgWidth / imgHeight;
+  // sceneInfo[1].objs.imageWHRatio = imgWidth / imgHeight;
 }
 
 function checkMenu() {
@@ -277,8 +252,8 @@ function setLayout() {
       );
     }
 
-    if (sceneInfo[2].objs.canvas) {
-      const objs = sceneInfo[2].objs;
+    if (sceneInfo[1].objs.canvas) {
+      const objs = sceneInfo[1].objs;
       const secondCanvas = objs.canvas;
       const secondContext = objs.context;
       const canvasWidth = window.document.documentElement.clientWidth;
@@ -445,59 +420,6 @@ function playAnimation() {
       break;
 
     case 1:
-      objs.podSVG.style.transform = `translate3d(-50%, -50%, 0) scale(${calcValues(
-        values.svg_scale,
-        currentYOffset
-      )}) rotate(${calcValues(values.svg_rotate, currentYOffset)}deg)`;
-
-      // objs.podSVG.style.opacity = calcValues(
-      //   values.svg_opacity_in,
-      //   currentYOffset
-      // );
-
-      objs.podSVG.style.opacity = 1;
-
-      objs.podSVG.style.marginTop = "0";
-
-      objs.videoContainer.style.opacity = calcValues(
-        values.video_opacity_in,
-        currentYOffset
-      );
-      if (scrollRatio > 0.4) {
-        objs.videoContainer.style.transform = `scale(${calcValues(
-          values.video_scale,
-          currentYOffset
-        )})`;
-
-        const whenEnd = values.video_scale[2].end;
-
-        if (scrollRatio > whenEnd) {
-          objs.videoContainer.classList.remove("sticky-elem2");
-          objs.videoContainer.style.marginTop = `${scrollHeight * whenEnd -
-            objs.videoContainer.clientHeight / 2}px`;
-        } else {
-          objs.videoContainer.classList.add("sticky-elem2");
-          objs.videoContainer.style.marginTop = "0";
-        }
-      }
-
-      break;
-
-    case 2:
-      // let sequence = Math.round(
-      //   calcValues(values.imageSequence, currentYOffset)
-      // );
-      // firstSceneSequence = sequence;
-      // if (objs.videoImages[currentDeviceType][sequence]) {
-      //   // objs.context.drawImage(objs.videoImages[0], 0, 0);
-      //   objs.context.clearRect(0, 0, objs.canvas.width, objs.canvas.height);
-      //   objs.context.drawImage(
-      //     objs.videoImages[currentDeviceType][sequence],
-      //     0,
-      //     0
-      //   );
-      // }
-
       const secondCanvas = objs.canvas;
       const secondContext = objs.context;
       const secondCanvasWidth = secondCanvas.width;
@@ -533,6 +455,43 @@ function playAnimation() {
       secondContext.restore();
 
       console.log("asdfasdfasd");
+
+      // objs.podSVG.style.transform = `translate3d(-50%, -50%, 0) scale(${calcValues(
+      //   values.svg_scale,
+      //   currentYOffset
+      // )}) rotate(${calcValues(values.svg_rotate, currentYOffset)}deg)`;
+
+      // objs.podSVG.style.opacity = calcValues(
+      //   values.svg_opacity_in,
+      //   currentYOffset
+      // );
+
+      // objs.podSVG.style.opacity = 1;
+
+      // objs.podSVG.style.marginTop = "0";
+
+      objs.videoContainer.style.opacity = calcValues(
+        values.video_opacity_in,
+        currentYOffset
+      );
+      if (scrollRatio > 0.4) {
+        objs.videoContainer.style.transform = `scale(${calcValues(
+          values.video_scale,
+          currentYOffset
+        )})`;
+
+        const whenEnd = values.video_scale[2].end;
+
+        if (scrollRatio > whenEnd) {
+          objs.videoContainer.classList.remove("sticky-elem2");
+          objs.videoContainer.style.marginTop = `${scrollHeight * whenEnd -
+            objs.videoContainer.clientHeight / 2}px`;
+        } else {
+          objs.videoContainer.classList.add("sticky-elem2");
+          objs.videoContainer.style.marginTop = "0";
+        }
+      }
+
       break;
   }
 }
