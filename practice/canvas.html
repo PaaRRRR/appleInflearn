@@ -44,66 +44,137 @@
     </div>
 
     <script>
-      var canvas = document.getElementById("myCanvas");
-      var ctx = canvas.getContext("2d");
-
-      var canvas2 = document.getElementById("myCanvas2");
-      var ctx2 = canvas2.getContext("2d");
-
-      var centerOfCanvas = [0, 0];
-      let imgElem2 = new Image();
-      // imgElem2.src = "./assets/images/pod_mask2.svg";
-      imgElem2.src = "./assets/images/LightBox.jpg";
-
-      const canvasImg = imgElem2;
-      let canvasWidth, canvasHeight;
-
-      let imgWidth = imgElem2.width;
-      let imgHeight = imgElem2.height;
-
-      let widthHeightRatio = imgWidth / imgHeight;
-
-      let widthRatio,
-        heightRatio,
-        selectedRatio,
-        calcWidth,
-        calcHeight,
-        posWidth;
-
-      let moveRafId;
-
-      let count = 0;
-      let angle = 0;
+      var canvas,
+        ctx,
+        canvas2,
+        ctx2,
+        centerOfCanvas,
+        imgElem2,
+        canvasImg,
+        canvasWidth,
+        canvasHeight,
+        imgWidth,
+        imgHeight,
+        calcImgWidth,
+        calcImgHeight,
+        widthHeightRatio,
+        // widthRatio,
+        // heightRatio,
+        // selectedRatio,
+        // calcWidth,
+        // calcHeight,
+        // posWidth,
+        moveRafId,
+        count,
+        // angle,
+        givenImageWHRatio,
+        givenImgCanvasRatio;
 
       function DegToRad(d) {
         // Converts degrees to radians
         return d * 0.01745;
       }
 
-      function moveAnimation() {
-        const recalculatedImgWidth = canvasWidth * count;
-        const recalculatedImgHeight = canvasHeight * count;
+      function init() {
+        canvas = document.getElementById("myCanvas");
+        ctx = canvas.getContext("2d");
 
+        canvas2 = document.getElementById("myCanvas2");
+        ctx2 = canvas2.getContext("2d");
+
+        centerOfCanvas = [0, 0];
+        imgElem2 = new Image();
+        // imgElem2.src = "./assets/images/pod_mask2.svg";
+        imgElem2.src = "./assets/images/LightBox.jpg";
+
+        canvasImg = imgElem2;
+
+        imgWidth = imgElem2.width;
+        imgHeight = imgElem2.height;
+
+        widthHeightRatio = imgWidth / imgHeight;
+
+        count = 0;
+        angle = 0;
+
+        givenImageWHRatio = 1;
+        givenImgCanvasRatio = 0.4;
+      }
+
+      function setLayout() {
+        canvasWidth = window.document.documentElement.clientWidth;
+        canvasHeight = window.innerHeight;
+
+        canvas.width = canvasWidth;
+        canvas.height = canvasHeight;
+
+        canvas2.width = canvasWidth;
+        canvas2.height = canvasHeight;
+      }
+
+      function checkDeviceWH() {}
+
+      function setCanvasImg() {
+        // also check img is bigger than and smaller than canvas..
+        // always be centered
+        calcImgWidth = canvasWidth * givenImgCanvasRatio;
+        calcImgHeight = canvasHeight * givenImgCanvasRatio;
+        var calcImgWidthFromHeight = calcImgHeight * givenImageWHRatio;
+
+        if (calcImgWidthFromHeight < calcImgWidth) {
+          calcImgWidth = calcImgWidthFromHeight;
+        } else {
+          calcImgHeight = calcImgWidth / givenImageWHRatio;
+        }
+
+        imgElem2.width = calcImgWidth;
+        imgElem2.height = calcImgHeight;
+
+        // widthRatio = calcImgWidth / canvasWidth;
+        // heightRatio = calcImgHeight / canvasHeight;
+
+        // selectedRatio = widthRatio;
+
+        // if (widthRatio < heightRatio) {
+        //   selectedRatio = widthRatio;
+        // } else {
+        //   selectedRatio = heightRatio;
+        // }
+
+        // calcWidth = Math.floor(calcImgWidth / selectedRatio);
+        // calcHeight = Math.floor(calcImgHeight / selectedRatio);
+
+        // posWidth = (canvasWidth - calcWidth) / 2;
+        // ctx2.drawImage(canvasImg, posWidth, 0);
+      }
+
+      function moveAnimation() {
         ctx2.save();
 
         ctx2.clearRect(0, 0, canvasWidth, canvasHeight);
 
-        ctx2.translate(canvasWidth * 0.5, canvasHeight * 0.5);
-        ctx2.rotate(DegToRad(180 * count));
-        // // ctx2.translate(-canvasWidth * 0.5, -canvasHeight * 0.5);
-        // // ctx2.drawImage(canvasImg, 0, 0);
-        // ctx2.drawImage(canvasImg, -imgWidth * 0.5, -imgHeight * 0.5);
-
-        // ctx2.translate(calcWidth * 0.5, calcHeight * 0.5);
+        // ctx2.translate(canvasWidth * 0.5, canvasHeight * 0.5);
         // ctx2.rotate(DegToRad(180 * count));
-        // ctx2.translate(-calcWidth * 0.5, -calcHeight * 0.5);
         // ctx2.drawImage(
         //   canvasImg,
-        //   canvasWidth / 2 - recalculatedImgWidth / 2,
-        //   canvasHeight / 2 - recalculatedImgHeight / 2,
-        //   canvasWidth * count,
-        //   canvasHeight * count
+        //   -calcImgWidth * 0.5,
+        //   -calcImgHeight * 0.5,
+        //   calcImgWidth,
+        //   calcImgHeight
         // );
+
+        const recalculatedImgWidth = calcImgWidth * count;
+        const recalculatedImgHeight = calcImgHeight * count;
+
+        ctx2.translate(canvasWidth * 0.5, canvasHeight * 0.5);
+        ctx2.rotate(DegToRad(180 * count));
+        ctx2.drawImage(
+          canvasImg,
+          -recalculatedImgWidth * 0.5,
+          -recalculatedImgHeight * 0.5,
+          recalculatedImgWidth,
+          recalculatedImgHeight
+        );
 
         ctx2.restore();
 
@@ -111,7 +182,6 @@
         // angle++;
         // moveRafId = requestAnimationFrame(moveAnimation);
 
-        console.log("asdfasdf", calcWidth, calcHeight);
         if (count < 2) {
           count += 0.001;
           moveRafId = requestAnimationFrame(moveAnimation);
@@ -121,47 +191,17 @@
       }
 
       window.addEventListener("load", function() {
-        canvasWidth = canvas.offsetWidth;
-        canvasHeight = canvas.offsetHeight;
+        init();
+        setLayout();
+
         centerOfCanvas[0] = Math.floor(canvasWidth / 2);
         centerOfCanvas[1] = Math.floor(canvasHeight / 2);
-
-        canvas.width = canvasWidth;
-        canvas.height = canvasHeight;
-
-        canvas2.width = canvasWidth;
-        canvas2.height = canvasHeight;
 
         ctx.fillStyle = "#FF0000";
         ctx.fillRect(centerOfCanvas[0], centerOfCanvas[1], 150, 75);
 
-        imgWidth = imgElem2.width;
-        imgHeight = imgElem2.height;
-
-        widthHeightRatio = imgWidth / imgHeight;
-
-        widthRatio = canvasWidth / imgWidth;
-        heightRatio = canvasHeight / imgHeight;
-
-        selectedRatio = widthRatio;
-
-        if (widthRatio < heightRatio) {
-          selectedRatio = widthRatio;
-        } else {
-          selectedRatio = heightRatio;
-        }
-
-        calcWidth = Math.floor(selectedRatio * imgWidth);
-        calcHeight = Math.floor(selectedRatio * imgHeight);
-        posWidth = (canvasWidth - calcWidth) / 2;
-
-        // ctx2.drawImage(canvasImg, posWidth, 0);
-
+        setCanvasImg();
         moveAnimation();
-
-        // ctx2.fillStyle = "#000000";
-        // ctx2.fillRect(centerOfCanvas[0], centerOfCanvas[1], 150, 225);
-        // ctx.fillRect(1272, 625, 150, 75);
       });
     </script>
   </body>

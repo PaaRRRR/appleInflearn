@@ -41,7 +41,6 @@ const sceneInfo = [
       messageA: document.querySelector("#scroll-section-0 .main-message.a"),
       messageB: document.querySelector("#scroll-section-0 .main-message.b"),
       messageC: document.querySelector("#scroll-section-0 .main-message.c"),
-      messageD: document.querySelector("#scroll-section-0 .main-message.d"),
       gradientOverlay: document.querySelector(
         "#scroll-section-0 .gradient-overlay"
       ),
@@ -95,9 +94,7 @@ const sceneInfo = [
       messageC_translateY_in: [7, 0, { start: 0.37, end: 0.43 }],
       messageC_opacity_out: [1, 0, { start: 0.59, end: 0.62 }],
       messageC_translateY_out: [0, -7, { start: 0.59, end: 0.62 }],
-      gradientOverlay: [1, 0, { start: 0.45, end: 0.5 }],
-      messageD_opacity_in: [0, 1, { start: 0.7, end: 0.75 }]
-      // messageD_opacity_out: [1, 0, { start: 0.59, end: 0.62 }]
+      gradientOverlay: [1, 0, { start: 0.45, end: 0.5 }]
     }
   },
   {
@@ -423,11 +420,6 @@ function playAnimation() {
           currentYOffset
         )}%, 0)`;
       }
-
-      objs.messageD.style.opacity = calcValues(
-        values.messageD_opacity_in,
-        currentYOffset
-      );
 
       break;
 
