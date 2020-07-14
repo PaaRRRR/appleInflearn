@@ -147,12 +147,20 @@
           src="./assets/images/POD_logo_website.png"
         /> -->
         <!-- <img class="svgAnimationLetter" src="./assets/images/pod.svg" /> -->
-        <img
+        <!-- <img
           class="svgAnimationLetter sticky-elem2 sticky-image"
           src="./assets/images/pod_mask2.svg"
-        />
+        /> -->
+        <div class="sticky-elem2 sticky-elem-canvas" style="z-index: 3;">
+          <canvas id="image-canvas" width="1440" height="1080">
+            Your browser does not support the canvas element.
+          </canvas>
+        </div>
 
-        <div class="videoContainer2 sticky-elem2 sticky-video">
+        <div
+          class="videoContainer2 sticky-elem2 sticky-video"
+          style="z-index: 2;"
+        >
           <video
             class="video"
             muted
@@ -180,20 +188,6 @@
           ></video>
         </div>
       </section>  -->
-      <section
-        class="scroll-section"
-        id="scroll-section-2"
-        style="text-align: center; background: mediumseagreen; height: 500vh;"
-      >
-        <canvas
-          id="image-canvas"
-          width="1440"
-          height="1080"
-          style="position: fixed; top: 50%; left: 50%;"
-        >
-          Your browser does not support the canvas element.
-        </canvas>
-      </section>
     </div>
 
     <section
