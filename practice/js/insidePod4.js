@@ -1,4 +1,5 @@
 // version(merging scene-0, scene-1)
+// version(spin pod logo letter)
 let yOffset = null; // window.pageYOffset 대신 쓸 변수
 let sceneHeight = 0;
 let prevScrollHeight = 0; // 현재 스크롤 위치(yOffset)보다 이전에 위치한 스크롤 섹션들의 스크롤 높이값의 합
@@ -18,15 +19,13 @@ const DEVICE = {
     width: 360,
     height: 640,
     videoImage: "pivoVideo4_mobile",
-    imageCount: 260,
-    podSVGInitialScale: 0.4
+    imageCount: 290
   },
   desktop: {
     width: 1440,
     height: 1080,
     videoImage: "pivoVideo4_desktop",
-    imageCount: 277,
-    podSVGInitialScale: 0.2
+    imageCount: 313
   }
 };
 let currentDeviceType = "mobile";
@@ -77,7 +76,7 @@ const sceneInfo = [
     values: {
       videoImageCount: 211,
       imageSequence: [firstLoadingSequence, 210, { start: 0.05, end: 0.4 }],
-      canvas_opacity: [1, 0, { start: 0.41, end: 0.5 }],
+      canvas_opacity: [1, 0, { start: 0.47, end: 0.5 }],
 
       messageAUp_opacity_in: [0, 1, { start: 0.1, end: 0.14 }],
       messageAUp_translateY_in: [20, 0, { start: 0.1, end: 0.14 }],
@@ -99,9 +98,10 @@ const sceneInfo = [
       messageC_translateY_out: [0, -7, { start: 0.295, end: 0.31 }],
       gradientOverlay: [1, 0, { start: 0.225, end: 0.25 }],
 
-      svg_opacity_in: [0, 1, { start: 0.41, end: 0.5 }],
-      svg_scale: [0.4, 12, { start: 0.5, end: 0.7 }],
-      svg_rotate: [0, 720, { start: 0.5, end: 0.7 }],
+      svg_opacity_in: [0, 1, { start: 0.35, end: 0.47 }],
+      svg_scale: [0.2, 12, { start: 0.5, end: 0.7 }],
+      svg_rotate: [0, 180, { start: 0.35, end: 0.47 }],
+      svg_rotate2: [180, 720, { start: 0.5, end: 0.7 }],
       video_opacity_in: [0, 1, { start: 0.5375, end: 0.7 }],
       video_scale: [1, 0.75, { start: 0.75, end: 0.9 }],
       video_opacity_out: [1, 0, { start: 0.925, end: 1 }]
@@ -426,9 +426,18 @@ function playAnimation() {
         secondCanvasHeight * 0.5
       );
 
-      secondContext.rotate(
-        DegToRad(calcValues(values.svg_rotate, currentYOffset))
-      );
+      if (scrollRatio < 0.49) {
+        secondContext.rotate(
+          DegToRad(calcValues(values.svg_rotate, currentYOffset))
+        );
+      } else {
+        secondContext.rotate(
+          DegToRad(calcValues(values.svg_rotate2, currentYOffset))
+        );
+      }
+      // secondContext.rotate(
+      //   DegToRad(calcValues(values.svg_rotate, currentYOffset))
+      // );
 
       secondContext.drawImage(
         objs.image,
@@ -815,8 +824,6 @@ window.addEventListener("load", () => {
 
     currentDeviceType = checkDevice();
     currentDevice = DEVICE[currentDeviceType];
-    sceneInfo[0].values.svg_scale[0] = currentDevice.podSVGInitialScale;
-    console.log("adasfxxx", currentDevice.podSVGInitialScale);
     setCanvasImages();
 
     // this is imageBlend
@@ -858,8 +865,6 @@ window.addEventListener("load", () => {
 
 currentDeviceType = checkDevice();
 currentDevice = DEVICE[currentDeviceType];
-sceneInfo[0].values.svg_scale[0] = currentDevice.podSVGInitialScale;
-console.log("adasfxxx", currentDevice.podSVGInitialScale);
 setCanvasImages();
 
 function init() {}
