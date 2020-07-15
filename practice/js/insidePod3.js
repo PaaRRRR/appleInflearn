@@ -1,4 +1,4 @@
-// version(improving Pod letter animation)
+// version(merging scene-0, scene-1)
 let yOffset = null; // window.pageYOffset 대신 쓸 변수
 let sceneHeight = 0;
 let prevScrollHeight = 0; // 현재 스크롤 위치(yOffset)보다 이전에 위치한 스크롤 섹션들의 스크롤 높이값의 합
@@ -18,13 +18,15 @@ const DEVICE = {
     width: 360,
     height: 640,
     videoImage: "pivoVideo4_mobile",
-    imageCount: 278
+    imageCount: 260,
+    podSVGInitialScale: 0.4
   },
   desktop: {
     width: 1440,
     height: 1080,
     videoImage: "pivoVideo4_desktop",
-    imageCount: 290
+    imageCount: 277,
+    podSVGInitialScale: 0.2
   }
 };
 let currentDeviceType = "mobile";
@@ -34,7 +36,8 @@ const sceneInfo = [
   {
     // 0
     type: "sticky",
-    heightNum: 6, // 브라우저 높이의 5배로 scrollHeight 세팅
+    // heightNum: 6, // 브라우저 높이의 5배로 scrollHeight 세팅
+    heightNum: 12,
     scrollHeight: 0,
     prevScrollHeight: 0,
     objs: {
@@ -62,65 +65,46 @@ const sceneInfo = [
       videoImages: {
         mobile: [],
         desktop: []
-      }
-    },
-    values: {
-      videoImageCount: 211,
-      imageSequence: [firstLoadingSequence, 210, { start: 0.1, end: 0.8 }],
-      canvas_opacity: [1, 0, { start: 0.82, end: 1 }],
+      },
 
-      messageAUp_opacity_in: [0, 1, { start: 0.2, end: 0.28 }],
-      messageAUp_translateY_in: [20, 0, { start: 0.2, end: 0.28 }],
-
-      messageADown_opacity_in: [0, 1, { start: 0.3, end: 0.56 }],
-      messageADown_translateY_in: [20, 0, { start: 0.3, end: 0.56 }],
-
-      messageBUp_opacity_in: [0, 1, { start: 0.56, end: 0.8 }],
-      messageBUp_translateY_in: [20, 0, { start: 0.56, end: 0.8 }],
-
-      messageBDown_opacity_in: [0, 1, { start: 0.56, end: 0.8 }],
-      messageBDown_translateY_in: [20, 0, { start: 0.56, end: 0.8 }],
-
-      messageA_opacity_out: [1, 0, { start: 0, end: 0.1 }],
-      messageB_opacity_out: [1, 0, { start: 0, end: 0.1 }],
-      messageA_translateY_out: [0, -20, { start: 0, end: 0.1 }],
-      messageB_translateY_out: [0, -20, { start: 0, end: 0.1 }],
-
-      // messageC_opacity_in: [0, 1, { start: 0.55, end: 0.6 }],
-      // messageC_translateY_in: [7, 0, { start: 0.55, end: 0.6 }],
-      // messageC_opacity_out: [1, 0, { start: 0.82, end: 1 }],
-      // messageC_translateY_out: [0, -7, { start: 0.82, end: 1 }],
-      // gradientOverlay: [1, 0, { start: 0.55, end: 0.6 }]
-      messageC_opacity_in: [0, 1, { start: 0.37, end: 0.43 }],
-      messageC_translateY_in: [7, 0, { start: 0.37, end: 0.43 }],
-      messageC_opacity_out: [1, 0, { start: 0.59, end: 0.62 }],
-      messageC_translateY_out: [0, -7, { start: 0.59, end: 0.62 }],
-      gradientOverlay: [1, 0, { start: 0.45, end: 0.5 }]
-    }
-  },
-  {
-    // 1
-    type: "sticky",
-    heightNum: 5,
-    scrollHeight: 0,
-    prevScrollHeight: 0,
-    objs: {
-      container: document.querySelector("#scroll-section-1"),
-      podSVG: document.querySelector("#scroll-section-1 .svgAnimationLetter"),
       videoContainer: document.querySelector(".videoContainer2"),
-      canvas: document.querySelector("#image-canvas"),
-      context: document.querySelector("#image-canvas").getContext("2d"),
+      imageCanvas: document.querySelector("#image-canvas"),
+      imageContext: document.querySelector("#image-canvas").getContext("2d"),
       image: "",
       imageWHRatio: 1141 / 543.28,
       imageScale: 1
     },
     values: {
-      svg_opacity_in: [0.2, 1, { start: 0, end: 0.05 }],
-      svg_scale: [0.1, 10, { start: 0, end: 0.4 }],
-      svg_rotate: [0, 360, { start: 0, end: 0.4 }],
-      video_opacity_in: [0, 1, { start: 0.075, end: 0.4 }],
-      video_scale: [1, 0.75, { start: 0.5, end: 0.8 }],
-      video_opacity_out: [1, 0, { start: 0.85, end: 1 }]
+      videoImageCount: 211,
+      imageSequence: [firstLoadingSequence, 210, { start: 0.05, end: 0.4 }],
+      canvas_opacity: [1, 0, { start: 0.41, end: 0.5 }],
+
+      messageAUp_opacity_in: [0, 1, { start: 0.1, end: 0.14 }],
+      messageAUp_translateY_in: [20, 0, { start: 0.1, end: 0.14 }],
+      messageADown_opacity_in: [0, 1, { start: 0.15, end: 0.28 }],
+      messageADown_translateY_in: [20, 0, { start: 0.15, end: 0.28 }],
+      messageBUp_opacity_in: [0, 1, { start: 0.28, end: 0.4 }],
+      messageBUp_translateY_in: [20, 0, { start: 0.28, end: 0.4 }],
+      messageBDown_opacity_in: [0, 1, { start: 0.28, end: 0.4 }],
+      messageBDown_translateY_in: [20, 0, { start: 0.28, end: 0.4 }],
+
+      messageA_opacity_out: [1, 0, { start: 0, end: 0.05 }],
+      messageB_opacity_out: [1, 0, { start: 0, end: 0.05 }],
+      messageA_translateY_out: [0, -20, { start: 0, end: 0.05 }],
+      messageB_translateY_out: [0, -20, { start: 0, end: 0.05 }],
+
+      messageC_opacity_in: [0, 1, { start: 0.185, end: 0.265 }],
+      messageC_translateY_in: [7, 0, { start: 0.185, end: 0.265 }],
+      messageC_opacity_out: [1, 0, { start: 0.295, end: 0.31 }],
+      messageC_translateY_out: [0, -7, { start: 0.295, end: 0.31 }],
+      gradientOverlay: [1, 0, { start: 0.225, end: 0.25 }],
+
+      svg_opacity_in: [0, 1, { start: 0.41, end: 0.5 }],
+      svg_scale: [0.4, 12, { start: 0.5, end: 0.7 }],
+      svg_rotate: [0, 720, { start: 0.5, end: 0.7 }],
+      video_opacity_in: [0, 1, { start: 0.5375, end: 0.7 }],
+      video_scale: [1, 0.75, { start: 0.75, end: 0.9 }],
+      video_opacity_out: [1, 0, { start: 0.925, end: 1 }]
     }
   }
 ];
@@ -156,7 +140,7 @@ function setCanvasImages() {
   let imgElem2 = new Image();
   // imgElem2.src = "./assets/images/LightBox.jpg";
   imgElem2.src = "./assets/images/pod_logo_final.svg";
-  sceneInfo[1].objs.image = imgElem2;
+  sceneInfo[0].objs.image = imgElem2;
 
   // let imgWidth = imgElem2.width;
   // let imgHeight = imgElem2.height;
@@ -229,58 +213,60 @@ function setLayout() {
     // sceneInfo[0].objs.canvas.style.transform = `translate3d(-50%, -50%, 0) scale(${heightRatio})`;
     // sceneInfo[0].objs.canvas.style.transform = `translate3d(-50%, -50%, 0)`;
 
-    if (sceneInfo[0].objs.canvas) {
+    if (sceneInfo[0].objs) {
       const objs = sceneInfo[0].objs;
       const firstCanvas = objs.canvas;
       const firstContext = objs.context;
-      firstCanvas.width = currentDevice.width;
-      firstCanvas.height = currentDevice.height;
+      const secondCanvas = objs.imageCanvas;
+      const secondContext = objs.imageContext;
 
-      console.log("asdfasdfasdf", firstCanvas.width, firstCanvas.height);
+      if (firstCanvas) {
+        firstCanvas.width = currentDevice.width;
+        firstCanvas.height = currentDevice.height;
 
-      const canvasHeight = firstCanvas.height;
-      const heightRatio = sceneHeight / canvasHeight;
+        console.log("asdfasdfasdf", firstCanvas.width, firstCanvas.height);
 
-      // Scale(1.2 -> 1) --> 114px -> 0 // 8.5% -> 0
-      // firstCanvas.style.transform = `translate3d(-50%, 0px, 0) scale(${heightRatio})`;
-      firstCanvas.style.transform = `translate3d(-50%, -50%, 0)`;
+        const canvasHeight = firstCanvas.height;
+        const heightRatio = sceneHeight / canvasHeight;
 
-      firstContext.clearRect(0, 0, firstCanvas.width, firstCanvas.height);
-      firstContext.drawImage(
-        objs.videoImages[currentDeviceType][firstSceneSequence],
-        0,
-        0
-      );
-    }
+        // Scale(1.2 -> 1) --> 114px -> 0 // 8.5% -> 0
+        // firstCanvas.style.transform = `translate3d(-50%, 0px, 0) scale(${heightRatio})`;
+        firstCanvas.style.transform = `translate3d(-50%, -50%, 0)`;
 
-    if (sceneInfo[1].objs.canvas) {
-      const objs = sceneInfo[1].objs;
-      const secondCanvas = objs.canvas;
-      const secondContext = objs.context;
-      const canvasWidth = window.document.documentElement.clientWidth;
-      const canvasHeight = window.innerHeight;
-
-      secondCanvas.width = canvasWidth;
-      secondCanvas.height = canvasHeight;
-
-      let calcImgWidth = canvasWidth * objs.imageScale;
-      let calcImgHeight = canvasHeight * objs.imageScale;
-
-      console.log("xxx", calcImgWidth, calcImgHeight);
-
-      const calcImgWidthFromHeight = calcImgHeight * objs.imageWHRatio;
-
-      if (calcImgWidthFromHeight < calcImgWidth) {
-        calcImgWidth = calcImgWidthFromHeight;
-      } else {
-        calcImgHeight = calcImgWidth / objs.imageWHRatio;
+        firstContext.clearRect(0, 0, firstCanvas.width, firstCanvas.height);
+        firstContext.drawImage(
+          objs.videoImages[currentDeviceType][firstSceneSequence],
+          0,
+          0
+        );
       }
 
-      objs.image.width = calcImgWidth;
-      objs.image.height = calcImgHeight;
+      if (secondCanvas) {
+        const canvasWidth = window.document.documentElement.clientWidth;
+        const canvasHeight = window.innerHeight;
 
-      secondCanvas.style.transform = `translate3d(-50%, -50%, 0)`;
-      secondContext.fillStyle = "#446a78";
+        secondCanvas.width = canvasWidth;
+        secondCanvas.height = canvasHeight;
+
+        let calcImgWidth = canvasWidth * objs.imageScale;
+        let calcImgHeight = canvasHeight * objs.imageScale;
+
+        console.log("xxx", calcImgWidth, calcImgHeight);
+
+        const calcImgWidthFromHeight = calcImgHeight * objs.imageWHRatio;
+
+        if (calcImgWidthFromHeight < calcImgWidth) {
+          calcImgWidth = calcImgWidthFromHeight;
+        } else {
+          calcImgHeight = calcImgWidth / objs.imageWHRatio;
+        }
+
+        objs.image.width = calcImgWidth;
+        objs.image.height = calcImgHeight;
+
+        secondCanvas.style.transform = `translate3d(-50%, -50%, 0)`;
+        secondContext.fillStyle = "#446a78";
+      }
     }
   }
 }
@@ -395,7 +381,7 @@ function playAnimation() {
         currentYOffset
       )}%, 0)`;
 
-      if (scrollRatio <= 0.5) {
+      if (scrollRatio <= 0.27) {
         // in
         objs.messageC.style.opacity = calcValues(
           values.messageC_opacity_in,
@@ -418,11 +404,9 @@ function playAnimation() {
         )}%, 0)`;
       }
 
-      break;
-
-    case 1:
-      const secondCanvas = objs.canvas;
-      const secondContext = objs.context;
+      // second pod letter + video animation
+      const secondCanvas = objs.imageCanvas;
+      const secondContext = objs.imageContext;
       const secondCanvasWidth = secondCanvas.width;
       const secondCanvasHeight = secondCanvas.height;
 
@@ -441,6 +425,7 @@ function playAnimation() {
         secondCanvasWidth * 0.5,
         secondCanvasHeight * 0.5
       );
+
       secondContext.rotate(
         DegToRad(calcValues(values.svg_rotate, currentYOffset))
       );
@@ -462,7 +447,7 @@ function playAnimation() {
       //   currentYOffset
       // )}) rotate(${calcValues(values.svg_rotate, currentYOffset)}deg)`;
 
-      objs.canvas.style.opacity = calcValues(
+      objs.imageCanvas.style.opacity = calcValues(
         values.svg_opacity_in,
         currentYOffset
       );
@@ -487,9 +472,13 @@ function playAnimation() {
           objs.videoContainer.classList.remove("sticky-elem2");
           objs.videoContainer.style.marginTop = `${scrollHeight * whenEnd -
             objs.videoContainer.clientHeight / 2}px`;
+          // this should be improve
+          objs.videoContainer.style.position = "unset";
         } else {
           objs.videoContainer.classList.add("sticky-elem2");
           objs.videoContainer.style.marginTop = "0";
+          // this should be improve
+          objs.videoContainer.style.position = "";
         }
       }
 
@@ -741,6 +730,7 @@ function loop() {
     const values = sceneInfo[currentScene].values;
 
     if (currentScene === 0) {
+      // this should be not work when firstCanvas over
       let sequence = Math.round(
         calcValues(values.imageSequence, currentYOffset)
       );
@@ -825,6 +815,8 @@ window.addEventListener("load", () => {
 
     currentDeviceType = checkDevice();
     currentDevice = DEVICE[currentDeviceType];
+    sceneInfo[0].values.svg_scale[0] = currentDevice.podSVGInitialScale;
+    console.log("adasfxxx", currentDevice.podSVGInitialScale);
     setCanvasImages();
 
     // this is imageBlend
@@ -866,6 +858,8 @@ window.addEventListener("load", () => {
 
 currentDeviceType = checkDevice();
 currentDevice = DEVICE[currentDeviceType];
+sceneInfo[0].values.svg_scale[0] = currentDevice.podSVGInitialScale;
+console.log("adasfxxx", currentDevice.podSVGInitialScale);
 setCanvasImages();
 
 function init() {}
