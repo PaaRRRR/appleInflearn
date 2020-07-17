@@ -15,10 +15,10 @@ let firstSceneSequence = firstLoadingSequence;
 
 const DEVICE = {
   mobile: {
-    width: 360,
-    height: 640,
-    videoImage: "pivoVideo4_mobile",
-    imageCount: 260,
+    width: 1080,
+    height: 1920,
+    videoImage: "pivoVideoFinal_mobile",
+    imageCount: 263,
     podSVGInitialScale: 0.4
   },
   desktop: {
@@ -29,7 +29,7 @@ const DEVICE = {
     podSVGInitialScale: 0.2
   }
 };
-let currentDeviceType = "mobile";
+let currentDeviceType = "";
 let currentDevice = DEVICE[currentDeviceType];
 
 const sceneInfo = [
@@ -125,9 +125,7 @@ function setCanvasImages() {
   for (let i = 0; i < sceneInfo[0].values.videoImageCount; i++) {
     imgElem = new Image();
     if (currentDeviceType == "mobile") {
-      imgElem.src = `./assets/${
-        currentDevice.videoImage
-      }/2020.06.24_Animation_06.351.${1 + i}.png`;
+      imgElem.src = `./assets/${currentDevice.videoImage}/Frame-(${1 + i}).jpg`;
     } else {
       imgElem.src = `./assets/${
         currentDevice.videoImage
@@ -265,7 +263,7 @@ function setLayout() {
         objs.image.height = calcImgHeight;
 
         secondCanvas.style.transform = `translate3d(-50%, -50%, 0)`;
-        secondContext.fillStyle = "#446a78";
+        secondContext.fillStyle = "#294f5a";
       }
     }
   }
@@ -673,7 +671,10 @@ function moveAnimation() {
     // if (roundedCount <= 10) {
     //   roundedCount = 0;
     // }
-    objs.context.clearRect(0, 0, objs.canvas.width, objs.canvas.height);
+    // this is for jpg
+    if (currentDeviceType == "desktop") {
+      objs.context.clearRect(0, 0, objs.canvas.width, objs.canvas.height);
+    }
     objs.context.drawImage(
       objs.videoImages[currentDeviceType][roundedCount],
       0,
@@ -742,7 +743,10 @@ function loop() {
       firstSceneSequence = sequence;
       if (objs.videoImages[currentDeviceType][sequence]) {
         // objs.context.drawImage(objs.videoImages[0], 0, 0);
-        objs.context.clearRect(0, 0, objs.canvas.width, objs.canvas.height);
+        // this is for jpg
+        if (currentDeviceType == "desktop") {
+          objs.context.clearRect(0, 0, objs.canvas.width, objs.canvas.height);
+        }
         objs.context.drawImage(
           objs.videoImages[currentDeviceType][sequence],
           0,
