@@ -79,9 +79,7 @@ const sceneInfo = [
       videoContainer: document.querySelector(".videoContainer2"),
       imageCanvas: document.querySelector("#image-canvas"),
       imageContext: document.querySelector("#image-canvas").getContext("2d"),
-      image: "",
-      imageWHRatio: 1141 / 543.28,
-      imageScale: 1
+      image: ""
     },
     values: {
       videoImageCount: 211,
@@ -614,6 +612,9 @@ function loadingAnimation() {
 
     if (loadingCount <= firstLoadingSequence) {
       roundedCount = Math.round(loadingCount);
+      // if (roundedCount <= 10) {
+      //   roundedCount = 0;
+      // }
       objs.context.clearRect(0, 0, objs.canvas.width, objs.canvas.height);
       objs.context.drawImage(objs.videoImages[roundedCount], 0, 0);
     } else {
