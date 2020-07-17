@@ -37,7 +37,7 @@ const sceneInfo = [
     // 0
     type: "sticky",
     // heightNum: 6, // 브라우저 높이의 5배로 scrollHeight 세팅
-    heightNum: 12,
+    heightNum: 24,
     scrollHeight: 0,
     prevScrollHeight: 0,
     objs: {
@@ -668,6 +668,9 @@ function moveAnimation() {
 
   if (count <= firstLoadingSequence) {
     roundedCount = Math.round(count);
+    // if (roundedCount <= 10) {
+    //   roundedCount = 0;
+    // }
     objs.context.clearRect(0, 0, objs.canvas.width, objs.canvas.height);
     objs.context.drawImage(
       objs.videoImages[currentDeviceType][roundedCount],
