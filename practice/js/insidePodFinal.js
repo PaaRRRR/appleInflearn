@@ -10,7 +10,7 @@ let delayedYOffset = 0;
 let rafId;
 let rafState;
 
-const firstLoadingSequence = 71;
+const firstLoadingSequence = 73;
 let firstSceneSequence = firstLoadingSequence;
 
 const DEVICE = {
@@ -79,14 +79,14 @@ const sceneInfo = [
       imageSequence: [firstLoadingSequence, 210, { start: 0.05, end: 0.4 }],
       canvas_opacity: [1, 0, { start: 0.41, end: 0.5 }],
 
-      messageAUp_opacity_in: [0, 1, { start: 0.1, end: 0.14 }],
-      messageAUp_translateY_in: [20, 0, { start: 0.1, end: 0.14 }],
-      messageADown_opacity_in: [0, 1, { start: 0.15, end: 0.28 }],
-      messageADown_translateY_in: [20, 0, { start: 0.15, end: 0.28 }],
-      messageBUp_opacity_in: [0, 1, { start: 0.28, end: 0.4 }],
-      messageBUp_translateY_in: [20, 0, { start: 0.28, end: 0.4 }],
-      messageBDown_opacity_in: [0, 1, { start: 0.28, end: 0.4 }],
-      messageBDown_translateY_in: [20, 0, { start: 0.28, end: 0.4 }],
+      messageAUp_opacity_in: [0, 1, { start: 0.2, end: 0.4 }],
+      messageAUp_translateY_in: [20, 0, { start: 0.2, end: 0.4 }],
+      messageADown_opacity_in: [0, 1, { start: 0.42, end: 0.62 }],
+      messageADown_translateY_in: [20, 0, { start: 0.42, end: 0.62 }],
+      messageBUp_opacity_in: [0, 1, { start: 0.62, end: 0.8 }],
+      messageBUp_translateY_in: [20, 0, { start: 0.62, end: 0.8 }],
+      messageBDown_opacity_in: [0, 1, { start: 0.62, end: 0.8 }],
+      messageBDown_translateY_in: [20, 0, { start: 0.62, end: 0.8 }],
 
       messageA_opacity_out: [1, 0, { start: 0, end: 0.05 }],
       messageB_opacity_out: [1, 0, { start: 0, end: 0.05 }],
@@ -136,8 +136,8 @@ function setCanvasImages() {
   }
 
   let imgElem2 = new Image();
-  // imgElem2.src = "./assets/images/LightBox.jpg";
-  imgElem2.src = "./assets/images/pod_logo_final.svg";
+  // imgElem2.src = "./assets/images/pod_logo_final.svg";
+  imgElem2.src = "./assets/images/POD_logo_big.svg";
   sceneInfo[0].objs.image = imgElem2;
 
   // let imgWidth = imgElem2.width;
@@ -221,8 +221,6 @@ function setLayout() {
       if (firstCanvas) {
         firstCanvas.width = currentDevice.width;
         firstCanvas.height = currentDevice.height;
-
-        console.log("asdfasdfasdf", firstCanvas.width, firstCanvas.height);
 
         const canvasHeight = firstCanvas.height;
         const heightRatio = sceneHeight / canvasHeight;
