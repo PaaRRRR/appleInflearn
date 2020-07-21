@@ -71,7 +71,8 @@ const sceneInfo = [
       imageCanvas: document.querySelector("#image-canvas"),
       imageContext: document.querySelector("#image-canvas").getContext("2d"),
       image: "",
-      imageWHRatio: 1141 / 543.28,
+      // imageWHRatio: 1141 / 543.28,
+      imageWHRatio: 1,
       imageScale: 1
     },
     values: {
@@ -136,8 +137,9 @@ function setCanvasImages() {
   }
 
   let imgElem2 = new Image();
+  imgElem2.src = "./assets/images/apple.svg";
   // imgElem2.src = "./assets/images/pod_logo_final.svg";
-  imgElem2.src = "./assets/images/POD_logo_big.svg";
+  // imgElem2.src = "./assets/images/POD_logo_big.svg";
   sceneInfo[0].objs.image = imgElem2;
 
   // let imgWidth = imgElem2.width;
@@ -436,8 +438,6 @@ function playAnimation() {
 
       secondContext.restore();
 
-      console.log("asdfasdfasd");
-
       // objs.podSVG.style.transform = `translate3d(-50%, -50%, 0) scale(${calcValues(
       //   values.svg_scale,
       //   currentYOffset
@@ -661,8 +661,6 @@ function moveAnimation() {
 
   const targetScene = sceneInfo[targetSceneNum];
   const objs = targetScene.objs;
-
-  console.log("asdfasdfadsf", count);
 
   if (count <= firstLoadingSequence) {
     roundedCount = Math.round(count);
