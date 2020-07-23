@@ -19,7 +19,7 @@ const DEVICE = {
     height: 1920,
     videoImage: "pivoVideoFinal_mobile",
     imageCount: 263,
-    podSVGInitialScale: 0.4
+    podSVGInitialScale: 0.25
   },
   desktop: {
     width: 1440,
