@@ -483,7 +483,7 @@ body.before-load {
   top: 50%;
   right: 0;
   transform: translateY(-50%);
-  background: linear-gradient(270deg, rgba(68, 106, 120, 1), rgba(68, 106, 120, 0.1));
+  background: linear-gradient(270deg, rgba(41, 79, 90, 1), rgba(41, 79, 90, 0.1));
   height: 100%;
   width: 300px;
   max-width: 10%;
@@ -498,7 +498,15 @@ body.before-load {
   }
 
   .main-message {
-    font-size: 7rem;
+    font-size: 6.5rem;
+  }
+
+  #scroll-section-0 .a {
+    font-size: 6.5rem;
+  }
+
+  #scroll-section-0 .a span {
+    font-size: 7.5rem;
   }
 
   #scroll-section-0 .b {
