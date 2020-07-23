@@ -103,12 +103,12 @@ const sceneInfo = [
       // video_opacity_in: [0, 1, { start: 0.5375, end: 0.7 }],
       // video_scale: [1, 0.75, { start: 0.75, end: 0.9 }],
 
-      svg_opacity_in: [0, 1, { start: 0.5, end: 0.52 }],
+      svg_opacity_in: [0, 1, { start: 0.5, end: 0.51 }],
       // svg_scale: [0.4, 15, { start: 0.5, end: 0.7 }],
       svg_rotate: [0, 180, { start: 0.52, end: 0.6 }],
-      svg_scale1: [0.4, 0.3, { start: 0.6, end: 0.65 }],
-      svg_scale2: [0.3, 15, { start: 0.65, end: 0.75 }],
-      video_opacity_in: [0, 1, { start: 0.69, end: 0.75 }],
+      svg_scale1: [0.4, 0.2, { start: 0.6, end: 0.66 }],
+      svg_scale2: [0.2, 15, { start: 0.66, end: 0.76 }],
+      video_opacity_in: [0, 1, { start: 0.66, end: 0.76 }],
       video_scale: [1, 0.75, { start: 0.78, end: 0.9 }],
       video_opacity_out: [1, 0, { start: 0.925, end: 1 }]
     }
