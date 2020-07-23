@@ -407,7 +407,7 @@ function playAnimation() {
 
       if (scrollRatio < 0.53) {
         secondScaleValue = calcValues(values.svg_scale0, currentYOffset);
-      } else if (scrollRatio < 0.65) {
+      } else if (scrollRatio <= 0.66) {
         secondScaleValue = calcValues(values.svg_scale1, currentYOffset);
       } else {
         secondScaleValue = calcValues(values.svg_scale2, currentYOffset);
