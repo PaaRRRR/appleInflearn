@@ -17,16 +17,16 @@ const DEVICE = {
   mobile: {
     width: 1080,
     height: 1920,
-    videoImage: "pivoVideoFinal_mobile",
-    imageCount: 263,
+    videoImage: "pivoVideo5_mobile",
+    imageCount: 264,
     podSVGInitialScale: 0.25
   },
   desktop: {
-    width: 1440,
+    width: 1920,
     height: 1080,
-    videoImage: "pivoVideo4_desktop",
-    imageCount: 277,
-    podSVGInitialScale: 0.2
+    videoImage: "pivoVideo5_desktop",
+    imageCount: 264,
+    podSVGInitialScale: 0.1
   }
 };
 
@@ -63,7 +63,10 @@ const sceneInfo = [
       ),
       canvas: document.querySelector("#video-canvas-0"),
       context: document.querySelector("#video-canvas-0").getContext("2d"),
-      videoImages: [],
+      videoImages: {
+        mobile: [],
+        desktop: []
+      },
 
       videoContainer: document.querySelector(".videoContainer2"),
       imageCanvas: document.querySelector("#image-canvas"),
@@ -73,8 +76,8 @@ const sceneInfo = [
       imageScale: 1
     },
     values: {
-      videoImageCount: 263,
-      imageSequence: [firstLoadingSequence, 262, { start: 0.05, end: 0.4 }],
+      videoImageCount: 264,
+      imageSequence: [firstLoadingSequence, 264, { start: 0.05, end: 0.4 }],
       canvas_opacity: [1, 0, { start: 0.41, end: 0.5 }],
 
       messageAUp_opacity_in: [0, 1, { start: 0.2, end: 0.4 }],
@@ -117,19 +120,23 @@ const sceneInfo = [
 ];
 
 function setCanvasImages() {
+  sceneInfo[0].values.videoImageCount = currentDevice.imageCount;
+  sceneInfo[0].values.imageSequence[1] = currentDevice.imageCount;
+  // sceneInfo[0].values.imageSequence[1] = currentDevice.imageCount - 1;
+
   if (
-    sceneInfo[0].objs.videoImages &&
-    sceneInfo[0].objs.videoImages.length > 0
+    sceneInfo[0].objs.videoImages[currentDeviceType] &&
+    sceneInfo[0].objs.videoImages[currentDeviceType].length > 0
   ) {
     return;
   }
 
   let imgElem;
 
-  for (let i = 0; i < sceneInfo[0].values.videoImageCount; i++) {
+  for (let i = 1; i <= sceneInfo[0].values.videoImageCount; i++) {
     imgElem = new Image();
-    imgElem.src = `./assets/pivoVideoFinal_mobile/Frame-(${1 + i}).jpg`;
-    sceneInfo[0].objs.videoImages.push(imgElem);
+    imgElem.src = `./assets/${currentDevice.videoImage}/Frame (${i}).jpg`;
+    sceneInfo[0].objs.videoImages[currentDeviceType].push(imgElem);
   }
 
   let imgElem2 = new Image();
@@ -228,7 +235,11 @@ function setLayout() {
         firstCanvas.style.transform = `translate3d(-50%, -50%, 0)`;
 
         firstContext.clearRect(0, 0, firstCanvas.width, firstCanvas.height);
-        firstContext.drawImage(objs.videoImages[firstSceneSequence], 0, 0);
+        firstContext.drawImage(
+          objs.videoImages[currentDeviceType][firstSceneSequence],
+          0,
+          0
+        );
       }
 
       if (secondCanvas) {
@@ -672,7 +683,11 @@ function moveAnimation() {
     // if (currentDeviceType == "desktop") {
     //   objs.context.clearRect(0, 0, objs.canvas.width, objs.canvas.height);
     // }
-    objs.context.drawImage(objs.videoImages[roundedCount], 0, 0);
+    objs.context.drawImage(
+      objs.videoImages[currentDeviceType][roundedCount],
+      0,
+      0
+    );
   } else {
     const values = targetScene.values;
     let percentageHow = (count - firstLoadingSequence) / firstLoadingSequence;
@@ -712,8 +727,6 @@ function moveAnimation() {
 function checkDevice() {
   const deviceWidth = window.document.documentElement.clientWidth;
 
-  return "mobile";
-
   if (deviceWidth > 700) {
     return "desktop";
   } else {
@@ -736,13 +749,17 @@ function loop() {
         calcValues(values.imageSequence, currentYOffset)
       );
       firstSceneSequence = sequence;
-      if (objs.videoImages[sequence]) {
+      if (objs.videoImages[currentDeviceType][sequence]) {
         // objs.context.drawImage(objs.videoImages[0], 0, 0);
         // this is for jpg
         // if (currentDeviceType == "desktop") {
         //   objs.context.clearRect(0, 0, objs.canvas.width, objs.canvas.height);
         // }
-        objs.context.drawImage(objs.videoImages[sequence], 0, 0);
+        objs.context.drawImage(
+          objs.videoImages[currentDeviceType][sequence],
+          0,
+          0
+        );
       }
     }
   }
@@ -759,7 +776,11 @@ window.addEventListener("load", () => {
   document.body.classList.remove("before-load");
   // this can be improve -> init();
   setLayout();
-  sceneInfo[0].objs.context.drawImage(sceneInfo[0].objs.videoImages[0], 0, 0);
+  sceneInfo[0].objs.context.drawImage(
+    sceneInfo[0].objs.videoImages[currentDeviceType][0],
+    0,
+    0
+  );
 
   let tempYOffset = window.pageYOffset;
   let tempScrollCount = 0;
