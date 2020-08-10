@@ -42,8 +42,7 @@ const sceneInfo = [
     // 0
     type: "sticky",
     // heightNum: 6, // 브라우저 높이의 5배로 scrollHeight 세팅
-    // heightNum: 24,
-    heightNum: 30,
+    heightNum: 24,
     scrollHeight: 0,
     prevScrollHeight: 0,
     objs: {
@@ -194,6 +193,12 @@ function checkMenu() {
 function setLayout() {
   // 각 스크롤 섹션의 높이 세팅
   yOffset = window.pageYOffset;
+
+  if (iOS()) {
+    sceneInfo[0].heightNum = 24;
+  } else {
+    sceneInfo[0].heightNum = 100;
+  }
 
   if (sceneHeight !== window.innerHeight) {
     console.log("this is from setLayout", yOffset);
@@ -792,6 +797,10 @@ function checkDevice() {
   } else {
     return "mobile";
   }
+}
+
+function iOS() {
+  return navigator.userAgent.match(/(iPad|iPhone|iPod)/i);
 }
 
 function loop() {
