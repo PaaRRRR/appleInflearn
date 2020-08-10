@@ -19,14 +19,18 @@ const DEVICE = {
     height: 1920,
     videoImage: "pivoVideo5_mobile",
     imageCount: 264,
-    podSVGInitialScale: 0.25
+    podSVGInitialScale: 0.25,
+    scaleRatio: 1
   },
   desktop: {
     width: 1920,
     height: 1080,
     videoImage: "pivoVideo5_desktop",
     imageCount: 264,
-    podSVGInitialScale: 0.1
+    podSVGInitialScale: 0.2,
+    scaleRatio: 1
+    // podSVGInitialScale: 0.072,
+    // scaleRatio: 0.8
   }
 };
 
@@ -38,7 +42,8 @@ const sceneInfo = [
     // 0
     type: "sticky",
     // heightNum: 6, // 브라우저 높이의 5배로 scrollHeight 세팅
-    heightNum: 24,
+    // heightNum: 24,
+    heightNum: 30,
     scrollHeight: 0,
     prevScrollHeight: 0,
     objs: {
@@ -118,6 +123,19 @@ const sceneInfo = [
     }
   }
 ];
+
+function calcPodORatio() {
+  const firstCanvasRatio = 1 / 20;
+  const secondCanvasRatio = 1 / 4;
+
+  const currentPodSize = sceneInfo[0].objs.canvas.height * firstCanvasRatio;
+
+  const recalculatedSecondCanvas = currentPodSize / secondCanvasRatio;
+
+  const deviceWidth = window.document.documentElement.clientWidth;
+
+  return recalculatedSecondCanvas / deviceWidth;
+}
 
 function setCanvasImages() {
   sceneInfo[0].values.videoImageCount = currentDevice.imageCount;
@@ -218,23 +236,68 @@ function setLayout() {
 
     if (sceneInfo[0].objs) {
       const objs = sceneInfo[0].objs;
+      const deviceWidth = window.document.documentElement.clientWidth;
+      const deviceHeight = window.innerHeight;
+
       const firstCanvas = objs.canvas;
       const firstContext = objs.context;
       const secondCanvas = objs.imageCanvas;
       const secondContext = objs.imageContext;
 
+      if (currentDevice === "desktop") {
+        currentDevice.podSVGInitialScale = calcPodORatio();
+      }
+
       if (firstCanvas) {
+        // let canvasRatio = currentDevice.width / currentDevice.height;
+
+        // let canvasWidth = deviceWidth;
+        // let canvasHeight = deviceHeight;
+
+        // let calcImgWidthFromHeight = canvasHeight * canvasRatio;
+        // let calcImgHeightFromWidth = canvasWidth / canvasRatio;
+
+        // console.log(
+        //   "hello!",
+        //   canvasWidth,
+        //   canvasHeight,
+        //   canvasRatio,
+        //   calcImgWidthFromHeight,
+        //   calcImgHeightFromWidth
+        // );
+
+        // if (calcImgWidthFromHeight < deviceWidth) {
+        //   canvasWidth = deviceWidth;
+        //   canvasHeight = calcImgHeightFromWidth;
+        // } else if (calcImgHeightFromWidth < deviceHeight) {
+        //   canvasHeight = deviceHeight;
+        //   canvasWidth = calcImgWidthFromHeight;
+        // }
+
+        // firstCanvas.width = canvasWidth;
+        // firstCanvas.height = canvasHeight;
+
         firstCanvas.width = currentDevice.width;
         firstCanvas.height = currentDevice.height;
 
-        const canvasHeight = firstCanvas.height;
-        const heightRatio = sceneHeight / canvasHeight;
+        const heightRatio = sceneHeight / firstCanvas.height;
+
+        let scaleRatio = currentDevice.scaleRatio;
 
         // Scale(1.2 -> 1) --> 114px -> 0 // 8.5% -> 0
-        // firstCanvas.style.transform = `translate3d(-50%, 0px, 0) scale(${heightRatio})`;
-        firstCanvas.style.transform = `translate3d(-50%, -50%, 0)`;
 
-        firstContext.clearRect(0, 0, firstCanvas.width, firstCanvas.height);
+        if (
+          currentDevice.width < deviceWidth &&
+          currentDevice.height < deviceHeight
+        ) {
+          scaleRatio = 1;
+        }
+
+        // this should be checked..
+        firstCanvas.style.transform = `translate3d(-50%, -50%, 0) scale(${scaleRatio})`;
+        // firstCanvas.style.transform = `translate3d(-50%, -50%, 0)`;
+
+        // firstContext.clearRect(0, 0, firstCanvas.width, firstCanvas.height);
         firstContext.drawImage(
           objs.videoImages[currentDeviceType][firstSceneSequence],
           0,
@@ -243,14 +306,11 @@ function setLayout() {
       }
 
       if (secondCanvas) {
-        const canvasWidth = window.document.documentElement.clientWidth;
-        const canvasHeight = window.innerHeight;
+        secondCanvas.width = deviceWidth;
+        secondCanvas.height = deviceHeight;
 
-        secondCanvas.width = canvasWidth;
-        secondCanvas.height = canvasHeight;
-
-        let calcImgWidth = canvasWidth * objs.imageScale;
-        let calcImgHeight = canvasHeight * objs.imageScale;
+        let calcImgWidth = deviceWidth * objs.imageScale;
+        let calcImgHeight = deviceHeight * objs.imageScale;
 
         console.log("xxx", calcImgWidth, calcImgHeight);
 
@@ -772,6 +832,31 @@ function loop() {
   }
 }
 
+var sceneHeight1, sceneWidth1;
+var givenRatio = 0.75;
+var shouldChange = false;
+
+function checkDeviceRatio() {
+  sceneHeight1 = window.innerHeight;
+  sceneWidth1 = window.document.documentElement.clientWidth;
+
+  shouldChange = false;
+
+  if (sceneWidth1 >= sceneHeight1 * givenRatio) {
+    if (currentDeviceType !== "desktop") {
+      shouldChange = true;
+    }
+
+    currentDeviceType = "desktop";
+  } else {
+    if (currentDeviceType !== "mobile") {
+      shouldChange = true;
+    }
+
+    currentDeviceType = "mobile";
+  }
+}
+
 window.addEventListener("load", () => {
   document.body.classList.remove("before-load");
   // this can be improve -> init();
@@ -830,10 +915,11 @@ window.addEventListener("load", () => {
       // sceneInfo[2].values.rectStartY = 0;
     }
     currentDeviceType = checkDevice();
+    checkDeviceRatio();
     currentDevice = DEVICE[currentDeviceType];
-    // sceneInfo[0].values.svg_scale[0] = currentDevice.podSVGInitialScale;
     sceneInfo[0].values.svg_scale0[0] = currentDevice.podSVGInitialScale;
-    console.log("adasfxxx", currentDevice.podSVGInitialScale);
+    sceneInfo[0].values.svg_scale0[0] = calcPodORatio();
+    console.log("adasfxxx", currentDevice.podSVGInitialScale, calcPodORatio());
     setCanvasImages();
 
     // this is imageBlend
@@ -874,10 +960,11 @@ window.addEventListener("load", () => {
 });
 
 currentDeviceType = checkDevice();
+checkDeviceRatio();
 currentDevice = DEVICE[currentDeviceType];
-// sceneInfo[0].values.svg_scale[0] = currentDevice.podSVGInitialScale;
 sceneInfo[0].values.svg_scale0[0] = currentDevice.podSVGInitialScale;
-console.log("adasfxxx", currentDevice.podSVGInitialScale);
+sceneInfo[0].values.svg_scale0[0] = calcPodORatio();
+console.log("adasfxxx", currentDevice.podSVGInitialScale, calcPodORatio());
 setCanvasImages();
 
 function init() {}
