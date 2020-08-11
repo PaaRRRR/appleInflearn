@@ -13,6 +13,8 @@ let rafState;
 const firstLoadingSequence = 73;
 let firstSceneSequence = firstLoadingSequence;
 
+let secondCanvasScaleRatio = 1;
+
 const texttexttext = document.getElementById("texttexttext");
 const buyNow_btn1 = document.getElementById("buyNow_btn1");
 
@@ -131,16 +133,19 @@ const sceneInfo = [
 ];
 
 function calcPodORatio() {
-  const firstCanvasRatio = 1 / 20;
-  const secondCanvasRatio = 1 / 4;
+  const firstCanvasRatio = 0.0448;
+  const secondCanvasRatio = 0.5;
 
-  const currentPodSize = sceneInfo[0].objs.canvas.height * firstCanvasRatio;
+  const currentPodSize =
+    sceneInfo[0].objs.canvas.offsetHeight * firstCanvasRatio;
 
-  const recalculatedSecondCanvas = currentPodSize / secondCanvasRatio;
+  const secondPodSize =
+    sceneInfo[0].objs.imageCanvas.offsetHeight *
+    secondCanvasScaleRatio *
+    (370 / 684.56) *
+    secondCanvasRatio;
 
-  const deviceWidth = window.document.documentElement.clientWidth;
-
-  return recalculatedSecondCanvas / deviceWidth;
+  return currentPodSize / secondPodSize;
 }
 
 function setCanvasImages() {
@@ -250,10 +255,6 @@ function setLayout() {
     const secondCanvas = objs.imageCanvas;
     const secondContext = objs.imageContext;
 
-    if (currentDevice === "desktop") {
-      currentDevice.podSVGInitialScale = calcPodORatio();
-    }
-
     if (firstCanvas) {
       // let canvasRatio = currentDevice.width / currentDevice.height;
 
@@ -312,13 +313,11 @@ function setLayout() {
     }
 
     if (secondCanvas) {
-      secondCanvas.width = deviceWidth;
-      secondCanvas.height = deviceHeight;
+      secondCanvas.width = currentDevice.width;
+      secondCanvas.height = currentDevice.height;
 
       let calcImgWidth = deviceWidth * objs.imageScale;
       let calcImgHeight = deviceHeight * objs.imageScale;
-
-      console.log("xxx", calcImgWidth, calcImgHeight);
 
       const calcImgWidthFromHeight = calcImgHeight * objs.imageWHRatio;
 
@@ -331,11 +330,38 @@ function setLayout() {
       objs.image.width = calcImgWidth;
       objs.image.height = calcImgHeight;
 
-      secondCanvas.style.transform = `translate3d(-50%, -50%, 0)`;
       secondContext.fillStyle = "#294f5a";
+
+      const widthRatio = deviceWidth / secondCanvas.width;
+      const heightRatio = (deviceHeight - 70) / secondCanvas.height;
+      let canvasScaleRatio;
+
+      if (widthRatio <= heightRatio) {
+        // 캔버스보다 브라우저 창이 홀쭉한 경우
+        canvasScaleRatio = heightRatio;
+      } else {
+        // 캔버스보다 브라우저 창이 납작한 경우
+        canvasScaleRatio = widthRatio;
+      }
+
+      if (canvasScaleRatio < 1) {
+        canvasScaleRatio = 1;
+      }
+
+      secondCanvasScaleRatio = canvasScaleRatio;
+
+      secondCanvas.style.transform = `translate3d(-50%, -50%, 0) scale(${canvasScaleRatio})`;
     }
   }
   // }
+
+  currentDeviceType = checkDevice();
+  checkDeviceRatio();
+  currentDevice = DEVICE[currentDeviceType];
+  sceneInfo[0].values.svg_scale0[0] = currentDevice.podSVGInitialScale;
+  sceneInfo[0].values.svg_scale0[0] = calcPodORatio();
+
+  console.log("adasfxxx", currentDevice.podSVGInitialScale, calcPodORatio());
 }
 
 function calcValues(values, currentYOffset) {
@@ -432,145 +458,130 @@ function playAnimation() {
         currentYOffset
       );
 
-      if (scrollRatio < 0.5) {
-        // first video animation
-        objs.messageA.style.opacity = calcValues(
-          values.messageA_opacity_out,
+      // first video animation
+      objs.messageA.style.opacity = calcValues(
+        values.messageA_opacity_out,
+        currentYOffset
+      );
+      objs.messageA.style.transform = `translate3d(0, ${calcValues(
+        values.messageA_translateY_out,
+        currentYOffset
+      )}%, 0)`;
+
+      objs.messageB.style.opacity = calcValues(
+        values.messageB_opacity_out,
+        currentYOffset
+      );
+      objs.messageB.style.transform = `translate3d(0, ${calcValues(
+        values.messageB_translateY_out,
+        currentYOffset
+      )}%, 0)`;
+
+      if (scrollRatio <= 0.27) {
+        // in
+        objs.messageC.style.opacity = calcValues(
+          values.messageC_opacity_in,
           currentYOffset
         );
-        objs.messageA.style.transform = `translate3d(0, ${calcValues(
-          values.messageA_translateY_out,
+
+        objs.messageC.style.transform = `translate3d(0, ${calcValues(
+          values.messageC_translateY_in,
           currentYOffset
         )}%, 0)`;
-
-        objs.messageB.style.opacity = calcValues(
-          values.messageB_opacity_out,
-          currentYOffset
-        );
-        objs.messageB.style.transform = `translate3d(0, ${calcValues(
-          values.messageB_translateY_out,
-          currentYOffset
-        )}%, 0)`;
-
-        if (scrollRatio <= 0.27) {
-          // in
-          objs.messageC.style.opacity = calcValues(
-            values.messageC_opacity_in,
-            currentYOffset
-          );
-
-          objs.messageC.style.transform = `translate3d(0, ${calcValues(
-            values.messageC_translateY_in,
-            currentYOffset
-          )}%, 0)`;
-        } else {
-          // out
-          objs.messageC.style.opacity = calcValues(
-            values.messageC_opacity_out,
-            currentYOffset
-          );
-          objs.messageC.style.transform = `translate3d(0, ${calcValues(
-            values.messageC_translateY_out,
-            currentYOffset
-          )}%, 0)`;
-        }
-
-        if (!isCleared) {
-          const secondCanvas = objs.imageCanvas;
-          const secondContext = objs.imageContext;
-          const secondCanvasWidth = secondCanvas.width;
-          const secondCanvasHeight = secondCanvas.height;
-
-          secondContext.save();
-          secondContext.clearRect(0, 0, secondCanvasWidth, secondCanvasHeight);
-
-          isCleared = true;
-        }
       } else {
-        isCleared = false;
-        // second pod letter + video animation
-        const secondCanvas = objs.imageCanvas;
-        const secondContext = objs.imageContext;
-        const secondCanvasWidth = secondCanvas.width;
-        const secondCanvasHeight = secondCanvas.height;
+        // out
+        objs.messageC.style.opacity = calcValues(
+          values.messageC_opacity_out,
+          currentYOffset
+        );
+        objs.messageC.style.transform = `translate3d(0, ${calcValues(
+          values.messageC_translateY_out,
+          currentYOffset
+        )}%, 0)`;
+      }
 
-        secondContext.save();
-        secondContext.clearRect(0, 0, secondCanvasWidth, secondCanvasHeight);
+      // second pod letter + video animation
+      const secondCanvas = objs.imageCanvas;
+      const secondContext = objs.imageContext;
+      const secondCanvasWidth = secondCanvas.width;
+      const secondCanvasHeight = secondCanvas.height;
 
-        let secondScaleValue = "";
+      secondContext.save();
+      secondContext.clearRect(0, 0, secondCanvasWidth, secondCanvasHeight);
 
-        if (scrollRatio < 0.53) {
-          secondScaleValue = calcValues(values.svg_scale0, currentYOffset);
-        } else if (scrollRatio <= 0.66) {
-          secondScaleValue = calcValues(values.svg_scale1, currentYOffset);
+      let secondScaleValue = "";
+
+      if (scrollRatio < 0.53) {
+        secondScaleValue = calcValues(values.svg_scale0, currentYOffset);
+      } else if (scrollRatio <= 0.66) {
+        secondScaleValue = calcValues(values.svg_scale1, currentYOffset);
+      } else {
+        secondScaleValue = calcValues(values.svg_scale2, currentYOffset);
+      }
+      // const secondScaleValue = calcValues(values.svg_scale, currentYOffset);
+      const recalculatedImgWidth = objs.image.width * secondScaleValue;
+      const recalculatedImgHeight = objs.image.height * secondScaleValue;
+
+      // drawing mask
+      drawing(secondCanvas, secondContext, recalculatedImgHeight / 5);
+
+      // drawing pod image
+      secondContext.translate(
+        secondCanvasWidth * 0.5,
+        secondCanvasHeight * 0.5
+      );
+
+      secondContext.rotate(
+        DegToRad(calcValues(values.svg_rotate, currentYOffset))
+      );
+
+      secondContext.drawImage(
+        objs.image,
+        -recalculatedImgWidth * 0.5,
+        -recalculatedImgHeight * 0.5,
+        recalculatedImgWidth,
+        recalculatedImgHeight
+      );
+
+      secondContext.restore();
+
+      // objs.podSVG.style.transform = `translate3d(-50%, -50%, 0) scale(${calcValues(
+      //   values.svg_scale,
+      //   currentYOffset
+      // )}) rotate(${calcValues(values.svg_rotate, currentYOffset)}deg)`;
+
+      objs.imageCanvas.style.opacity = calcValues(
+        values.svg_opacity_in,
+        currentYOffset
+      );
+
+      // objs.podSVG.style.opacity = 1;
+
+      // objs.podSVG.style.marginTop = "0";
+
+      objs.videoContainer.style.opacity = calcValues(
+        values.video_opacity_in,
+        currentYOffset
+      );
+      if (scrollRatio > 0.4) {
+        objs.videoContainer.style.transform = `scale(${calcValues(
+          values.video_scale,
+          currentYOffset
+        )})`;
+
+        const whenEnd = values.video_scale[2].end;
+
+        if (scrollRatio > whenEnd) {
+          objs.videoContainer.classList.remove("sticky-elem2");
+          objs.videoContainer.style.marginTop = `${scrollHeight * whenEnd -
+            objs.videoContainer.clientHeight / 2}px`;
+          // this should be improve
+          objs.videoContainer.style.position = "unset";
         } else {
-          secondScaleValue = calcValues(values.svg_scale2, currentYOffset);
-        }
-        // const secondScaleValue = calcValues(values.svg_scale, currentYOffset);
-        const recalculatedImgWidth = objs.image.width * secondScaleValue;
-        const recalculatedImgHeight = objs.image.height * secondScaleValue;
-
-        // drawing mask
-        drawing(secondCanvas, secondContext, recalculatedImgHeight / 5);
-
-        // drawing pod image
-        secondContext.translate(
-          secondCanvasWidth * 0.5,
-          secondCanvasHeight * 0.5
-        );
-
-        secondContext.rotate(
-          DegToRad(calcValues(values.svg_rotate, currentYOffset))
-        );
-
-        secondContext.drawImage(
-          objs.image,
-          -recalculatedImgWidth * 0.5,
-          -recalculatedImgHeight * 0.5,
-          recalculatedImgWidth,
-          recalculatedImgHeight
-        );
-
-        secondContext.restore();
-
-        // objs.podSVG.style.transform = `translate3d(-50%, -50%, 0) scale(${calcValues(
-        //   values.svg_scale,
-        //   currentYOffset
-        // )}) rotate(${calcValues(values.svg_rotate, currentYOffset)}deg)`;
-
-        objs.imageCanvas.style.opacity = calcValues(
-          values.svg_opacity_in,
-          currentYOffset
-        );
-
-        // objs.podSVG.style.opacity = 1;
-
-        // objs.podSVG.style.marginTop = "0";
-
-        objs.videoContainer.style.opacity = calcValues(
-          values.video_opacity_in,
-          currentYOffset
-        );
-        if (scrollRatio > 0.4) {
-          objs.videoContainer.style.transform = `scale(${calcValues(
-            values.video_scale,
-            currentYOffset
-          )})`;
-
-          const whenEnd = values.video_scale[2].end;
-
-          if (scrollRatio > whenEnd) {
-            objs.videoContainer.classList.remove("sticky-elem2");
-            objs.videoContainer.style.marginTop = `${scrollHeight * whenEnd -
-              objs.videoContainer.clientHeight / 2}px`;
-            // this should be improve
-            objs.videoContainer.style.position = "unset";
-          } else {
-            objs.videoContainer.classList.add("sticky-elem2");
-            objs.videoContainer.style.marginTop = "0";
-            // this should be improve
-            objs.videoContainer.style.position = "";
-          }
+          objs.videoContainer.classList.add("sticky-elem2");
+          objs.videoContainer.style.marginTop = "0";
+          // this should be improve
+          objs.videoContainer.style.position = "";
         }
       }
 
@@ -818,8 +829,9 @@ function checkDevice() {
   }
 }
 
-function iOS() {
-  return navigator.userAgent.match(/(iPad|iPhone|iPod)/i);
+function android() {
+  return navigator.userAgent.match(/android/i);
+  // return navigator.userAgent.match(/(iPad|iPhone|iPod)/i);
 }
 
 function loop() {
@@ -888,10 +900,10 @@ function checkDeviceRatio() {
 window.addEventListener("load", () => {
   document.body.classList.remove("before-load");
   // this can be improve -> init();
-  if (iOS()) {
-    sceneInfo[0].heightNum = 24;
-  } else {
+  if (android()) {
     sceneInfo[0].heightNum = 200;
+  } else {
+    sceneInfo[0].heightNum = 24;
   }
   setLayout();
   sceneInfo[0].objs.context.drawImage(
@@ -942,7 +954,7 @@ window.addEventListener("load", () => {
 
   window.addEventListener("resize", () => {
     if (window.innerWidth > 900) {
-      // setLayout();
+      setLayout();
       // this is imageBlend
       // this can be improve
       // sceneInfo[2].values.rectStartY = 0;
@@ -951,8 +963,6 @@ window.addEventListener("load", () => {
     checkDeviceRatio();
     currentDevice = DEVICE[currentDeviceType];
     sceneInfo[0].values.svg_scale0[0] = currentDevice.podSVGInitialScale;
-    sceneInfo[0].values.svg_scale0[0] = calcPodORatio();
-    console.log("adasfxxx", currentDevice.podSVGInitialScale, calcPodORatio());
     setCanvasImages();
 
     // this is imageBlend
@@ -996,8 +1006,6 @@ currentDeviceType = checkDevice();
 checkDeviceRatio();
 currentDevice = DEVICE[currentDeviceType];
 sceneInfo[0].values.svg_scale0[0] = currentDevice.podSVGInitialScale;
-sceneInfo[0].values.svg_scale0[0] = calcPodORatio();
-console.log("adasfxxx", currentDevice.podSVGInitialScale, calcPodORatio());
 setCanvasImages();
 
 function init() {}
