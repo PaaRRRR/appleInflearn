@@ -13,6 +13,13 @@ let rafState;
 const firstLoadingSequence = 73;
 let firstSceneSequence = firstLoadingSequence;
 
+const texttexttext = document.getElementById("texttexttext");
+const buyNow_btn1 = document.getElementById("buyNow_btn1");
+
+buyNow_btn1.addEventListener("click", function() {
+  sceneInfo[0].heightNum = Number(texttexttext.value);
+  setLayout();
+});
 const DEVICE = {
   mobile: {
     width: 1080,
@@ -194,147 +201,141 @@ function setLayout() {
   // 각 스크롤 섹션의 높이 세팅
   yOffset = window.pageYOffset;
 
-  if (iOS()) {
-    sceneInfo[0].heightNum = 24;
-  } else {
-    sceneInfo[0].heightNum = 200;
-  }
+  // if (sceneHeight !== window.innerHeight) {
+  console.log("this is from setLayout", yOffset);
 
-  if (sceneHeight !== window.innerHeight) {
-    console.log("this is from setLayout", yOffset);
-
-    sceneHeight = window.innerHeight;
-    let totalScrollHeight = 0;
-    let targetScrollHeight = 0;
-    let handler = true;
-    for (let i = 0; i < sceneInfo.length; i += 1) {
-      if (sceneInfo[i].type === "sticky") {
-        targetScrollHeight = sceneInfo[i].heightNum * sceneHeight;
-      } else if (sceneInfo[i].type === "normal") {
-        targetScrollHeight = sceneInfo[i].objs.container.offsetHeight;
-      }
-
-      sceneInfo[i].scrollHeight = targetScrollHeight;
-
-      sceneInfo[i].objs.container.style.height = `${targetScrollHeight}px`;
-
-      sceneInfo[i].prevScrollHeight = totalScrollHeight;
-      totalScrollHeight += targetScrollHeight;
-
-      if (handler && totalScrollHeight >= window.pageYOffset) {
-        currentScene = i;
-        handler = false;
-      }
+  sceneHeight = window.innerHeight;
+  let totalScrollHeight = 0;
+  let targetScrollHeight = 0;
+  let handler = true;
+  for (let i = 0; i < sceneInfo.length; i += 1) {
+    if (sceneInfo[i].type === "sticky") {
+      targetScrollHeight = sceneInfo[i].heightNum * sceneHeight;
+    } else if (sceneInfo[i].type === "normal") {
+      targetScrollHeight = sceneInfo[i].objs.container.offsetHeight;
     }
 
-    document.body.setAttribute("id", `show-scene-${currentScene}`);
-    // if (currentScene === 0 || currentScene === 1) {
-    //   sceneInfo[0].objs.container.classList.add("stickyy");
-    // } else {
-    //   sceneInfo[0].objs.container.classList.remove("stickyy");
-    // }
+    sceneInfo[i].scrollHeight = targetScrollHeight;
 
-    // this can be improve
-    // const heightRatio = sceneHeight / 1080;
-    // sceneInfo[0].objs.canvas.style.transform = `translate3d(-50%, -50%, 0) scale(${heightRatio})`;
-    // sceneInfo[0].objs.canvas.style.transform = `translate3d(-50%, -50%, 0)`;
+    sceneInfo[i].objs.container.style.height = `${targetScrollHeight}px`;
 
-    if (sceneInfo[0].objs) {
-      const objs = sceneInfo[0].objs;
-      const deviceWidth = window.document.documentElement.clientWidth;
-      const deviceHeight = window.innerHeight;
+    sceneInfo[i].prevScrollHeight = totalScrollHeight;
+    totalScrollHeight += targetScrollHeight;
 
-      const firstCanvas = objs.canvas;
-      const firstContext = objs.context;
-      const secondCanvas = objs.imageCanvas;
-      const secondContext = objs.imageContext;
-
-      if (currentDevice === "desktop") {
-        currentDevice.podSVGInitialScale = calcPodORatio();
-      }
-
-      if (firstCanvas) {
-        // let canvasRatio = currentDevice.width / currentDevice.height;
-
-        // let canvasWidth = deviceWidth;
-        // let canvasHeight = deviceHeight;
-
-        // let calcImgWidthFromHeight = canvasHeight * canvasRatio;
-        // let calcImgHeightFromWidth = canvasWidth / canvasRatio;
-
-        // console.log(
-        //   "hello!",
-        //   canvasWidth,
-        //   canvasHeight,
-        //   canvasRatio,
-        //   calcImgWidthFromHeight,
-        //   calcImgHeightFromWidth
-        // );
-
-        // if (calcImgWidthFromHeight < deviceWidth) {
-        //   canvasWidth = deviceWidth;
-        //   canvasHeight = calcImgHeightFromWidth;
-        // } else if (calcImgHeightFromWidth < deviceHeight) {
-        //   canvasHeight = deviceHeight;
-        //   canvasWidth = calcImgWidthFromHeight;
-        // }
-
-        // firstCanvas.width = canvasWidth;
-        // firstCanvas.height = canvasHeight;
-
-        firstCanvas.width = currentDevice.width;
-        firstCanvas.height = currentDevice.height;
-
-        const heightRatio = sceneHeight / firstCanvas.height;
-
-        let scaleRatio = currentDevice.scaleRatio;
-
-        // Scale(1.2 -> 1) --> 114px -> 0 // 8.5% -> 0
-
-        if (
-          currentDevice.width < deviceWidth &&
-          currentDevice.height < deviceHeight
-        ) {
-          scaleRatio = 1;
-        }
-
-        // this should be checked..
-        firstCanvas.style.transform = `translate3d(-50%, -50%, 0) scale(${scaleRatio})`;
-        // firstCanvas.style.transform = `translate3d(-50%, -50%, 0)`;
-
-        // firstContext.clearRect(0, 0, firstCanvas.width, firstCanvas.height);
-        firstContext.drawImage(
-          objs.videoImages[currentDeviceType][firstSceneSequence],
-          0,
-          0
-        );
-      }
-
-      if (secondCanvas) {
-        secondCanvas.width = deviceWidth;
-        secondCanvas.height = deviceHeight;
-
-        let calcImgWidth = deviceWidth * objs.imageScale;
-        let calcImgHeight = deviceHeight * objs.imageScale;
-
-        console.log("xxx", calcImgWidth, calcImgHeight);
-
-        const calcImgWidthFromHeight = calcImgHeight * objs.imageWHRatio;
-
-        if (calcImgWidthFromHeight < calcImgWidth) {
-          calcImgWidth = calcImgWidthFromHeight;
-        } else {
-          calcImgHeight = calcImgWidth / objs.imageWHRatio;
-        }
-
-        objs.image.width = calcImgWidth;
-        objs.image.height = calcImgHeight;
-
-        secondCanvas.style.transform = `translate3d(-50%, -50%, 0)`;
-        secondContext.fillStyle = "#294f5a";
-      }
+    if (handler && totalScrollHeight >= window.pageYOffset) {
+      currentScene = i;
+      handler = false;
     }
   }
+
+  document.body.setAttribute("id", `show-scene-${currentScene}`);
+  // if (currentScene === 0 || currentScene === 1) {
+  //   sceneInfo[0].objs.container.classList.add("stickyy");
+  // } else {
+  //   sceneInfo[0].objs.container.classList.remove("stickyy");
+  // }
+
+  // this can be improve
+  // const heightRatio = sceneHeight / 1080;
+  // sceneInfo[0].objs.canvas.style.transform = `translate3d(-50%, -50%, 0) scale(${heightRatio})`;
+  // sceneInfo[0].objs.canvas.style.transform = `translate3d(-50%, -50%, 0)`;
+
+  if (sceneInfo[0].objs) {
+    const objs = sceneInfo[0].objs;
+    const deviceWidth = window.document.documentElement.clientWidth;
+    const deviceHeight = window.innerHeight;
+
+    const firstCanvas = objs.canvas;
+    const firstContext = objs.context;
+    const secondCanvas = objs.imageCanvas;
+    const secondContext = objs.imageContext;
+
+    if (currentDevice === "desktop") {
+      currentDevice.podSVGInitialScale = calcPodORatio();
+    }
+
+    if (firstCanvas) {
+      // let canvasRatio = currentDevice.width / currentDevice.height;
+
+      // let canvasWidth = deviceWidth;
+      // let canvasHeight = deviceHeight;
+
+      // let calcImgWidthFromHeight = canvasHeight * canvasRatio;
+      // let calcImgHeightFromWidth = canvasWidth / canvasRatio;
+
+      // console.log(
+      //   "hello!",
+      //   canvasWidth,
+      //   canvasHeight,
+      //   canvasRatio,
+      //   calcImgWidthFromHeight,
+      //   calcImgHeightFromWidth
+      // );
+
+      // if (calcImgWidthFromHeight < deviceWidth) {
+      //   canvasWidth = deviceWidth;
+      //   canvasHeight = calcImgHeightFromWidth;
+      // } else if (calcImgHeightFromWidth < deviceHeight) {
+      //   canvasHeight = deviceHeight;
+      //   canvasWidth = calcImgWidthFromHeight;
+      // }
+
+      // firstCanvas.width = canvasWidth;
+      // firstCanvas.height = canvasHeight;
+
+      firstCanvas.width = currentDevice.width;
+      firstCanvas.height = currentDevice.height;
+
+      const heightRatio = sceneHeight / firstCanvas.height;
+
+      let scaleRatio = currentDevice.scaleRatio;
+
+      // Scale(1.2 -> 1) --> 114px -> 0 // 8.5% -> 0
+
+      if (
+        currentDevice.width < deviceWidth &&
+        currentDevice.height < deviceHeight
+      ) {
+        scaleRatio = 1;
+      }
+
+      // this should be checked..
+      firstCanvas.style.transform = `translate3d(-50%, -50%, 0) scale(${scaleRatio})`;
+      // firstCanvas.style.transform = `translate3d(-50%, -50%, 0)`;
+
+      // firstContext.clearRect(0, 0, firstCanvas.width, firstCanvas.height);
+      firstContext.drawImage(
+        objs.videoImages[currentDeviceType][firstSceneSequence],
+        0,
+        0
+      );
+    }
+
+    if (secondCanvas) {
+      secondCanvas.width = deviceWidth;
+      secondCanvas.height = deviceHeight;
+
+      let calcImgWidth = deviceWidth * objs.imageScale;
+      let calcImgHeight = deviceHeight * objs.imageScale;
+
+      console.log("xxx", calcImgWidth, calcImgHeight);
+
+      const calcImgWidthFromHeight = calcImgHeight * objs.imageWHRatio;
+
+      if (calcImgWidthFromHeight < calcImgWidth) {
+        calcImgWidth = calcImgWidthFromHeight;
+      } else {
+        calcImgHeight = calcImgWidth / objs.imageWHRatio;
+      }
+
+      objs.image.width = calcImgWidth;
+      objs.image.height = calcImgHeight;
+
+      secondCanvas.style.transform = `translate3d(-50%, -50%, 0)`;
+      secondContext.fillStyle = "#294f5a";
+    }
+  }
+  // }
 }
 
 function calcValues(values, currentYOffset) {
@@ -887,6 +888,11 @@ function checkDeviceRatio() {
 window.addEventListener("load", () => {
   document.body.classList.remove("before-load");
   // this can be improve -> init();
+  if (iOS()) {
+    sceneInfo[0].heightNum = 24;
+  } else {
+    sceneInfo[0].heightNum = 200;
+  }
   setLayout();
   sceneInfo[0].objs.context.drawImage(
     sceneInfo[0].objs.videoImages[currentDeviceType][0],
