@@ -195,9 +195,9 @@ function setLayout() {
   yOffset = window.pageYOffset;
 
   if (iOS()) {
-    sceneInfo[0].heightNum = 2;
+    sceneInfo[0].heightNum = 24;
   } else {
-    sceneInfo[0].heightNum = 100;
+    sceneInfo[0].heightNum = 200;
   }
 
   if (sceneHeight !== window.innerHeight) {
