@@ -15,12 +15,33 @@ let firstSceneSequence = firstLoadingSequence;
 
 let secondCanvasScaleRatio = 1;
 
+const colors = [
+  "#537581",
+  "#8A2BE2",
+  "#007BA7",
+  "#FF00AF",
+  "#800000",
+  "#7F00FF",
+  "#40826D"
+];
+
+let selectedColorIndex = 0;
+
 const texttexttext = document.getElementById("texttexttext");
 const buyNow_btn1 = document.getElementById("buyNow_btn1");
+const globalNav = document.querySelector(".global-nav");
 
 buyNow_btn1.addEventListener("click", function() {
   sceneInfo[0].heightNum = Number(texttexttext.value);
   setLayout();
+
+  selectedColorIndex += 1;
+
+  if (selectedColorIndex >= colors.length) {
+    selectedColorIndex - colors.length;
+  }
+
+  globalNav.style.background = colors[selectedColorIndex];
 });
 const DEVICE = {
   mobile: {
@@ -901,7 +922,7 @@ window.addEventListener("load", () => {
   document.body.classList.remove("before-load");
   // this can be improve -> init();
   if (android()) {
-    sceneInfo[0].heightNum = 200;
+    sceneInfo[0].heightNum = 100;
   } else {
     sceneInfo[0].heightNum = 24;
   }
