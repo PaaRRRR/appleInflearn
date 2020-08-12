@@ -262,7 +262,7 @@ function setLayout() {
         objs.image.height = calcImgHeight;
 
         secondCanvas.style.transform = `translate3d(-50%, -50%, 0)`;
-        secondContext.fillStyle = "#294f5a";
+        secondContext.fillStyle = "#0CA4D3";
       }
     }
   }
