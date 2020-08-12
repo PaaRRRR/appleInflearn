@@ -351,7 +351,7 @@ function setLayout() {
       objs.image.width = calcImgWidth;
       objs.image.height = calcImgHeight;
 
-      secondContext.fillStyle = "#294f5a";
+      secondContext.fillStyle = "#0CA4D3";
 
       const widthRatio = deviceWidth / secondCanvas.width;
       const heightRatio = (deviceHeight - 70) / secondCanvas.height;
