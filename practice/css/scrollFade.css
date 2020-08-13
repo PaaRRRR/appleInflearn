@@ -199,9 +199,12 @@ body.before-load {
   font-weight: 700;
   z-index: 1;
 
-  left: 60%;
-  width: 100%;
-  bottom: 21%;
+  /* left: 60%; */
+  /* left: 25%; */
+  right: 50%;
+  /* bottom: 21%; */
+
+  top: 62%;
 }
 
 .main-message {
@@ -435,17 +438,7 @@ body.before-load {
   } */
 
   #scroll-section-0 .c {
-    /* font-size: 7rem;
-    font-size: 6.75rem; */
-    /* 
-    bottom: 198px;
-    left: 820px;
-
-    bottom: 118px;
-    left: 220px; */
-
-    width: 48%;
-    left: 50%;
+    top: 64%;
   }
 
   /* .main-message-b-up {
