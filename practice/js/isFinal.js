@@ -113,6 +113,7 @@ const sceneInfo = [
       image1: "",
       image2: "",
       imageWHRatio: 1141 / 543.28,
+      // imageWHRatio: 1,
       imageScale: 1
     },
     values: {
@@ -146,14 +147,14 @@ const sceneInfo = [
       // video_opacity_in: [0, 1, { start: 0.5375, end: 0.7 }],
       // video_scale: [1, 0.75, { start: 0.75, end: 0.9 }],
 
-      svg_opacity_in: [0, 1, { start: 0.48, end: 0.52 }],
-      svg_PD_opacity_in: [0, 1, { start: 0.49, end: 0.51 }],
+      svg_opacity_in: [0, 1, { start: 0.465, end: 0.476 }],
+      svg_PD_opacity_in: [0, 1, { start: 0.476, end: 0.5 }],
       // svg_scale: [0.4, 15, { start: 0.5, end: 0.7 }],
       svg_rotate: [0, 180, { start: 0.52, end: 0.6 }],
-      svg_scale0: [0.4, 0.4005, { start: 0.48, end: 0.52 }],
+      svg_scale0: [0.4, 0.4005, { start: 0.5, end: 0.52 }],
       svg_scale1: [0.4005, 0.2, { start: 0.6, end: 0.66 }],
       svg_scale2: [0.2, 15, { start: 0.66, end: 0.76 }],
-      video_opacity_in: [0, 1, { start: 0.66, end: 0.76 }],
+      video_opacity_in: [0, 1, { start: 0.66, end: 0.73 }],
       video_scale: [1, 0.75, { start: 0.78, end: 0.9 }],
       video_opacity_out: [1, 0, { start: 0.925, end: 1 }]
     }
@@ -356,7 +357,8 @@ function setLayout() {
       firstCanvas.width = currentDevice.width;
       firstCanvas.height = currentDevice.height;
 
-      const heightRatio = sceneHeight / firstCanvas.height;
+      const heightRatio =
+        firstCanvas.parentElement.offsetHeight / firstCanvas.offsetHeight;
 
       let scaleRatio = currentDevice.scaleRatio;
 
@@ -370,7 +372,7 @@ function setLayout() {
       }
 
       // this should be checked..
-      firstCanvas.style.transform = `translate3d(-50%, -50%, 0) scale(${scaleRatio})`;
+      firstCanvas.style.transform = `translate3d(-50%, -50%, 0) scale(${heightRatio})`;
       // firstCanvas.style.transform = `translate3d(-50%, -50%, 0)`;
 
       // firstContext.clearRect(0, 0, firstCanvas.width, firstCanvas.height);
@@ -431,6 +433,17 @@ function setLayout() {
 
       secondCanvas.style.transform = `translate3d(-50%, -50%, 0) scale(${canvasScaleRatio})`;
       thirdCanvas.style.transform = `translate3d(-50%, -50%, 0) scale(${canvasScaleRatio})`;
+
+      if (
+        secondCanvas.offsetHeight * canvasScaleRatio <
+        secondCanvas.parentElement.offsetHeight
+      ) {
+        secondCanvas.style.height = "100%";
+        thirdCanvas.style.height = "100%";
+      } else {
+        secondCanvas.style.height = "unset";
+        thirdCanvas.style.height = "unset";
+      }
     }
   }
   // }
@@ -619,7 +632,7 @@ function playAnimation() {
         DegToRad(calcValues(values.svg_rotate, currentYOffset))
       );
 
-      if (scrollRatio < 0.5) {
+      if (scrollRatio < 0.49) {
         secondContext.drawImage(
           objs.image1,
           -recalculatedImgWidth * 0.5,
@@ -644,16 +657,11 @@ function playAnimation() {
       const thirdCanvas = objs.imageCanvas1;
       const thirdContext = objs.imageContext1;
 
-      if (scrollRatio < 0.52) {
+      if (scrollRatio < 0.49) {
         thirdContext.save();
-        thirdContext.globalAlpha = calcValues(
-          values.svg_PD_opacity_in,
-          currentYOffset
-        );
         thirdContext.clearRect(0, 0, secondCanvasWidth, secondCanvasHeight);
 
         // drawing mask
-        drawing(thirdCanvas, thirdContext, recalculatedImgHeight / 5);
 
         // drawing pod image
         thirdContext.translate(
@@ -695,13 +703,19 @@ function playAnimation() {
           currentYOffset
         );
 
-        if (scrollRatio < 0.5) {
+        if (scrollRatio < 0.49) {
           objs.imageCanvas1.style.opacity = calcValues(
-            values.svg_opacity_in,
+            values.svg_PD_opacity_in,
             currentYOffset
           );
         } else {
           objs.imageCanvas1.style.opacity = 0;
+        }
+
+        if (scrollRatio < values.video_opacity_in[2].start) {
+          objs.imageCanvas.style.background = "#0CA4D3";
+        } else {
+          objs.imageCanvas.style.background = "unset";
         }
       }
 
