@@ -112,8 +112,8 @@ const sceneInfo = [
       image: "",
       image1: "",
       image2: "",
-      imageWHRatio: 1141 / 543.28,
-      // imageWHRatio: 1,
+      // imageWHRatio: 1141 / 543.28,
+      imageWHRatio: 1,
       imageScale: 1
     },
     values: {
@@ -227,18 +227,18 @@ function setCanvasImages() {
   // imgElem2.src = "./assets/images/apple.svg";
   // imgElem2.src = "./assets/images/pod_logo_final.svg";
 
-  imgElem2.src = "./assets/images/POD_logo_big.svg";
+  imgElem2.src = "./assets/images/new_POD_logo_big.svg";
   // imgElem2.src =
   //   "blob:https://www.apple.com/3ecd2363-111b-4b19-9c96-f1bc05e1445d";
   // imgElem2.src = "http://www.w3.org/html/logo/img/mark-word-icon.png";
   sceneInfo[0].objs.image = imgElem2;
 
   let imgElem3 = new Image();
-  imgElem3.src = "./assets/images/JUST_POD_O.svg";
+  imgElem3.src = "./assets/images/new_JUST_POD_O.svg";
   sceneInfo[0].objs.image1 = imgElem3;
 
   let imgElem4 = new Image();
-  imgElem4.src = "./assets/images/JUST_POD_PD.svg";
+  imgElem4.src = "./assets/images/new_JUST_POD_PD.svg";
   sceneInfo[0].objs.image2 = imgElem4;
 
   // let imgWidth = imgElem2.width;
