@@ -13,7 +13,12 @@ let rafState;
 const firstLoadingSequence = 73;
 let firstSceneSequence = firstLoadingSequence;
 
+let firstCanvasScaleRatio = 1;
+
 let secondCanvasScaleRatio = 1;
+
+let calcImgWidth;
+let calcImgHeight;
 
 const colors = [
   "#537581",
@@ -174,18 +179,12 @@ function calcPodORatio() {
   let secondPodSize;
 
   if (currentDeviceType === "desktop") {
-    firstCanvasRatio = 0.0448;
+    firstCanvasRatio = 0.048;
 
     if (firstCanvas.parentElement.offsetHeight >= 1080) {
-      secondPodSize =
-        secondCanvasHeight *
-        secondCanvasScaleRatio *
-        secondCanvasPodRatio *
-        secondCanvasRatio;
-    } else {
-      secondPodSize =
-        secondCanvasHeight * secondCanvasPodRatio * secondCanvasRatio;
+      firstCanvasRatio /= firstCanvasScaleRatio;
     }
+    secondPodSize = calcImgHeight * secondCanvasScaleRatio * secondCanvasRatio;
   } else {
     firstCanvasRatio = 0.03415;
     secondPodSize = secondCanvasHeightFromWidth * secondCanvasRatio;
@@ -352,7 +351,7 @@ function setLayout() {
       firstCanvas.width = currentDevice.width;
       firstCanvas.height = currentDevice.height;
 
-      const heightRatio =
+      firstCanvasScaleRatio =
         firstCanvas.parentElement.offsetHeight / firstCanvas.offsetHeight;
 
       let scaleRatio = currentDevice.scaleRatio;
@@ -367,7 +366,7 @@ function setLayout() {
       }
 
       // this should be checked..
-      firstCanvas.style.transform = `translate3d(-50%, -50%, 0) scale(${heightRatio})`;
+      firstCanvas.style.transform = `translate3d(-50%, -50%, 0) scale(${firstCanvasScaleRatio})`;
       // firstCanvas.style.transform = `translate3d(-50%, -50%, 0)`;
 
       // firstContext.clearRect(0, 0, firstCanvas.width, firstCanvas.height);
@@ -385,8 +384,8 @@ function setLayout() {
       thirdCanvas.width = currentDevice.width;
       thirdCanvas.height = currentDevice.height;
 
-      let calcImgWidth = deviceWidth * objs.imageScale;
-      let calcImgHeight = deviceHeight * objs.imageScale;
+      calcImgWidth = deviceWidth * objs.imageScale;
+      calcImgHeight = deviceHeight * objs.imageScale;
 
       const calcImgWidthFromHeight = calcImgHeight * objs.imageWHRatio;
 
@@ -596,7 +595,6 @@ function playAnimation() {
       const secondCanvasHeight = secondCanvas.height;
 
       secondContext.save();
-      // secondContext.globalAlpha = 1;
       secondContext.clearRect(0, 0, secondCanvasWidth, secondCanvasHeight);
 
       let secondScaleValue = "";
