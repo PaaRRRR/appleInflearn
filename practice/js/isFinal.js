@@ -48,8 +48,8 @@ buyNow_btn1.addEventListener("click", function() {
 const DEVICE = {
   mobile: {
     width: 1080,
-    height: 1920,
-    videoImage: "isFinal_Mobile",
+    height: 1510,
+    videoImage: "superFinal_Mobile",
     imageCount: 264,
     podSVGInitialScale: 0.25,
     scaleRatio: 1
@@ -57,7 +57,7 @@ const DEVICE = {
   desktop: {
     width: 1920,
     height: 1080,
-    videoImage: "pivoVideo5_desktop",
+    videoImage: "superFinal_Desktop",
     imageCount: 264,
     podSVGInitialScale: 0.2,
     scaleRatio: 1
@@ -213,11 +213,8 @@ function setCanvasImages() {
 
   for (let i = 1; i <= sceneInfo[0].values.videoImageCount; i++) {
     imgElem = new Image();
-    if (currentDeviceType === "mobile") {
-      imgElem.src = `./assets/${currentDevice.videoImage}/${i}.jpg`;
-    } else {
-      imgElem.src = `./assets/${currentDevice.videoImage}/Frame (${i}).jpg`;
-    }
+
+    imgElem.src = `./assets/${currentDevice.videoImage}/${i}.jpg`;
 
     sceneInfo[0].objs.videoImages[currentDeviceType].push(imgElem);
   }
@@ -634,18 +631,18 @@ function playAnimation() {
       if (scrollRatio < 0.49) {
         secondContext.drawImage(
           objs.image1,
-          -recalculatedImgWidth * 0.5,
-          -recalculatedImgHeight * 0.5,
-          recalculatedImgWidth,
-          recalculatedImgHeight
+          parseFloat((-recalculatedImgWidth * 0.5).toFixed(2)),
+          parseFloat((-recalculatedImgHeight * 0.5).toFixed(2)),
+          parseFloat(recalculatedImgWidth.toFixed(2)),
+          parseFloat(recalculatedImgHeight.toFixed(2))
         );
       } else {
         secondContext.drawImage(
           objs.image,
-          -recalculatedImgWidth * 0.5,
-          -recalculatedImgHeight * 0.5,
-          recalculatedImgWidth,
-          recalculatedImgHeight
+          parseFloat((-recalculatedImgWidth * 0.5).toFixed(2)),
+          parseFloat((-recalculatedImgHeight * 0.5).toFixed(2)),
+          parseFloat(recalculatedImgWidth.toFixed(2)),
+          parseFloat(recalculatedImgHeight.toFixed(2))
         );
       }
 
