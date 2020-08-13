@@ -375,6 +375,9 @@ function setLayout() {
         0,
         0
       );
+
+      sceneInfo[0].objs.messageC.parentElement.style.width =
+        firstCanvas.offsetWidth + "px";
     }
 
     if (secondCanvas) {
