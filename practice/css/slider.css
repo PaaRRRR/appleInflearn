@@ -1,0 +1,333 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.slider-section-container {
+  width: 100%;
+}
+
+.slider-section-container-style {
+  padding-bottom: 110px;
+}
+
+.slider-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.slider-content-container {
+  width: 100%;
+  height: 100%;
+  /* max-width: 960px;
+
+  margin: 20px auto !important;
+  margin: 10px auto !important; */
+  position: relative;
+}
+
+.slider-content-container h2 {
+  font-weight: 700;
+  font-size: 2.4rem;
+  line-height: 1.225;
+  margin-bottom: 0px;
+}
+
+.slider-content-container p {
+  font-size: 2rem;
+  font-size: 1.5em;
+  line-height: 1.235;
+  letter-spacing: -.0242em;
+
+}
+
+.slider-content-container p span {
+  font-weight: 700;
+  font-family: CarosSoftExtraBold !important;
+}
+
+
+
+.slider-content {
+  /*color: #86868b;
+    font-size: 24px;
+    line-height: 1.16667;
+    font-weight: 600;
+    letter-spacing: 0.009em; 
+    position: absolute; */
+  width: 100%;
+  opacity: 0;
+  transition: opacity 0.9s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.putOpacity {
+  opacity: 1;
+}
+
+.slider-mainBox {
+  margin: auto;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+
+  /* max-width: 700px; */
+  height: unset !important;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.desktop {
+  display: block;
+}
+
+.mobile {
+  display: none;
+}
+
+@media only screen and (max-width: 1260px) {
+  .slider-mainBox {
+    max-width: 781px;
+    height: 479px;
+    /* height: 450px; */
+  }
+
+  .slider-content-container {
+    max-width: 781px;
+  }
+}
+
+@media only screen and (max-width: 950px) {
+  .slider-mainBox {
+    max-width: 655px;
+    height: 408px;
+    /* height: 450px; */
+  }
+
+  .slider-content-container {
+    max-width: 655px;
+  }
+}
+
+@media only screen and (max-width: 767px) {}
+
+@media only screen and (max-width: 480px) {
+  .desktop {
+    display: none;
+  }
+
+  .mobile {
+    display: block;
+  }
+
+  .slider-mainBox {
+    max-width: unset;
+    max-height: unset;
+    height: unset;
+  }
+
+  .item-wrapper {
+    overflow: hidden;
+  }
+
+  .dotnav-wrapper {
+    padding-right: 10px;
+  }
+
+  .slider-content {
+    padding: 0 20px;
+  }
+
+  .paddlenav-arrow {
+    opacity: 1 !important;
+  }
+}
+
+@media only screen and (min-width: 480px) and (max-height: 480px) and (orientation : landscape) {
+  .slider-mainBox {
+    max-width: unset;
+    max-height: unset;
+    height: unset;
+  }
+
+
+
+}
+
+
+
+.dotnav-wrapper {
+  order: 2;
+}
+
+.dotnav-container {
+  display: flex;
+  /* justify-content: flex-end; */
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.dot {
+  margin: 0 7px;
+  width: 8px;
+  height: 8px;
+  position: relative;
+  border-radius: 100%;
+  list-style: none;
+  background-color: rgba(134, 134, 139, 0.4);
+  display: inline-block;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.dot:hover {
+  background-color: rgba(134, 134, 139, 0.6);
+}
+
+.dot.current {
+  background-color: #86868b;
+}
+
+.item-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  order: 1;
+  background: #eee;
+}
+
+.paddlenav-wrapper {
+  /*position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;*/
+  z-index: 10;
+  box-sizing: border-box;
+}
+
+.paddlenav-arrow {
+  font-weight: 300;
+  width: 5.05882rem;
+  height: 5.05882rem;
+  border-radius: 5.05882rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  background-color: rgba(34, 34, 34, 0.6);
+  color: rgba(255, 255, 255, 0.8);
+  opacity: 0;
+  transition: 0.3s;
+  cursor: pointer;
+  z-index: 22;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 1%;
+}
+
+.paddlenav-arrow:first-of-type {
+  right: unset;
+  left: 1%;
+}
+
+.paddlenav-arrow:hover {
+  background-color: rgba(34, 34, 34, 0.7);
+}
+
+.paddlenav-arrow img {
+  max-height: 40%;
+}
+
+.paddlenav-arrow:first-of-type img {
+  transform: rotate(180deg);
+}
+
+.slider-container:hover .paddlenav-arrow {
+  opacity: 1;
+}
+
+.arrowDisplayNone {
+  display: none !important;
+}
+
+.main-items {
+  width: 100%;
+  height: 100%;
+  touch-action: pan-y;
+  /* transition: transform 0.9s cubic-bezier(0.645, 0.045, 0.355, 1); */
+}
+
+.bezier {
+  transition: transform 0.9s cubic-bezier(0.645, 0.045, 0.355, 1) !important;
+}
+
+.easeOutAnimate {
+  transition: transform 0.3s ease-out;
+}
+
+.gallery-item {
+  width: 100%;
+  /* height: 100%; */
+  position: absolute;
+}
+
+.gallery-item>div {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+.gallery-item figure {
+  width: 100%;
+  height: 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 0;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 0;
+}
+
+
+.gallery0 {
+  background-image: url(https://www.apple.com/v/iphone-se/c/images/overview/smart_hdr_1__e7z2l820ho6e_large.jpg);
+}
+
+.gallery1 {
+  background-image: url(https://www.apple.com/v/iphone-se/c/images/overview/smart_hdr_2__bz4dbcno6ivm_large.jpg);
+}
+
+.gallery2 {
+  background-image: url(https://www.apple.com/v/iphone-se/c/images/overview/smart_hdr_3__bsqkrshrst5y_large.jpg);
+}
+
+.gallery3 {
+  background-image: url(https://www.apple.com/v/iphone-se/c/images/overview/smart_hdr_4__fc8g22cneoy2_large.jpg);
+}
+
+.gallery4 {
+  background-image: url(https://www.apple.com/v/iphone-se/c/images/overview/smart_hdr_5__etclr219km4i_large.jpg);
+}
+
+.gallery5 {
+  background-image: url(https://www.apple.com/v/iphone-se/c/images/overview/smart_hdr_6__gli2px17rb2i_large.jpg);
+}

@@ -1,9 +1,9 @@
 // version(merging scene-0, scene-1)
 let yOffset = null; // window.pageYOffset 대신 쓸 변수
+let sceneWidth = 0;
 let sceneHeight = 0;
 let prevScrollHeight = 0; // 현재 스크롤 위치(yOffset)보다 이전에 위치한 스크롤 섹션들의 스크롤 높이값의 합
 let currentScene = 0; // 현재 활성화된(눈 앞에 보고있는) 씬(scroll-section)
-let enterNewScene = false; // 새로운 scene이 시작된 순간 true
 // let touchDown = false;
 let acc = 0.2;
 let delayedYOffset = 0;
@@ -18,6 +18,8 @@ let secondCanvasScaleRatio = 1;
 
 let calcImgWidth;
 let calcImgHeight;
+
+var currentSequence;
 
 const colors = [
   "#537581",
@@ -70,8 +72,10 @@ const DEVICE = {
   }
 };
 
-let currentDeviceType = "mobile";
-let currentDevice = DEVICE[currentDeviceType];
+// let currentDeviceType = "mobile";
+// let currentDevice = DEVICE[currentDeviceType];
+
+let currentDeviceType, currentDevice;
 
 const sceneInfo = [
   {
@@ -240,35 +244,9 @@ function setCanvasImages() {
   // sceneInfo[1].objs.imageWHRatio = imgWidth / imgHeight;
 }
 
-function checkMenu() {
-  if (sceneInfo[2].prevScrollHeight) {
-    const prevScrollHeight = sceneInfo[2].prevScrollHeight;
-    if (yOffset > prevScrollHeight - sceneHeight) {
-      document.body.classList.remove("local-nav-sticky");
-    } else {
-      document.body.classList.add("local-nav-sticky");
-    }
-
-    if (
-      yOffset > prevScrollHeight - sceneHeight &&
-      yOffset <
-        prevScrollHeight +
-          sceneInfo[2].scrollHeight * sceneInfo[2].values.video_scale[2].end
-    ) {
-      sceneInfo[2].objs.videoContainer.classList.add("stickyVideo");
-    } else {
-      sceneInfo[2].objs.videoContainer.classList.remove("stickyVideo");
-    }
-  }
-}
-
 function setLayout() {
   // 각 스크롤 섹션의 높이 세팅
-  yOffset = window.pageYOffset;
-
-  // if (sceneHeight !== window.innerHeight) {
-  console.log("this is from setLayout", yOffset);
-
+  sceneWidth = window.document.documentElement.clientWidth;
   sceneHeight = window.innerHeight;
   let totalScrollHeight = 0;
   let targetScrollHeight = 0;
@@ -307,8 +285,6 @@ function setLayout() {
 
   if (sceneInfo[0].objs) {
     const objs = sceneInfo[0].objs;
-    const deviceWidth = window.document.documentElement.clientWidth;
-    const deviceHeight = window.innerHeight;
 
     const firstCanvas = objs.canvas;
     const firstContext = objs.context;
@@ -321,8 +297,8 @@ function setLayout() {
     if (firstCanvas) {
       // let canvasRatio = currentDevice.width / currentDevice.height;
 
-      // let canvasWidth = deviceWidth;
-      // let canvasHeight = deviceHeight;
+      // let canvasWidth = sceneWidth;
+      // let canvasHeight = sceneHeight;
 
       // let calcImgWidthFromHeight = canvasHeight * canvasRatio;
       // let calcImgHeightFromWidth = canvasWidth / canvasRatio;
@@ -336,11 +312,11 @@ function setLayout() {
       //   calcImgHeightFromWidth
       // );
 
-      // if (calcImgWidthFromHeight < deviceWidth) {
-      //   canvasWidth = deviceWidth;
+      // if (calcImgWidthFromHeight < sceneWidth) {
+      //   canvasWidth = sceneWidth;
       //   canvasHeight = calcImgHeightFromWidth;
-      // } else if (calcImgHeightFromWidth < deviceHeight) {
-      //   canvasHeight = deviceHeight;
+      // } else if (calcImgHeightFromWidth < sceneHeight) {
+      //   canvasHeight = sceneHeight;
       //   canvasWidth = calcImgWidthFromHeight;
       // }
 
@@ -358,8 +334,8 @@ function setLayout() {
       // Scale(1.2 -> 1) --> 114px -> 0 // 8.5% -> 0
 
       if (
-        currentDevice.width < deviceWidth &&
-        currentDevice.height < deviceHeight
+        currentDevice.width < sceneWidth &&
+        currentDevice.height < sceneHeight
       ) {
         scaleRatio = 1;
       }
@@ -367,13 +343,6 @@ function setLayout() {
       // this should be checked..
       firstCanvas.style.transform = `translate3d(-50%, -50%, 0) scale(${firstCanvasScaleRatio})`;
       // firstCanvas.style.transform = `translate3d(-50%, -50%, 0)`;
-
-      // firstContext.clearRect(0, 0, firstCanvas.width, firstCanvas.height);
-      firstContext.drawImage(
-        objs.videoImages[currentDeviceType][firstSceneSequence],
-        0,
-        0
-      );
 
       sceneInfo[0].objs.messageC.parentElement.style.width =
         firstCanvas.offsetWidth + "px";
@@ -386,8 +355,8 @@ function setLayout() {
       thirdCanvas.width = currentDevice.width;
       thirdCanvas.height = currentDevice.height;
 
-      calcImgWidth = deviceWidth * objs.imageScale;
-      calcImgHeight = deviceHeight * objs.imageScale;
+      calcImgWidth = sceneWidth * objs.imageScale;
+      calcImgHeight = sceneHeight * objs.imageScale;
 
       const calcImgWidthFromHeight = calcImgHeight * objs.imageWHRatio;
 
@@ -409,8 +378,8 @@ function setLayout() {
       secondContext.fillStyle = "#0CA4D3";
       thirdContext.fillStyle = "#0CA4D3";
 
-      const widthRatio = deviceWidth / secondCanvas.width;
-      const heightRatio = (deviceHeight - 70) / secondCanvas.height;
+      const widthRatio = sceneWidth / secondCanvas.width;
+      const heightRatio = (sceneHeight - 70) / secondCanvas.height;
       let canvasScaleRatio;
 
       if (widthRatio <= heightRatio) {
@@ -444,21 +413,20 @@ function setLayout() {
   }
   // }
 
-  currentDeviceType = checkDevice();
-  checkDeviceRatio();
+  currentDeviceType = checkDeviceRatio();
   currentDevice = DEVICE[currentDeviceType];
-  sceneInfo[0].values.svg_scale0[0] = currentDevice.podSVGInitialScale;
+  // sceneInfo[0].values.svg_scale0[0] = currentDevice.podSVGInitialScale;
   sceneInfo[0].values.svg_scale0[0] = calcPodORatio();
 
-  // svgAnimationLetter.style.transform = `scale(${calcPodORatio()})`;
-
-  console.log("adasfxxx", currentDevice.podSVGInitialScale, calcPodORatio());
+  yOffset = window.pageYOffset;
+  console.log("this is yOffset from setlayout", yOffset);
 }
 
 function calcValues(values, currentYOffset) {
   let rv;
   // 현재 씬(스크롤섹션)에서 스크롤된 범위를 비율로 구하기
   const scrollHeight = sceneInfo[currentScene].scrollHeight;
+  // const currentYOffset = window.pageYOffset;
   const scrollRatio = currentYOffset / scrollHeight;
 
   if (values[2].videoEnd) {
@@ -530,13 +498,12 @@ function playAnimation() {
   const targetScene = sceneInfo[currentScene];
   const objs = targetScene.objs;
   const values = targetScene.values;
-  const currentYOffset = window.pageYOffset - prevScrollHeight;
+  const currentYOffset = yOffset;
   const scrollHeight = targetScene.scrollHeight;
   const scrollRatio = currentYOffset / scrollHeight;
 
   switch (currentScene) {
     case 0:
-      // console.log('0 play');
       // let sequence = Math.round(calcValues(values.imageSequence, currentYOffset));
       // objs.context.drawImage(objs.videoImages[sequence], 0, 0);
       objs.canvas.style.opacity = calcValues(
@@ -732,7 +699,7 @@ function playAnimation() {
           currentYOffset
         );
 
-        stickyElem.style.background = "wheat";
+        stickyElem.style.background = "#fff";
       }
       if (scrollRatio > 0.4) {
         // objs.videoContainer.style.transform = `scale(${calcValues(
@@ -817,51 +784,6 @@ function DegToRad(d) {
 }
 
 /**** end of animation */
-
-function scrollLoop() {
-  enterNewScene = false;
-
-  const targetScene = sceneInfo[currentScene];
-  prevScrollHeight = targetScene.prevScrollHeight;
-
-  const scrollHeight = targetScene.scrollHeight;
-
-  const currentTotalHeight = prevScrollHeight + scrollHeight;
-
-  // this can be merged..
-  if (delayedYOffset > currentTotalHeight) {
-    if (currentScene === sceneInfo.length - 1) return;
-    currentScene++;
-    enterNewScene = true;
-  } else if (delayedYOffset < prevScrollHeight) {
-    if (currentScene === 0) return; // 브라우저 바운스 효과로 인해 마이너스가 되는 것을 방지(모바일)
-    currentScene--;
-    enterNewScene = true;
-  }
-
-  // if (delayedYOffset > currentTotalHeight - sceneHeight) {
-  //   touchDown = true;
-  // } else {
-  //   touchDown = false;
-  // }
-
-  if (enterNewScene) {
-    if (currentScene < sceneInfo.length) {
-      document.body.setAttribute("id", `show-scene-${currentScene}`);
-    } else {
-      document.body.setAttribute("id", "");
-    }
-    // if (currentScene === 0 || currentScene === 1) {
-    //   sceneInfo[0].objs.container.classList.add("stickyy");
-    // } else {
-    //   sceneInfo[0].objs.container.classList.remove("stickyy");
-    // }
-
-    return;
-  }
-
-  playAnimation();
-}
 
 let count = 0;
 let roundedCount = 0;
@@ -957,6 +879,7 @@ function moveAnimation() {
       0,
       0
     );
+    currentSequence = roundedCount + "a";
   } else {
     const values = targetScene.values;
     let percentageHow = (count - firstLoadingSequence) / firstLoadingSequence;
@@ -993,15 +916,13 @@ function moveAnimation() {
   }
 }
 
-function checkDevice() {
-  const deviceWidth = window.document.documentElement.clientWidth;
-
-  if (deviceWidth > 700) {
-    return "desktop";
-  } else {
-    return "mobile";
-  }
-}
+// function checkDevice() {
+//   if (sceneWidth > 700) {
+//     return "desktop";
+//   } else {
+//     return "mobile";
+//   }
+// }
 
 function android() {
   return navigator.userAgent.match(/android/i);
@@ -1011,30 +932,27 @@ function android() {
 function loop() {
   delayedYOffset = delayedYOffset + (window.pageYOffset - delayedYOffset) * acc;
 
-  if (!enterNewScene) {
-    // this can be improve
-    const currentYOffset = delayedYOffset - prevScrollHeight;
-    const objs = sceneInfo[currentScene].objs;
-    const values = sceneInfo[currentScene].values;
+  // this can be improve
+  const currentYOffset = delayedYOffset - prevScrollHeight;
+  const objs = sceneInfo[currentScene].objs;
+  const values = sceneInfo[currentScene].values;
 
-    if (currentScene === 0) {
-      // this should be not work when firstCanvas over
-      let sequence = Math.round(
-        calcValues(values.imageSequence, currentYOffset)
+  if (currentScene === 0) {
+    // this should be not work when firstCanvas over
+    let sequence = Math.round(calcValues(values.imageSequence, yOffset));
+    firstSceneSequence = sequence;
+    if (objs.videoImages[currentDeviceType][sequence]) {
+      // objs.context.drawImage(objs.videoImages[0], 0, 0);
+      // this is for jpg
+      // if (currentDeviceType == "desktop") {
+      //   objs.context.clearRect(0, 0, objs.canvas.width, objs.canvas.height);
+      // }
+      objs.context.drawImage(
+        objs.videoImages[currentDeviceType][sequence],
+        0,
+        0
       );
-      firstSceneSequence = sequence;
-      if (objs.videoImages[currentDeviceType][sequence]) {
-        // objs.context.drawImage(objs.videoImages[0], 0, 0);
-        // this is for jpg
-        // if (currentDeviceType == "desktop") {
-        //   objs.context.clearRect(0, 0, objs.canvas.width, objs.canvas.height);
-        // }
-        objs.context.drawImage(
-          objs.videoImages[currentDeviceType][sequence],
-          0,
-          0
-        );
-      }
+      currentSequence = sequence + "b";
     }
   }
 
@@ -1046,29 +964,20 @@ function loop() {
   }
 }
 
-var sceneHeight1, sceneWidth1;
-var givenRatio = 0.75;
-var shouldChange = false;
-
 function checkDeviceRatio() {
-  sceneHeight1 = window.innerHeight;
-  sceneWidth1 = window.document.documentElement.clientWidth;
+  const givenRatio = 0.75;
+  let curDeviceType;
 
-  shouldChange = false;
+  sceneWidth = window.document.documentElement.clientWidth;
+  sceneHeight = window.innerHeight;
 
-  if (sceneWidth1 >= sceneHeight1 * givenRatio) {
-    if (currentDeviceType !== "desktop") {
-      shouldChange = true;
-    }
-
-    currentDeviceType = "desktop";
+  if (sceneWidth >= sceneHeight * givenRatio) {
+    curDeviceType = "desktop";
   } else {
-    if (currentDeviceType !== "mobile") {
-      shouldChange = true;
-    }
-
-    currentDeviceType = "mobile";
+    curDeviceType = "mobile";
   }
+
+  return curDeviceType;
 }
 
 window.addEventListener("load", () => {
@@ -1080,16 +989,18 @@ window.addEventListener("load", () => {
     sceneInfo[0].heightNum = 24;
   }
   setLayout();
-  sceneInfo[0].objs.context.drawImage(
-    sceneInfo[0].objs.videoImages[currentDeviceType][0],
-    0,
-    0
-  );
 
-  let tempYOffset = window.pageYOffset;
+  let tempYOffset = yOffset;
   let tempScrollCount = 0;
 
-  if (tempYOffset > 0) {
+  console.log("hello right after setlayout", yOffset, window.pageYOffset);
+
+  if (tempYOffset > 0 && tempYOffset <= sceneInfo[0].scrollHeight) {
+    sceneInfo[0].objs.messageAUp.style.opacity = 1;
+    sceneInfo[0].objs.messageADown.style.opacity = 1;
+    sceneInfo[0].objs.messageBUp.style.opacity = 1;
+    sceneInfo[0].objs.messageBDown.style.opacity = 1;
+
     let siId = setInterval(() => {
       scrollTo(0, tempYOffset);
       tempYOffset += 5;
@@ -1101,6 +1012,16 @@ window.addEventListener("load", () => {
     }, 20);
   } else if (tempYOffset === 0) {
     moveAnimation();
+  } else {
+    sceneInfo[0].objs.context.drawImage(
+      sceneInfo[0].objs.videoImages[currentDeviceType][
+        currentDevice.imageCount - 1
+      ],
+      0,
+      0
+    );
+
+    currentSequence = currentDevice.imageCount - 1 + "c";
   }
 
   // if (tempYOffset > 0) {
@@ -1115,15 +1036,25 @@ window.addEventListener("load", () => {
   //   }, 20);
   // }
 
-  window.addEventListener("scroll", () => {
+  window.addEventListener("scroll", function() {
     yOffset = window.pageYOffset;
-    scrollLoop();
-    // checkMenu();
+    if (yOffset <= sceneInfo[currentScene].scrollHeight) {
+      if (
+        delayedYOffset < sceneInfo[currentScene].prevScrollHeight &&
+        currentScene === 0
+      ) {
+        return; // 브라우저 바운스 효과로 인해 마이너스가 되는 것을 방지(모바일)
+      }
 
-    if (!rafState) {
-      rafId = requestAnimationFrame(loop);
-      rafState = true;
+      playAnimation();
+
+      if (!rafState) {
+        rafId = requestAnimationFrame(loop);
+        rafState = true;
+      }
     }
+
+    console.log("hello currentScene", currentSequence, yOffset);
   });
 
   window.addEventListener("resize", () => {
@@ -1133,10 +1064,9 @@ window.addEventListener("load", () => {
       // this can be improve
       // sceneInfo[2].values.rectStartY = 0;
     }
-    currentDeviceType = checkDevice();
-    checkDeviceRatio();
+    currentDeviceType = checkDeviceRatio();
     currentDevice = DEVICE[currentDeviceType];
-    sceneInfo[0].values.svg_scale0[0] = currentDevice.podSVGInitialScale;
+    sceneInfo[0].values.svg_scale0[0] = calcPodORatio();
     setCanvasImages();
 
     // this is imageBlend
@@ -1176,10 +1106,8 @@ window.addEventListener("load", () => {
   });
 });
 
-currentDeviceType = checkDevice();
-checkDeviceRatio();
-currentDevice = DEVICE[currentDeviceType];
-sceneInfo[0].values.svg_scale0[0] = currentDevice.podSVGInitialScale;
-setCanvasImages();
-
-function init() {}
+(function init() {
+  currentDeviceType = checkDeviceRatio();
+  currentDevice = DEVICE[currentDeviceType];
+  setCanvasImages();
+})();

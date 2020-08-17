@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- https://codepen.io/clarewhatever/pen/YqXNeB -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>New Pivo Page</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      .compareSlider-imgBox {
+        position: absolute;
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+      }
+
+      .compareSlider-imgBox img {
+        display: block;
+        max-width: unset;
+      }
+
+      #compareSlider-divisor {
+        position: absolute;
+        width: 6px;
+        box-shadow: 0 5px 10px -2px rgba(0, 0, 0, 0.3);
+        top: 0;
+        height: 100%;
+        left: 50.3%;
+        transform: translateX(-50%);
+        z-index: 99;
+        background: rebeccapurple;
+      }
+
+      #compareSlider-slider {
+        position: absolute;
+        z-index: 9;
+        top: 61%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        cursor: cursor;
+        /*set the appearance of the slider:*/
+        width: 40px;
+        height: 40px;
+        background-color: #2196f3;
+        opacity: 0.7;
+        border-radius: 50%;
+      }
+    </style>
+  </head>
+  <body style="background: wheat;">
+    <div
+      id="compareSlider-container"
+      style="width: 100%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
+    >
+      <img
+        src="../assets/images/compare-pivoPod.jpg"
+        id="compareSlider-imgScale"
+        style="max-width: 100%; width: 100%; opacity: 0;"
+      />
+      <div
+        style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; bottom: 0; background: #eee;"
+      >
+        <div class="compareSlider-imgBox">
+          <img src="../assets/images/compare-pivoSilver.jpg" />
+        </div>
+        <div id="compareSlider-divisor">
+          <div id="compareSlider-slider"></div>
+        </div>
+
+        <div class="compareSlider-imgBox compareSlider-imgBox-overlay">
+          <img src="../assets/images/compare-pivoPod.jpg" />
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function initComparisons() {
+        var compareSliderImage = document.getElementById(
+          "compareSlider-imgScale"
+        );
+        var compareSliderContainer = document.getElementById(
+          "compareSlider-container"
+        );
+        var divisor = document.getElementById("compareSlider-divisor"),
+          slider = document.getElementById("compareSlider-slider");
+
+        var imgs = document.querySelectorAll(".compareSlider-imgBox img"),
+          sliderImageWidth = compareSliderImage.offsetWidth,
+          sliderImageHeight = compareSliderImage.offsetHeight,
+          imageDivisorORatio = 0.037;
+
+        imgs = Array.prototype.slice.call(imgs);
+
+        imgs.forEach(function(cur) {
+          cur.width = sliderImageWidth;
+          cur.height = sliderImageHeight;
+        });
+
+        compareSliderContainer.style.height = sliderImageHeight + "px";
+
+        var currentOWidth = sliderImageWidth * imageDivisorORatio;
+
+        /* change slider size */
+        slider.style.width = currentOWidth + "px";
+        slider.style.height = currentOWidth + "px";
+
+        var x, i;
+        /*find all elements with an "overlay" class:*/
+        x = document.getElementsByClassName("compareSlider-imgBox-overlay");
+        for (i = 0; i < x.length; i++) {
+          compareImages(x[i]);
+        }
+        function compareImages(img) {
+          var img,
+            clicked = 0,
+            w,
+            h;
+          /*get the width and height of the img element*/
+          w = img.offsetWidth;
+          h = img.offsetHeight;
+          /*set the width of the img element to 50%:*/
+          img.style.width = w / 2 + "px";
+
+          /*position the slider in the middle:*/
+          // slider.style.left = w / 2 - slider.offsetWidth / 2 + "px";
+          /*execute a function when the mouse button is pressed:*/
+          slider.addEventListener("mousedown", slideReady);
+          /*and another function when the mouse button is released:*/
+          window.addEventListener("mouseup", slideFinish);
+          /*or touched (for touch screens:*/
+          slider.addEventListener("touchstart", slideReady);
+          /*and released (for touch screens:*/
+          window.addEventListener("touchend", slideFinish);
+          function slideReady(e) {
+            /*prevent any other actions that may occur when moving over the image:*/
+            e.preventDefault();
+            /*the slider is now clicked and ready to move:*/
+            clicked = 1;
+            /*execute a function when the slider is moved:*/
+            window.addEventListener("mousemove", slideMove);
+            window.addEventListener("touchmove", slideMove);
+          }
+          function slideFinish() {
+            /*the slider is no longer clicked:*/
+            clicked = 0;
+          }
+          function slideMove(e) {
+            var pos;
+            /*if the slider is no longer clicked, exit this function:*/
+            if (clicked == 0) return false;
+            /*get the cursor's x position:*/
+            pos = getCursorPos(e);
+            /*prevent the slider from being positioned outside the image:*/
+            if (pos < 0) pos = 0;
+            if (pos > w) pos = w;
+            /*execute a function that will resize the overlay image according to the cursor:*/
+            slide(pos);
+          }
+          function getCursorPos(e) {
+            var a,
+              x = 0,
+              posX;
+            e = e || window.event;
+
+            posX = e.pageX;
+            if (e.type == "touchmove") {
+              posX = e.touches[0].clientX;
+            }
+
+            /*get the x positions of the image:*/
+            a = img.getBoundingClientRect();
+            /*calculate the cursor's x coordinate, relative to the image:*/
+            x = posX - a.left;
+            /*consider any page scrolling:*/
+            x = x - window.pageXOffset;
+            return x;
+          }
+          function slide(x) {
+            /*resize the image:*/
+            img.style.width = x + "px";
+            divisor.style.left = x + "px";
+          }
+        }
+      }
+
+      window.addEventListener("load", initComparisons);
+    </script>
+  </body>
+</html>
