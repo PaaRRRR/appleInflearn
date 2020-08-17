@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- https://codepen.io/clarewhatever/pen/YqXNeB -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>New Pivo Page</title>
+    <style>
+      .compareSlider-container {
+        /* max-width: 800px; */
+        max-height: 100%;
+      }
+
+      #compareSlider-comparison {
+        width: 100%;
+        padding-bottom: 100%;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .compareSlider-container figure {
+        position: absolute;
+        background-image: url(../assets/images/compare-pivoSilver.jpg);
+        background-size: cover;
+        font-size: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+      }
+
+      #compareSlider-divisor {
+        position: absolute;
+        width: 50%;
+        box-shadow: 0 5px 10px -2px rgba(0, 0, 0, 0.3);
+        bottom: 0;
+        height: 100%;
+      }
+
+      #compareSlider-divisor::before,
+      #compareSlider-divisor::after {
+        content: "";
+        position: absolute;
+        right: -2px;
+        width: 4px;
+        height: calc(50% - 25px);
+        background: white;
+        z-index: 3;
+      }
+
+      #compareSlider-divisor::after {
+        bottom: 0;
+        box-shadow: 0 3px 8px 1px rgba(0, 0, 0, 0.3);
+      }
+
+      #compareSlider-divisor::before {
+        top: 0;
+        box-shadow: 0 -3px 8px 1px rgba(0, 0, 0, 0.3);
+      }
+
+      #compareSlider-handle {
+        position: absolute;
+        height: 50px;
+        width: 50px;
+        top: 50%;
+        left: 50%;
+        transform: translateY(-50%) translateX(-50%);
+        z-index: 1;
+      }
+
+      #compareSlider-handle::after,
+      #compareSlider-handle::before {
+        content: "";
+        width: 0;
+        height: 0;
+        border: 6px inset transparent;
+        position: absolute;
+        top: 50%;
+        margin-top: -6px;
+      }
+
+      #compareSlider-handle::before {
+        border-right: 6px solid white;
+        left: 50%;
+        margin-left: -17px;
+      }
+
+      #compareSlider-handle::after {
+        border-left: 6px solid white;
+        right: 50%;
+        margin-right: -17px;
+      }
+
+      .compareSlider-ruler {
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        height: 100%;
+        transform: translate(-50%, -50%);
+      }
+
+      .compareSlider-ruler input[type="range"] {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        position: absolute;
+        top: 50%;
+        left: -25px;
+        transform: translateY(-50%);
+        background-color: transparent;
+        width: calc(100% + 50px);
+        z-index: 2;
+        touch-action: pan-y;
+      }
+
+      .compareSlider-ruler input[type="range"]:focus,
+      .compareSlider-ruler input[type="range"]:active {
+        border: none;
+        outline: none;
+      }
+
+      .compareSlider-ruler input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        border: none;
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        background: transparent;
+        border: 4px solid white;
+        box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.3);
+      }
+
+      .compareSlider-ruler input[type="range"]::-moz-range-track {
+        -moz-appearance: none;
+        height: 15px;
+        width: 100%;
+        background-color: transparent;
+        position: relative;
+        outline: none;
+      }
+    </style>
+  </head>
+  <body style="background: wheat;">
+    <div
+      style="width: 1400px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
+    >
+      <img
+        src="../assets/images/compare-pivoPod.jpg"
+        id="compareSlider-imgScale"
+        style="max-width: 100%; width: 100%; opacity: 0;"
+      />
+      <div
+        style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; bottom: 0; background: #eee;"
+      >
+        <canvas
+          id="compareSlider-canvas"
+          width="1400"
+          height="617"
+          style="width: 100%; height: 100%;"
+        >
+          Your browser does not support the canvas element.
+        </canvas>
+        <div class="compareSlider-ruler">
+          <div id="compareSlider-handle"></div>
+          <div id="compareSlider-divisor"></div>
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value="50"
+            id="compareSlider-slider"
+          />
+        </div>
+      </div>
+    </div>
+
+    <script>
+      var compareSliderImage = document.getElementById(
+        "compareSlider-imgScale"
+      );
+      var compareSliderCanvas = document.getElementById("compareSlider-canvas");
+      var compareSliderContext = compareSliderCanvas.getContext("2d");
+      var divisor = document.getElementById("compareSlider-divisor"),
+        handle = document.getElementById("compareSlider-handle"),
+        slider = document.getElementById("compareSlider-slider");
+
+      var imgElem1 = new Image();
+      imgElem1.src = "../assets/images/compare-pivoPod.jpg";
+
+      var imgElem2 = new Image();
+      imgElem2.src = "../assets/images/compare-pivoSilver.jpg";
+
+      window.addEventListener("load", function() {
+        compareSliderContext.drawImage(
+          imgElem1,
+          0,
+          0,
+          imgElem1.width,
+          imgElem1.height,
+          0,
+          0,
+          compareSliderCanvas.offsetWidth,
+          compareSliderCanvas.offsetHeight
+        );
+      });
+
+      function resize() {
+        const widthRatio = window.innerWidth / compareSliderCanvas.width;
+        const heightRatio = window.innerHeight / compareSliderCanvas.height;
+        let canvasScaleRatio;
+
+        if (widthRatio <= heightRatio) {
+          // 캔버스보다 브라우저 창이 홀쭉한 경우
+          canvasScaleRatio = heightRatio;
+        } else {
+          // 캔버스보다 브라우저 창이 납작한 경우
+          canvasScaleRatio = widthRatio;
+        }
+
+        compareSliderCanvas.style.transform = `scale(${canvasScaleRatio})`;
+        compareSliderCanvas.fillStyle = "white";
+        compareSliderCanvas.drawImage(objs.images[0], 0, 0);
+      }
+
+      function moveDivisor() {
+        let sliderValue = slider.value;
+
+        handle.style.left = sliderValue + "%";
+        divisor.style.width = sliderValue + "%";
+
+        sliderValue = parseInt(sliderValue);
+        sliderValue /= 100;
+
+        if (sliderValue > 0.5) {
+          compareSliderContext.drawImage(
+            imgElem1,
+            0,
+            0,
+            imgElem1.width * sliderValue,
+            imgElem1.height,
+            0,
+            0,
+            compareSliderCanvas.offsetWidth * sliderValue,
+            compareSliderCanvas.offsetHeight
+          );
+        } else {
+          compareSliderContext.drawImage(
+            imgElem2,
+            imgElem2.width * sliderValue,
+            0,
+            imgElem2.width * (1 - sliderValue),
+            imgElem2.height,
+            compareSliderCanvas.offsetWidth * sliderValue,
+            0,
+            compareSliderCanvas.offsetWidth * (1 - sliderValue),
+            compareSliderCanvas.offsetHeight
+          );
+        }
+      }
+
+      slider.addEventListener("input", moveDivisor);
+    </script>
+  </body>
+</html>

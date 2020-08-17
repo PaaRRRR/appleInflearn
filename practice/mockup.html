@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>New Pivo Page</title>
+    <!-- <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;900&display=swap"
+      rel="stylesheet"
+    /> -->
+    <link rel="stylesheet" href="./css/default.css" />
+    <link rel="stylesheet" href="./css/opacityFade.css" />
+    <link rel="stylesheet" href="./css/compareSlider.css" />
+    <link rel="stylesheet" href="./css/mockup.css" />
+    <link rel="stylesheet" href="./css/slider.css" />
+  </head>
+  <body class="before-load local-nav-sticky">
+    <div class="loading">
+      <svg class="loading-circle">
+        <circle cx="50%" cy="50%" r="25"></circle>
+      </svg>
+    </div>
+    <div id="landingPage-scrollUp-btn"></div>
+    <div class="container">
+      <nav class="global-nav">
+        <div class="global-nav-links">
+          <div class="global-nav-links-left">
+            <a href="#">
+              <div class="icon-pivo-logo-dark">
+                <img
+                  src="https://cdn.shopify.com/s/files/1/2065/8833/files/pivo-logo-light-01.png?v=1560762878"
+                />
+              </div>
+            </a>
+          </div>
+          <div class="global-nav-links-right">
+            <div class="onlyDisplayDesktop">
+              <a href="#" class="global-nav-item">Home</a>
+              <a href="#" class="global-nav-item">Shop</a>
+              <a href="#" class="global-nav-item">Support</a>
+            </div>
+            <input id="texttexttext" type="text" />
+            <button id="buyNow_btn1" class="buyNow_btn">Buy Now</button>
+            <a href="#" class="global-nav-item" style="position: relative;">
+              <div class="icon-cart_icon"></div>
+              <div class="icon-cart_badge">3</div>
+            </a>
+          </div>
+        </div>
+      </nav>
+
+      <section class="scroll-section" id="scroll-section-0">
+        <div class="sticky-elem">
+          <div class="sticky-elem-frame">
+            <!-- first animation box -->
+            <div class="frame-box">
+              <div style="width: 100%; height: 100%; margin: auto;">
+                <div class="main-message c">
+                  <p style="text-align: left; line-height: 1.2;">
+                    Take<br />waaaaay<br />better <br />
+                    shots
+                  </p>
+                </div>
+              </div>
+
+              <canvas id="video-canvas-0" width="1440" height="1080"></canvas>
+            </div>
+
+            <!-- second animation box -->
+            <div class="frame-box main-message-box">
+              <div class="main-message a">
+                <p class="main-message-a-up">Like a <span>cameraman</span></p>
+                <p class="main-message-a-down" style="margin-top:3px;">
+                  just way better!
+                </p>
+              </div>
+
+              <div class="main-message b">
+                <p>
+                  <img
+                    class="svgAnimationLetter2 main-message-b-up"
+                    src="./assets/images/pod_logo_final.svg"
+                    style="vertical-align: bottom;"
+                  />
+                </p>
+
+                <!-- <p class="main-message-b-up">pod</p> -->
+                <p class="main-message-b-down">
+                  <span
+                    class="main-message-b-down-origin-price"
+                    style="opacity: 0.5;"
+                    >from $159</span
+                  >
+                  $109
+                </p>
+              </div>
+
+              <!-- <div class="main-message c">
+            <p style="text-align: left; line-height: 1.14;">
+              Take<br />waaaaaaay<br />better <br />
+              shots
+            </p>
+          </div> -->
+            </div>
+
+            <!-- third animation box -->
+            <div class="frame-box podLetterBox" style="z-index: 3;">
+              <canvas
+                id="image-canvas"
+                width="1920"
+                height="1080"
+                style="max-height: unset;"
+              >
+                Your browser does not support the canvas element.
+              </canvas>
+            </div>
+            <!-- this one is for pd -->
+            <div class="frame-box podLetterBox" style="z-index: 3;">
+              <canvas
+                id="image-canvas1"
+                width="1920"
+                height="1080"
+                style="max-height: unset;"
+              >
+                Your browser does not support the canvas element.
+              </canvas>
+            </div>
+
+            <div class="frame-box videoContainer2" style="z-index: 2;">
+              <video
+                class="video"
+                muted
+                autoplay
+                playsinline
+                loop
+                src="https://www.apple.com//105/media/us/iphone-se/2020/90024c0f-285a-4bf5-af04-2c38de97b06e/anim/4k-video/large.mp4"
+              ></video>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!---->
+    <section
+      class="scroll-section"
+      id="scroll-section-3"
+      style="text-align: center; background: #fff; padding-top: 0;"
+    >
+      <!-- block template -->
+      <!-- <div class="landing-block">
+        <div class="landing-block-contentBox landing-block-horizontalPadding20 landing-block-contentBox-desktop-flexType">
+          <div
+            class="landing-block-flexItems landing-block-flexItems-textBox landing-block-MarginBottom-small landing-block-flexItems-01"
+          >
+            <div class="landing-block-textBox-title landing-block-horizontalPadding-mid">
+              <img src="" alt="" /> MANY ME <span>COMMING SOON</span>
+            </div>
+            <div class="landing-block-textBox-subtitle landing-block-horizontalPadding-mid">
+              Me, myself and me again
+            </div>
+            <div class="landing-block-textBox-paragraph">
+              Multiply yourself up to 15 times in the same picture or video. Be
+              as many different versions of you as you want to be!
+            </div>
+          </div>
+          <div
+            class="landing-block-flexItems landing-block-flexItems-mediaBox landing-block-MarginBottom-mid landing-block-flexItems-02"
+          >
+            <div class="landing-block-mediaBox-media"></div>
+          </div>
+        </div>
+      </div> -->
+
+      <!-- block banner intro -->
+      <div class="landing-block landing-block-intro">
+        <div
+          class="landing-block-contentBox landing-block-horizontalPadding20 landing-block-MarginBottom-mid"
+          style="overflow: auto; margin-bottom: 100px; padding: 0 10px;"
+        >
+          <div class="landing-block-intro-container">
+            <div class="landing-block-intro-iconBox">
+              <div class="landing-block-intro-iconBox-imageBox">
+                <img
+                  class="lazyload"
+                  data-src="https://cdn.shopify.com/s/files/1/2065/8833/files/auto-tracking-icon_f879ec5a-5a24-48c8-885b-ea9834378141.png?v=1594020974"
+                  src="https://cdn.shopify.com/s/files/1/2065/8833/files/auto-tracking-icon_f879ec5a-5a24-48c8-885b-ea9834378141.png?v=1594020974"
+                />
+              </div>
+              <div class="landing-block-intro-iconBox-captionBox">
+                <p data-i18n="auto_tracking">Auto-tracking</p>
+              </div>
+            </div>
+
+            <div class="landing-block-intro-iconBox">
+              <div class="landing-block-intro-iconBox-imageBox">
+                <img
+                  class="lazyload"
+                  data-src="https://cdn.shopify.com/s/files/1/2065/8833/files/360-rotation-icon.png?v=1594020973"
+                  src="https://cdn.shopify.com/s/files/1/2065/8833/files/360-rotation-icon.png?v=1594020973"
+                />
+              </div>
+              <div class="landing-block-intro-iconBox-captionBox">
+                <p data-i18n="auto_tracking">360° Rotation</p>
+              </div>
+            </div>
+
+            <div class="landing-block-intro-iconBox">
+              <div class="landing-block-intro-iconBox-imageBox">
+                <img
+                  class="lazyload"
+                  data-src="https://cdn.shopify.com/s/files/1/2065/8833/files/create-mode-icon.png?v=1594020973"
+                  src="https://cdn.shopify.com/s/files/1/2065/8833/files/create-mode-icon.png?v=1594020973"
+                />
+              </div>
+              <div class="landing-block-intro-iconBox-captionBox">
+                <p data-i18n="auto_tracking">9 Quick Create Modes</p>
+                <span>New</span>
+              </div>
+            </div>
+          </div>
+          <div class="landing-block-intro-container">
+            <div class="landing-block-intro-iconBox">
+              <div class="landing-block-intro-iconBox-imageBox">
+                <img
+                  class="lazyload"
+                  data-src="https://cdn.shopify.com/s/files/1/2065/8833/files/live-icon.png?v=1594020985"
+                  src="https://cdn.shopify.com/s/files/1/2065/8833/files/live-icon.png?v=1594020985"
+                />
+              </div>
+              <div class="landing-block-intro-iconBox-captionBox">
+                <p data-i18n="auto_tracking">Multistream Live</p>
+                <span>New</span>
+              </div>
+            </div>
+
+            <div class="landing-block-intro-iconBox">
+              <div class="landing-block-intro-iconBox-imageBox">
+                <img
+                  class="lazyload"
+                  data-src="https://cdn.shopify.com/s/files/1/2065/8833/files/remote-icon.png?v=1594020985"
+                  src="https://cdn.shopify.com/s/files/1/2065/8833/files/remote-icon.png?v=1594020985"
+                />
+              </div>
+              <div class="landing-block-intro-iconBox-captionBox">
+                <p data-i18n="auto_tracking">Remote Control</p>
+              </div>
+            </div>
+
+            <div class="landing-block-intro-iconBox">
+              <div class="landing-block-intro-iconBox-imageBox">
+                <img
+                  class="lazyload"
+                  data-src="https://cdn.shopify.com/s/files/1/2065/8833/files/share-icon.png?v=1594020985"
+                  src="https://cdn.shopify.com/s/files/1/2065/8833/files/share-icon.png?v=1594020985"
+                />
+              </div>
+              <div class="landing-block-intro-iconBox-captionBox">
+                <p data-i18n="auto_tracking">Share</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- block 00 -->
+      <div class="landing-block">
+        <div
+          class="landing-block-contentBox landing-block-horizontalPadding20 landing-block-contentBox-desktop-flexType"
+        >
+          <div
+            class="landing-block-flexItems landing-block-flexItems-textBox landing-block-MarginBottom-small landing-block-flexItems-01"
+          >
+            <div
+              class="landing-block-textBox-title landing-block-horizontalPadding-mid"
+            >
+              AUTO-TRACKING
+            </div>
+            <div
+              class="landing-block-textBox-subtitle landing-block-horizontalPadding-mid"
+            >
+              Ready, steady, motion track
+            </div>
+            <div class="landing-block-textBox-paragraph">
+              <div class="slider-content-container">
+                <div class="slider-content"></div>
+                <div class="slider-content putOpacity">
+                  <p>
+                    <span data-i18n="smart_tracking">Smart Tracking.</span>
+                    <s data-i18n="smart_tracking_desc"
+                      >Take Pivo to-go with 360° auto-rotation, extendable
+                      stabilizing feet, and support for standard camera
+                      tripods.</s
+                    >
+                  </p>
+                </div>
+              </div>
+              <!-- Smart Tracking. Where you go, Pivo Pod follows to capture every
+              expression and move. With Face and Body Tracking never ruin
+              another nearly-perfect shot again. -->
+            </div>
+          </div>
+          <div
+            class="landing-block-flexItems landing-block-flexItems-mediaBox landing-block-MarginBottom-mid landing-block-flexItems-02"
+          >
+            <div class="landing-block-mediaBox-media" style="height: unset;">
+              <section class="slider-section-container">
+                <div class="slider-container">
+                  <div class="slider-mainBox">
+                    <div class="item-wrapper">
+                      <div class="paddlenav-wrapper">
+                        <div class="paddlenav-arrow">
+                          <img
+                            src="https://cdn.shopify.com/s/files/1/2065/8833/files/Arrow_slider.png?v=1591594181"
+                          />
+                        </div>
+                        <div class="paddlenav-arrow">
+                          <img
+                            src="https://cdn.shopify.com/s/files/1/2065/8833/files/Arrow_slider.png?v=1591594181"
+                          />
+                        </div>
+                      </div>
+                      <div class="main-items bezier">
+                        <div class="gallery-item">
+                          <div
+                            class="desktop wistia_async_rnvujdxdth  load_wistia wistia_embed autoplay_wistia videoFoam=true playsuspendedoffscreen=true preload=none"
+                            style="height:100%;position:relative;width:100%"
+                            data-id="rnvujdxdth"
+                          >
+                            <div
+                              class="wistia_swatch"
+                              style="height:100%;left:0;opacity:0;overflow:hidden;position:absolute;top:0;transition:opacity 200ms;width:100%;"
+                            >
+                              <img
+                                src="https://fast.wistia.com/embed/medias/rnvujdxdth/swatch"
+                                style="filter:blur(5px);height:100%;object-fit:contain;width:100%;"
+                                alt=""
+                                aria-hidden="true"
+                                onload="this.parentNode.style.opacity=1;"
+                              />
+                            </div>
+                          </div>
+                          <div
+                            class="mobile wistia_async_93jwworfbx load_wistia wistia_embed autoplay_wistia videoFoam=true playsuspendedoffscreen=true preload=none"
+                            style="height:100%;position:relative;width:100%"
+                            data-id="93jwworfbx"
+                          >
+                            <div
+                              class="wistia_swatch"
+                              style="height:100%;left:0;opacity:0;overflow:hidden;position:absolute;top:0;transition:opacity 200ms;width:100%;"
+                            >
+                              <img
+                                src="https://fast.wistia.com/embed/medias/93jwworfbx/swatch"
+                                style="filter:blur(5px);height:100%;object-fit:contain;width:100%;"
+                                alt=""
+                                aria-hidden="true"
+                                onload="this.parentNode.style.opacity=1;"
+                              />
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="gallery-item">
+                          <div
+                            class="desktop wistia_async_lw26fsjd4k load_wistia wistia_embed videoFoam=true playsuspendedoffscreen=true preload=none"
+                            style="height:100%;position:relative;width:100%"
+                            data-id="lw26fsjd4k"
+                          >
+                            <div
+                              class="wistia_swatch"
+                              style="height:100%;left:0;opacity:0;overflow:hidden;position:absolute;top:0;transition:opacity 200ms;width:100%;"
+                            >
+                              <img
+                                src="https://fast.wistia.com/embed/medias/lw26fsjd4k/swatch"
+                                style="filter:blur(5px);height:100%;object-fit:contain;width:100%;"
+                                alt=""
+                                aria-hidden="true"
+                                onload="this.parentNode.style.opacity=1;"
+                              />
+                            </div>
+                          </div>
+                          <div
+                            class="mobile wistia_async_eoilco3b1p  load_wistia wistia_embed  videoFoam=true playsuspendedoffscreen=true preload=none"
+                            style="height:100%;position:relative;width:100%"
+                            data-id="eoilco3b1p"
+                          >
+                            <div
+                              class="wistia_swatch"
+                              style="height:100%;left:0;opacity:0;overflow:hidden;position:absolute;top:0;transition:opacity 200ms;width:100%;"
+                            >
+                              <img
+                                src="https://fast.wistia.com/embed/medias/eoilco3b1p/swatch"
+                                style="filter:blur(5px);height:100%;object-fit:contain;width:100%;"
+                                alt=""
+                                aria-hidden="true"
+                                onload="this.parentNode.style.opacity=1;"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="dotnav-wrapper">
+                      <ul class="dotnav-container">
+                        <li
+                          data-gallery-trigger="gallery-item-1"
+                          data-gallery-index="0"
+                          class="dot"
+                        ></li>
+                        <li
+                          data-gallery-trigger="gallery-item-2"
+                          data-gallery-index="1"
+                          class="dot"
+                        ></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="slider-content-container">
+                  <div class="slider-content">
+                  </div>
+                  <div class="slider-content putOpacity">
+                    <p><span data-i18n="smart_tracking">Smart Tracking.</span> <s data-i18n="smart_tracking_desc">Take Pivo to-go with 360° auto-rotation, extendable stabilizing feet, and support for standard camera tripods.</s></p>
+                  </div>
+                </div> -->
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- block 01 -->
+      <div class="landing-block">
+        <div
+          class="landing-block-contentBox landing-block-horizontalPadding20 landing-block-contentBox-desktop-flexType"
+        >
+          <div
+            class="landing-block-flexItems landing-block-flexItems-textBox landing-block-MarginBottom-small landing-block-flexItems-02"
+          >
+            <div
+              class="landing-block-textBox-title landing-block-horizontalPadding-mid"
+            >
+              <img src="" alt="" />VIDEO CALL
+            </div>
+            <div
+              class="landing-block-textBox-subtitle landing-block-horizontalPadding-mid"
+            >
+              Move and groove while you call
+            </div>
+            <div class="landing-block-textBox-paragraph">
+              Enjoy hands-free video call sessions with
+              <strong>Pivo Meet.</strong>
+            </div>
+          </div>
+          <div
+            class="landing-block-flexItems landing-block-flexItems-mediaBox landing-block-MarginBottom-mid landing-block-flexItems-01"
+          >
+            <div class="landing-block-mediaBox-media"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- block 02 (full width in desktop)-->
+      <div class="landing-block">
+        <div
+          class="landing-block-contentBox landing-block-horizontalPadding20 landing-block-contentBox-fullWidth"
+        >
+          <div
+            class="landing-block-flexItems landing-block-flexItems-textBox landing-block-MarginBottom-small landing-block-flexItems-01"
+          >
+            <div
+              class="landing-block-textBox-title landing-block-horizontalPadding-mid"
+            >
+              SMART-CAPTURE
+            </div>
+            <div
+              class="landing-block-textBox-subtitle landing-block-horizontalPadding-mid"
+            >
+              Picture perfect on the move
+            </div>
+            <div class="landing-block-textBox-paragraph">
+              Capture yourself in action. Take photos & videos with a snap of a
+              finger or simply saying "cheese".
+            </div>
+          </div>
+          <div
+            class="landing-block-flexItems landing-block-flexItems-mediaBox landing-block-MarginBottom-mid landing-block-flexItems-02"
+          >
+            <div class="landing-block-mediaBox-media"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- block 03 -->
+      <div class="landing-block">
+        <div
+          class="landing-block-contentBox landing-block-horizontalPadding20 landing-block-contentBox-desktop-flexType"
+        >
+          <div
+            class="landing-block-flexItems landing-block-flexItems-textBox landing-block-MarginBottom-small landing-block-flexItems-01"
+          >
+            <div
+              class="landing-block-textBox-title landing-block-horizontalPadding-mid"
+            >
+              MANY ME
+            </div>
+            <div
+              class="landing-block-textBox-subtitle landing-block-horizontalPadding-mid"
+            >
+              Me, myself and me again
+            </div>
+            <div class="landing-block-textBox-paragraph">
+              Multiply yourself up to 15 times in the same picture or video. Be
+              as many different versions of you as you want to be!
+            </div>
+          </div>
+          <div
+            class="landing-block-flexItems landing-block-flexItems-mediaBox landing-block-MarginBottom-mid landing-block-flexItems-02"
+          >
+            <div class="landing-block-mediaBox-media"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- block 04 -->
+      <div class="landing-block">
+        <div
+          class="landing-block-contentBox landing-block-horizontalPadding20 landing-block-contentBox-desktop-flexType"
+        >
+          <div
+            class="landing-block-flexItems landing-block-flexItems-textBox landing-block-MarginBottom-small landing-block-flexItems-02"
+          >
+            <div
+              class="landing-block-textBox-title landing-block-horizontalPadding-mid"
+            >
+              MAGIC EDGE <span>COMMING SOON</span>
+            </div>
+            <div
+              class="landing-block-textBox-subtitle landing-block-horizontalPadding-mid"
+            >
+              Jump into a new dimension
+            </div>
+            <div class="landing-block-textBox-paragraph">
+              Step into your creative side with a video with an extra edge.
+              Then, add more "wow factor" with customized Pivo stickers or
+              creations of your own.
+            </div>
+          </div>
+          <div
+            class="landing-block-flexItems landing-block-flexItems-mediaBox landing-block-MarginBottom-mid landing-block-flexItems-01"
+          >
+            <div class="landing-block-mediaBox-media"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- block 05 -->
+      <div class="landing-block">
+        <div
+          class="landing-block-contentBox landing-block-horizontalPadding20 landing-block-contentBox-desktop-flexType"
+        >
+          <div
+            class="landing-block-flexItems landing-block-flexItems-textBox landing-block-MarginBottom-small landing-block-flexItems-01"
+          >
+            <div
+              class="landing-block-textBox-title landing-block-horizontalPadding-mid"
+            >
+              AND 8 MORE CREATE MODES
+            </div>
+            <div
+              class="landing-block-textBox-subtitle landing-block-horizontalPadding-mid"
+            >
+              A world of limitless imagination
+            </div>
+            <div class="landing-block-textBox-paragraph">
+              <strong>Tiny Planet.</strong> Capture the world around you, but
+              now with you in it. Make wicked awesome tiny planets or
+              breathtaking panoramas, hands-free.
+            </div>
+          </div>
+          <div
+            class="landing-block-flexItems landing-block-flexItems-mediaBox landing-block-MarginBottom-mid landing-block-flexItems-02"
+          >
+            <div class="landing-block-mediaBox-media"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- block 06 -->
+      <div class="landing-block">
+        <div
+          class="landing-block-contentBox landing-block-horizontalPadding20 landing-block-contentBox-desktop-flexType"
+        >
+          <div
+            class="landing-block-flexItems landing-block-flexItems-textBox landing-block-MarginBottom-small landing-block-flexItems-01"
+          >
+            <div
+              class="landing-block-textBox-title landing-block-horizontalPadding-mid"
+            >
+              MULTISTREAM LIVE
+            </div>
+            <div
+              class="landing-block-textBox-subtitle landing-block-horizontalPadding-mid"
+            >
+              Calling all streamers
+            </div>
+            <div class="landing-block-textBox-paragraph">
+              There's no better way to stream but hands-free and in frame.
+              Broadcast live on your favorite platforms all at once. Powered by
+              Restream.
+            </div>
+          </div>
+          <div
+            class="landing-block-flexItems landing-block-flexItems-mediaBox landing-block-MarginBottom-mid landing-block-flexItems-02"
+          >
+            <div class="landing-block-mediaBox-media"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- block 07 (full width in desktop) -->
+      <div class="landing-block landing-block-07 landing-block-07-pod">
+        <!-- pod -->
+        <div
+          class="landing-block-contentBox landing-block-horizontalPadding20 landing-block-contentBox-fullWidth"
+        >
+          <div
+            class="landing-block-flexItems landing-block-flexItems-textBox landing-block-MarginBottom-small landing-block-flexItems-01"
+          >
+            <div
+              class="landing-block-textBox-title landing-block-horizontalPadding-mid"
+            >
+              SHOP
+            </div>
+            <div
+              class="landing-block-textBox-subtitle landing-block-horizontalPadding-mid"
+            >
+              Choose your Pod
+            </div>
+          </div>
+          <div
+            class="landing-block-flexItems landing-block-flexItems-mediaBox landing-block-MarginBottom-mid landing-block-flexItems-02"
+          >
+            <div class="landing-block-mediaBox-media">
+              <div
+                id="compareSlider-container"
+                style="width: 100%; height: 100%; position: relative;"
+              >
+                <img
+                  src="./assets/images/compare-pivoPod.jpg"
+                  id="compareSlider-imgScale"
+                  style="max-width: 100%; width: 100%; opacity: 0;"
+                />
+                <div
+                  style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; bottom: 0; background: #eee;"
+                >
+                  <div class="compareSlider-imgBox">
+                    <img src="./assets/images/compare-pivoSilver.jpg" />
+                  </div>
+                  <div id="compareSlider-divisor">
+                    <div id="compareSlider-slider"></div>
+                  </div>
+
+                  <div
+                    class="compareSlider-imgBox compareSlider-imgBox-overlay"
+                  >
+                    <img src="./assets/images/compare-pivoPod.jpg" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="landing-block-pod-shop-box">
+                <div class="landing-block-pod-items">
+                  <div class="landing-block-pod-items-imageBox">
+                    <img src="" />
+                  </div>
+                  <div class="landing-block-items-price">
+                    <span class="items-original-price">$269</span
+                    ><span class="items-discount-price">$159</span>
+                  </div>
+                  <div
+                    class="landing-block-oval-btn landing-block-items-AddToCart-btn"
+                  >
+                    Add to cart
+                  </div>
+                  <div class="landing-block-items-LearnMore-btn">
+                    <a href="">Learn more ></a>
+                  </div>
+                </div>
+                <div class="landing-block-pod-items">
+                  <div class="landing-block-pod-items-imageBox">
+                    <img src="" />
+                  </div>
+                  <div class="landing-block-items-price">
+                    <span class="items-original-price">$269</span
+                    ><span class="items-discount-price">$159</span>
+                  </div>
+                  <div
+                    class="landing-block-oval-btn landing-block-items-AddToCart-btn"
+                  >
+                    Add to cart
+                  </div>
+                  <div class="landing-block-items-LearnMore-btn">
+                    <a href="">Learn more ></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- block 07 (full width in desktop) -->
+      <div class="landing-block landing-block-07 landing-block-07-bundle">
+        <!-- bundle -->
+        <div
+          class="landing-block-contentBox-fullWidth"
+        >
+          <div
+            class="landing-block-flexItems landing-block-flexItems-textBox landing-block-MarginBottom-small landing-block-flexItems-01"
+          >
+            <div
+              class="landing-block-textBox-subtitle landing-block-horizontalPadding-mid"
+            >
+              Choose your Pivo Bundle
+            </div>
+          </div>
+          <div
+            class="landing-block-flexItems landing-block-flexItems-mediaBox landing-block-MarginBottom-mid landing-block-flexItems-02"
+          >
+            <div
+              class="landing-block-bundle-shop-scrollX landing-block-mediaBox-media landing-block-horizontalPadding-mid "
+            >
+              <div class="landing-block-bundle-shop-box">
+                <div class="landing-block-bundle-items">
+                  <div class="landing-block-bundle-items-imageBox">
+                    <img src="" />
+                  </div>
+                  <div class="items-block-items-product-name">Starter Pack</div>
+                  <div class="landing-block-items-price">
+                    <span class="items-original-price">$269</span
+                    ><span class="items-discount-price">$159</span>
+                  </div>
+                  <div
+                    class="landing-block-oval-btn landing-block-items-AddToCart-btn"
+                  >
+                    Add to cart
+                  </div>
+                  <div class="landing-block-items-LearnMore-btn">
+                    <a href="">Learn more ></a>
+                  </div>
+                </div>
+
+                <div class="landing-block-bundle-items">
+                  <div class="landing-block-bundle-items-imageBox">
+                    <img src="" />
+                  </div>
+                  <div class="items-block-items-product-name">Starter Pack</div>
+                  <div class="landing-block-items-price">
+                    <span class="items-original-price">$269</span
+                    ><span class="items-discount-price">$159</span>
+                  </div>
+                  <div
+                    class="landing-block-oval-btn landing-block-items-AddToCart-btn"
+                  >
+                    Add to cart
+                  </div>
+                  <div class="landing-block-items-LearnMore-btn">
+                    <a href="">Learn more ></a>
+                  </div>
+                </div>
+
+                <div class="landing-block-bundle-items">
+                  <div class="landing-block-bundle-items-imageBox">
+                    <img src="" />
+                  </div>
+                  <div class="items-block-items-product-name">Starter Pack</div>
+                  <div class="landing-block-items-price">
+                    <span class="items-original-price">$269</span
+                    ><span class="items-discount-price">$159</span>
+                  </div>
+                  <div
+                    class="landing-block-oval-btn landing-block-items-AddToCart-btn"
+                  >
+                    Add to cart
+                  </div>
+                  <div class="landing-block-items-LearnMore-btn">
+                    <a href="">Learn more ></a>
+                  </div>
+                </div>
+
+                <div class="landing-block-bundle-items">
+                  <div class="landing-block-bundle-items-imageBox">
+                    <img src="" />
+                  </div>
+                  <div class="items-block-items-product-name">Starter Pack</div>
+                  <div class="landing-block-items-price">
+                    <span class="items-original-price">$269</span
+                    ><span class="items-discount-price">$159</span>
+                  </div>
+                  <div
+                    class="landing-block-oval-btn landing-block-items-AddToCart-btn"
+                  >
+                    Add to cart
+                  </div>
+                  <div class="landing-block-items-LearnMore-btn">
+                    <a href="">Learn more ></a>
+                  </div>
+                </div>
+              </div>
+
+              <div style="clear:both;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+      <!-- block 08 (full width in desktop) -->
+      <div class="landing-block landing-block-08">
+        <div
+          class="landing-block-contentBox landing-block-horizontalPadding20 landing-block-contentBox-fullWidth"
+        >
+          <div
+            class="landing-block-product-info-container landing-block-MarginBottom-small"
+          >
+            <div
+              class="landing-block-product-info-box landing-block-product-info-01"
+            >
+              <div class="landing-block-product-info-items">
+                <div
+                  class="landing-block-product-info-media-item landing-block-flexItems-01"
+                >
+                  <img
+                    src="./assets/images/smartMount.png"
+                    class="landing-block-product-imgOverflow"
+                  />
+                  <img
+                    src="./assets/images/smartMount.png"
+                    class="landing-block-product-imgScale"
+                  />
+                </div>
+                <div
+                  class="landing-block-product-info-text-item landing-block-flexItems-02"
+                >
+                  <div class="items-block-items-product-name">
+                    Smart Mount
+                  </div>
+                  <div class="items-block-items-product-desc">
+                    Capture from Insanely creative angles!
+                  </div>
+                  <div class="landing-block-items-LearnMore-btn">
+                    <a href="">Learn more ></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="landing-block-product-info-box landing-block-product-info-02"
+            >
+              <div class="landing-block-product-info-items">
+                <div
+                  class="landing-block-product-info-media-item landing-block-flexItems-02"
+                >
+                  <img
+                    src="./assets/images/smartMount.png"
+                    class="landing-block-product-imgOverflow"
+                  />
+                  <img
+                    src="./assets/images/smartMount.png"
+                    class="landing-block-product-imgScale"
+                  />
+                </div>
+                <div
+                  class="landing-block-product-info-text-item landing-block-flexItems-01"
+                >
+                  <div class="items-block-items-product-name">
+                    Travel Case
+                  </div>
+                  <div class="items-block-items-product-desc">
+                    Capture from Insanely creative angles!
+                  </div>
+                  <div class="landing-block-items-LearnMore-btn">
+                    <a href="">Learn more ></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="landing-block-product-info-box landing-block-product-info-03"
+            >
+              <div class="landing-block-product-info-items">
+                <div
+                  class="landing-block-product-info-media-item landing-block-flexItems-01"
+                >
+                  <img src="./assets/images/smartMount.png" />
+                </div>
+                <div
+                  class="landing-block-product-info-text-item landing-block-flexItems-02"
+                >
+                  <div class="items-block-items-product-name">
+                    Tripod
+                  </div>
+                  <div class="items-block-items-product-desc">
+                    Capture from Insanely creative angles!
+                  </div>
+                  <div class="landing-block-items-LearnMore-btn">
+                    <a href="">Learn more ></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="landing-block-product-info-box landing-block-product-info-04"
+            >
+              <div class="landing-block-product-info-items">
+                <div
+                  class="landing-block-product-info-media-item landing-block-flexItems-02"
+                >
+                  <img src="./assets/images/smartMount.png" />
+                </div>
+                <div
+                  class="landing-block-product-info-text-item landing-block-flexItems-01"
+                >
+                  <div class="items-block-items-product-name">
+                    Studio 360
+                  </div>
+                  <div class="items-block-items-product-desc">
+                    Capture from Insanely creative angles!
+                  </div>
+                  <div class="landing-block-items-LearnMore-btn">
+                    <a href="">Learn more ></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="text-align: center;">
+            <a
+              class="landing-block-oval-btn landing-block-items-ShopAllProducts-btn"
+              href="htts://getpivo"
+            >
+              Shop all products >
+            </a>
+          </div>
+          <div
+            class="landing-block-flexItems-mediaBox landing-block-MarginBottom-mid"
+          ></div>
+        </div>
+      </div>
+
+      <!-- block 09 (full width in desktop)-->
+      <div class="landing-block landing-block-09">
+        <div
+          class="landing-block-contentBox landing-block-horizontalPadding20 landing-block-contentBox-fullWidth"
+        >
+          <div
+            class="landing-block-flexItems landing-block-flexItems-textBox landing-block-MarginBottom-small landing-block-flexItems-01"
+          >
+            <div
+              class="landing-block-textBox-title landing-block-horizontalPadding-mid"
+            >
+              OUR COMMUNITY
+            </div>
+            <div
+              class="landing-block-textBox-subtitle landing-block-horizontalPadding-mid"
+            >
+              Check out these Pivographers!
+            </div>
+            <div class="landing-block-textBox-paragraph">
+              Pivo community is growing and so is the amazing content created
+              with Pivo. Join us and share your creations with the world!
+            </div>
+          </div>
+          <div
+            class="landing-block-flexItems landing-block-flexItems-mediaBox landing-block-MarginBottom-mid landing-block-flexItems-02"
+          >
+            <div class="landing-block-mediaBox-media"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- block footer (full width in desktop)-->
+      <div class="landing-block landing-block-footer">
+        <div
+          class="landing-block-contentBox landing-block-horizontalPadding20 landing-block-contentBox-fullWidth"
+        >
+          <div
+            class="landing-block-footer-linksBox landing-block-horizontalPadding20"
+          >
+            <div class="landing-block-footer-linksBox-upper">
+              <div
+                class="landing-block-footer-linksBox-pageLinks landing-block-footer-linksBox-leftItem"
+              >
+                <div style="font-weight: 700;"><a href="">About Pivo</a></div>
+                <div style="font-weight: 700;"><a href="">Programs</a></div>
+                <div style="font-weight: 700;">
+                  <a href="">Help and Info</a>
+                </div>
+                <div><a href="">Our team</a></div>
+                <div><a href="">Affiliate</a></div>
+                <div><a href="">Help center</a></div>
+                <div><a href="">News</a></div>
+                <div><a href="">Ambassador</a></div>
+                <div><a href="">Forum</a></div>
+                <div><a href="">Careers</a></div>
+                <div class="landing-block-footer-pageLinks-blank">blank</div>
+                <div><a href="">Contact us</a></div>
+              </div>
+              <div class="landing-block-footer-linksBox-rightItem">
+                <div
+                  class="landing-block-footer-linksBox-lanLinks onlyDisplayDesktop"
+                  style="text-align: right;"
+                >
+                  English(World)
+                </div>
+              </div>
+            </div>
+            <div class="landing-block-footer-linksBox-down">
+              <div class="landing-block-footer-linksBox-snsLinks">
+                <div>
+                  <a
+                    data-ga-label="footer-insta-icon"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="sprite-social-instagram"
+                    href="https://www.instagram.com/getpivo/"
+                  ></a>
+                </div>
+                <div>
+                  <a
+                    data-ga-label="footer-facebook-icon"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="sprite-social-facebook"
+                    href="https://www.facebook.com/getpivo"
+                  ></a>
+                </div>
+                <div>
+                  <a
+                    data-ga-label="footer-youtube-icon"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="sprite-social-youtube"
+                    href="https://www.youtube.com/channel/UCoCXxq9t76MCsihTdr7JR3Q"
+                  ></a>
+                </div>
+                <div>
+                  <a
+                    data-ga-label="footer-tiktok-icon"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="sprite-social-tiktok"
+                    href="https://www.tiktok.com/@getpivo"
+                  ></a>
+                </div>
+                <div>
+                  <a
+                    data-ga-label="footer-twitter-icon"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="sprite-social-twitter"
+                    href="https://twitter.com/getpivo"
+                  ></a>
+                </div>
+                <div>
+                  <a
+                    data-ga-label="footer-linked in-icon"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="sprite-social-linkedin"
+                    href="https://www.linkedin.com/company/getpivo?trk=similar-companies_org_title"
+                  ></a>
+                </div>
+              </div>
+              <div
+                class="landing-block-footer-linksBox-lanLinks onlyDisplayMobile"
+              >
+                English(World)
+              </div>
+            </div>
+          </div>
+          <div
+            class="landing-block-footer-policyBox landing-block-horizontalPadding20"
+          >
+            <div class="landing-block-footer-policyBox-copyright">
+              <p>&copy;2020 Pivo Inc. All rights reserved.</p>
+              <p>3003 North 1st Street San Jose, California 95134, USA</p>
+            </div>
+            <div class="landing-block-footer-policyBox-policyLinks">
+              <p><a href="">Privacy Policy</a></p>
+              <p style="margin-left: 10px; margin-right: 10px;">
+                <a href="">Terms & Conditions</a>
+              </p>
+              <p><a href="">Sales & Returns</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script
+      charset="ISO-8859-1"
+      src="https://fast.wistia.com/assets/external/E-v1.js"
+      async="async"
+    ></script>
+    <script src="./js/opacityFade.js"></script>
+    <script src="./js/slider.js"></script>
+
+    <script>
+      var sliderSectionContainer = document.querySelectorAll(
+        ".slider-section-container"
+      );
+      sliderSectionContainer = Array.prototype.slice.call(
+        sliderSectionContainer
+      );
+
+      var sliderSectionContentContainer = document.querySelectorAll(
+        ".slider-content-container"
+      );
+      sliderSectionContentContainer = Array.prototype.slice.call(
+        sliderSectionContentContainer
+      );
+
+      var SlideArr = [];
+
+      // should load after contentLoaded
+      window.addEventListener("load", function() {
+        for (
+          var pivoSliderIndex = 0;
+          pivoSliderIndex < sliderSectionContainer.length;
+          pivoSliderIndex += 1
+        ) {
+          SlideArr.push(
+            new Slider(
+              sliderSectionContainer[pivoSliderIndex],
+              pivoSliderIndex,
+              sliderSectionContentContainer[pivoSliderIndex]
+            )
+          );
+        }
+      });
+
+      function resizeSlider() {
+        SlideArr.forEach(function(cur) {
+          cur.resizeSlider();
+        });
+      }
+
+      window.onresize = resizeSlider;
+
+      window.SlideArr = SlideArr;
+
+      /* scrollup in mobile */
+      var landingPageScrollUpBtn = document.getElementById(
+        "landingPage-scrollUp-btn"
+      );
+      landingPageScrollUpBtn.addEventListener("click", function() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+      });
+
+      window.onscroll = function() {
+        scrollFunction();
+      };
+
+      function scrollFunction() {
+        if (
+          document.body.scrollTop > 20 ||
+          document.documentElement.scrollTop > 20
+        ) {
+          landingPageScrollUpBtn.style.opacity = 1;
+        } else {
+          landingPageScrollUpBtn.style.opacity = 0;
+        }
+      }
+
+      /* compare slider */
+
+      function initComparisons() {
+        var compareSliderImage = document.getElementById(
+            "compareSlider-imgScale"
+          ),
+          compareSliderContainer = document.getElementById(
+            "compareSlider-container"
+          ),
+          divisor = document.getElementById("compareSlider-divisor"),
+          slider = document.getElementById("compareSlider-slider"),
+          imgs = document.querySelectorAll(".compareSlider-imgBox img"),
+          sliderImageWidth = compareSliderImage.offsetWidth,
+          sliderImageHeight = compareSliderImage.offsetHeight,
+          imageDivisorORatio = 0.037;
+
+        imgs = Array.prototype.slice.call(imgs);
+
+        imgs.forEach(function(cur) {
+          cur.width = sliderImageWidth;
+          cur.height = sliderImageHeight;
+        });
+
+        compareSliderContainer.style.height = sliderImageHeight + "px";
+
+        var currentOWidth = sliderImageWidth * imageDivisorORatio;
+
+        /* change slider size */
+        slider.style.width = currentOWidth + "px";
+        slider.style.height = currentOWidth + "px";
+
+        var x, i;
+        /*find all elements with an "overlay" class:*/
+        x = document.getElementsByClassName("compareSlider-imgBox-overlay");
+        for (i = 0; i < x.length; i++) {
+          compareImages(x[i]);
+        }
+        function compareImages(img) {
+          var img,
+            clicked = 0,
+            w,
+            h;
+          /*get the width and height of the img element*/
+          w = img.offsetWidth;
+          h = img.offsetHeight;
+          /*set the width of the img element to 50%:*/
+          img.style.width = w / 2 + "px";
+
+          /*position the slider in the middle:*/
+          // slider.style.left = w / 2 - slider.offsetWidth / 2 + "px";
+          /*execute a function when the mouse button is pressed:*/
+          slider.addEventListener("mousedown", slideReady);
+          /*and another function when the mouse button is released:*/
+          window.addEventListener("mouseup", slideFinish);
+          /*or touched (for touch screens:*/
+          slider.addEventListener("touchstart", slideReady);
+          /*and released (for touch screens:*/
+          window.addEventListener("touchend", slideFinish);
+          function slideReady(e) {
+            /*prevent any other actions that may occur when moving over the image:*/
+            e.preventDefault();
+            /*the slider is now clicked and ready to move:*/
+            clicked = 1;
+            /*execute a function when the slider is moved:*/
+            window.addEventListener("mousemove", slideMove);
+            window.addEventListener("touchmove", slideMove);
+          }
+          function slideFinish() {
+            /*the slider is no longer clicked:*/
+            clicked = 0;
+          }
+          function slideMove(e) {
+            var pos;
+            /*if the slider is no longer clicked, exit this function:*/
+            if (clicked == 0) return false;
+            /*get the cursor's x position:*/
+            pos = getCursorPos(e);
+            /*prevent the slider from being positioned outside the image:*/
+            if (pos < 0) pos = 0;
+            if (pos > w) pos = w;
+            /*execute a function that will resize the overlay image according to the cursor:*/
+            slide(pos);
+          }
+          function getCursorPos(e) {
+            var a,
+              x = 0,
+              posX;
+            e = e || window.event;
+
+            posX = e.pageX;
+            if (e.type == "touchmove") {
+              posX = e.touches[0].clientX;
+            }
+
+            /*get the x positions of the image:*/
+            a = img.getBoundingClientRect();
+            /*calculate the cursor's x coordinate, relative to the image:*/
+            x = posX - a.left;
+            /*consider any page scrolling:*/
+            x = x - window.pageXOffset;
+            return x;
+          }
+          function slide(x) {
+            /*resize the image:*/
+            img.style.width = x + "px";
+            divisor.style.left = x + "px";
+          }
+        }
+      }
+
+      window.addEventListener("load", initComparisons);
+    </script>
+  </body>
+</html>
