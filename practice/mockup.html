@@ -176,7 +176,7 @@
       <!-- block banner intro -->
       <div class="landing-block landing-block-intro">
         <div
-          class="landing-block-contentBox landing-block-horizontalPadding20 landing-block-MarginBottom-mid"
+          class="landing-block-contentBox landing-block-horizontalPadding20 landing-block-MarginBottom-mid landing-block-text-animation"
           style="overflow: auto; margin-bottom: 100px; padding: 0 10px;"
         >
           <div class="landing-block-intro-container">
@@ -1151,7 +1151,7 @@
 
       window.SlideArr = SlideArr;
 
-      /* scrollup in mobile */
+      /* scrollup in mobile + text animation */
       var landingPageScrollUpBtn = document.getElementById(
         "landingPage-scrollUp-btn"
       );
@@ -1159,6 +1159,11 @@
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
       });
+
+      var landingBlockTextAnimation = document.querySelectorAll('.landing-block-text-animation');
+      landingBlockTextAnimation = Array.prototype.slice.call(landingBlockTextAnimation);
+
+      var scrollSection0 = document.getElementById('scroll-section-0');
 
       window.onscroll = function() {
         scrollFunction();
@@ -1175,6 +1180,12 @@
         } else {
           landingPageScrollUpBtn.style.opacity = 0;
           landingPageScrollUpBtn.style.display = 'none';
+        }
+
+        if (window.scrollY < scrollSection0.offsetHeight - window.innerHeight / 2) {
+          landingBlockTextAnimation[0].classList.remove('landing-block-text-animation-effect');
+        } else {
+          landingBlockTextAnimation[0].classList.add('landing-block-text-animation-effect');
         }
       }
 
@@ -1194,7 +1205,7 @@
           imgs = document.querySelectorAll(".compareSlider-imgBox img"),
           sliderImageWidth = compareSliderImage.offsetWidth,
           sliderImageHeight = compareSliderImage.offsetHeight,
-          imageDivisorORatio = 0.037;
+          imageDivisorORatio = 0.035;
 
         imgs = Array.prototype.slice.call(imgs);
 
