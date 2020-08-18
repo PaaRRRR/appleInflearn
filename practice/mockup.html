@@ -660,6 +660,8 @@
                     <img src="./assets/images/compare-pivoSilver.jpg" />
                   </div>
                   <div id="compareSlider-divisor">
+                    <div id="compareSlider-divisor-01"></div>
+                    <div id="compareSlider-divisor-02"></div>
                     <div id="compareSlider-slider"></div>
                   </div>
 
@@ -674,7 +676,7 @@
               <div class="landing-block-pod-shop-box">
                 <div class="landing-block-pod-items">
                   <div class="landing-block-pod-items-imageBox">
-                    <img src="" />
+                    <img src="./assets/images/POD_logo.png" />
                   </div>
                   <div class="landing-block-items-price">
                     <span class="items-original-price">$269</span
@@ -691,7 +693,7 @@
                 </div>
                 <div class="landing-block-pod-items">
                   <div class="landing-block-pod-items-imageBox">
-                    <img src="" />
+                    <img src="./assets/images/POD_Silver_logo.png" />
                   </div>
                   <div class="landing-block-items-price">
                     <span class="items-original-price">$269</span
@@ -715,9 +717,7 @@
       <!-- block 07 (full width in desktop) -->
       <div class="landing-block landing-block-07 landing-block-07-bundle">
         <!-- bundle -->
-        <div
-          class="landing-block-contentBox-fullWidth"
-        >
+        <div class="landing-block-contentBox-fullWidth">
           <div
             class="landing-block-flexItems landing-block-flexItems-textBox landing-block-MarginBottom-small landing-block-flexItems-01"
           >
@@ -817,10 +817,6 @@
         </div>
       </div>
 
-
-
-
-
       <!-- block 08 (full width in desktop) -->
       <div class="landing-block landing-block-08">
         <div
@@ -837,11 +833,11 @@
                   class="landing-block-product-info-media-item landing-block-flexItems-01"
                 >
                   <img
-                    src="./assets/images/smartMount.png"
+                    src="./assets/images/SmartMount.png"
                     class="landing-block-product-imgOverflow"
                   />
                   <img
-                    src="./assets/images/smartMount.png"
+                    src="./assets/images/SmartMount.png"
                     class="landing-block-product-imgScale"
                   />
                 </div>
@@ -868,11 +864,11 @@
                   class="landing-block-product-info-media-item landing-block-flexItems-02"
                 >
                   <img
-                    src="./assets/images/smartMount.png"
+                    src="./assets/images/Tripod.png"
                     class="landing-block-product-imgOverflow"
                   />
                   <img
-                    src="./assets/images/smartMount.png"
+                    src="./assets/images/Tripod.png"
                     class="landing-block-product-imgScale"
                   />
                 </div>
@@ -880,7 +876,7 @@
                   class="landing-block-product-info-text-item landing-block-flexItems-01"
                 >
                   <div class="items-block-items-product-name">
-                    Travel Case
+                    Tripod
                   </div>
                   <div class="items-block-items-product-desc">
                     Capture from Insanely creative angles!
@@ -898,13 +894,13 @@
                 <div
                   class="landing-block-product-info-media-item landing-block-flexItems-01"
                 >
-                  <img src="./assets/images/smartMount.png" />
+                  <img src="./assets/images/TravelCase.png" />
                 </div>
                 <div
                   class="landing-block-product-info-text-item landing-block-flexItems-02"
                 >
                   <div class="items-block-items-product-name">
-                    Tripod
+                    Travel Case
                   </div>
                   <div class="items-block-items-product-desc">
                     Capture from Insanely creative angles!
@@ -922,7 +918,7 @@
                 <div
                   class="landing-block-product-info-media-item landing-block-flexItems-02"
                 >
-                  <img src="./assets/images/smartMount.png" />
+                  <img src="./assets/images/LightBox.png" />
                 </div>
                 <div
                   class="landing-block-product-info-text-item landing-block-flexItems-01"
@@ -1170,12 +1166,15 @@
 
       function scrollFunction() {
         if (
-          document.body.scrollTop > 20 ||
-          document.documentElement.scrollTop > 20
+          window.innerHeight + window.scrollY >= document.body.scrollHeight ||
+          window.innerHeight + window.scrollY >=
+            document.documentElement.scrollHeight
         ) {
+          landingPageScrollUpBtn.style.display = 'block';
           landingPageScrollUpBtn.style.opacity = 1;
         } else {
           landingPageScrollUpBtn.style.opacity = 0;
+          landingPageScrollUpBtn.style.display = 'none';
         }
       }
 
@@ -1189,6 +1188,8 @@
             "compareSlider-container"
           ),
           divisor = document.getElementById("compareSlider-divisor"),
+          divisor01 = document.getElementById("compareSlider-divisor-01"),
+          divisor02 = document.getElementById("compareSlider-divisor-02"),
           slider = document.getElementById("compareSlider-slider"),
           imgs = document.querySelectorAll(".compareSlider-imgBox img"),
           sliderImageWidth = compareSliderImage.offsetWidth,
@@ -1209,6 +1210,9 @@
         /* change slider size */
         slider.style.width = currentOWidth + "px";
         slider.style.height = currentOWidth + "px";
+
+        divisor01.style.height = 'calc(61% - ' + currentOWidth / 2 + "px)";
+        divisor02.style.height = 'calc(39% - ' + currentOWidth / 2 + "px)";
 
         var x, i;
         /*find all elements with an "overlay" class:*/

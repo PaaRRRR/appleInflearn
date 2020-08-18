@@ -196,6 +196,10 @@ s {
   margin-bottom: 10px;
 }
 
+.landing-block-pod-items-imageBox img {
+  max-width: 95px;
+}
+
 .items-block-items-product-name {
   font-size: 20px;
   font-family: Caros Soft;
@@ -260,7 +264,7 @@ s {
 } */
 
 .landing-block-bundle-shop-box {
-  width: 150%;
+  width: 1400px;
   max-width: 1400px;
 }
 
@@ -595,6 +599,10 @@ s {
   .landing-block-horizontalPadding20 {
     padding-left: 20px;
     padding-right: 20px;
+  }
+
+  .landing-block-bundle-shop-box {
+    width: 150%;
   }
 
   .landing-block-product-info-box {

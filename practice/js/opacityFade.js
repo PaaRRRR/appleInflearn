@@ -1054,7 +1054,7 @@ window.addEventListener("load", () => {
       }
     }
 
-    console.log("hello currentScene", currentSequence, yOffset);
+    // console.log("hello currentScene", currentSequence, yOffset);
   });
 
   window.addEventListener("resize", () => {
