@@ -280,14 +280,17 @@ s {
 
 .landing-block-bundle-items-imageBox {
   margin-bottom: 10px;
-  background: rebeccapurple;
   width: 100%;
   height: auto;
-  height: 507px;
+  /* height: 507px; */
 
   /* mobile 0.67*/
   /* max-width: 251px;
   max-height: 374px; */
+}
+
+.landing-block-bundle-items-imageBox img {
+  width: 100%;
 }
 
 .landing-block-product-info-container {
