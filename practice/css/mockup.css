@@ -482,16 +482,6 @@ s {
   text-align: center;
 }
 
-.landing-block-text-animation {
-  transition-duration: 1s;
-  transition-property: transform;
-  transform: translate3d(0, 100px, 0);
-}
-
-.landing-block-text-animation-effect {
-  transform: translateZ(0);
-}
-
 /* margin padding */
 .landing-block-MarginBottom-small {
   margin-bottom: 35px;
