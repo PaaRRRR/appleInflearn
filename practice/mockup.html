@@ -146,7 +146,7 @@
     <section
       class="scroll-section"
       id="scroll-section-3"
-      style="text-align: center; background: #fff; padding-top: 0;"
+      style="text-align: center; padding-top: 0;"
     >
       <!-- block template -->
       <!-- <div class="landing-block">
@@ -174,9 +174,9 @@
       </div> -->
 
       <!-- block banner intro -->
-      <div class="landing-block landing-block-intro">
+      <div class="landing-block landing-block-intro" style="position: absolute; top: -50vh;">
         <div
-          class="landing-block-contentBox landing-block-horizontalPadding20 landing-block-MarginBottom-mid landing-block-text-animation"
+          class="landing-block-contentBox landing-block-horizontalPadding20 landing-block-MarginBottom-mid"
           style="overflow: auto; margin-bottom: 100px; padding: 0 10px;"
         >
           <div class="landing-block-intro-container">
@@ -656,7 +656,7 @@
                 <div
                   style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; bottom: 0; background: #eee;"
                 >
-                  <div class="compareSlider-imgBox">
+                  <div class="compareSlider-imgBox" id="compareSliderRight">
                     <img src="./assets/images/compare-pivoSilver.jpg" />
                   </div>
                   <div id="compareSlider-divisor">
@@ -667,6 +667,7 @@
 
                   <div
                     class="compareSlider-imgBox compareSlider-imgBox-overlay"
+                    id="compareSliderLeft"
                   >
                     <img src="./assets/images/compare-pivoPod.jpg" />
                   </div>
@@ -736,7 +737,7 @@
               <div class="landing-block-bundle-shop-box">
                 <div class="landing-block-bundle-items">
                   <div class="landing-block-bundle-items-imageBox">
-                    <img src="" />
+                    <img src="./assets/images/StarterPack.jpg" />
                   </div>
                   <div class="items-block-items-product-name">Starter Pack</div>
                   <div class="landing-block-items-price">
@@ -755,9 +756,9 @@
 
                 <div class="landing-block-bundle-items">
                   <div class="landing-block-bundle-items-imageBox">
-                    <img src="" />
+                    <img src="./assets/images/StarterPackSilver.jpg" />
                   </div>
-                  <div class="items-block-items-product-name">Starter Pack</div>
+                  <div class="items-block-items-product-name">Starter Pack Silver</div>
                   <div class="landing-block-items-price">
                     <span class="items-original-price">$269</span
                     ><span class="items-discount-price">$159</span>
@@ -774,9 +775,9 @@
 
                 <div class="landing-block-bundle-items">
                   <div class="landing-block-bundle-items-imageBox">
-                    <img src="" />
+                    <img src="./assets/images/StandardPack.jpg" />
                   </div>
-                  <div class="items-block-items-product-name">Starter Pack</div>
+                  <div class="items-block-items-product-name">Standard Pack</div>
                   <div class="landing-block-items-price">
                     <span class="items-original-price">$269</span
                     ><span class="items-discount-price">$159</span>
@@ -793,9 +794,47 @@
 
                 <div class="landing-block-bundle-items">
                   <div class="landing-block-bundle-items-imageBox">
-                    <img src="" />
+                    <img src="./assets/images/StandardPackSilver.jpg" />
                   </div>
-                  <div class="items-block-items-product-name">Starter Pack</div>
+                  <div class="items-block-items-product-name">Standard Pack Silver</div>
+                  <div class="landing-block-items-price">
+                    <span class="items-original-price">$269</span
+                    ><span class="items-discount-price">$159</span>
+                  </div>
+                  <div
+                    class="landing-block-oval-btn landing-block-items-AddToCart-btn"
+                  >
+                    Add to cart
+                  </div>
+                  <div class="landing-block-items-LearnMore-btn">
+                    <a href="">Learn more ></a>
+                  </div>
+                </div>
+
+                <div class="landing-block-bundle-items">
+                  <div class="landing-block-bundle-items-imageBox">
+                    <img src="./assets/images/FullPack.jpg" />
+                  </div>
+                  <div class="items-block-items-product-name">Full Pack</div>
+                  <div class="landing-block-items-price">
+                    <span class="items-original-price">$269</span
+                    ><span class="items-discount-price">$159</span>
+                  </div>
+                  <div
+                    class="landing-block-oval-btn landing-block-items-AddToCart-btn"
+                  >
+                    Add to cart
+                  </div>
+                  <div class="landing-block-items-LearnMore-btn">
+                    <a href="">Learn more ></a>
+                  </div>
+                </div>
+
+                <div class="landing-block-bundle-items">
+                  <div class="landing-block-bundle-items-imageBox">
+                    <img src="./assets/images/FullPackSilver.jpg" />
+                  </div>
+                  <div class="items-block-items-product-name">Full Pack Silver</div>
                   <div class="landing-block-items-price">
                     <span class="items-original-price">$269</span
                     ><span class="items-discount-price">$159</span>
@@ -1151,7 +1190,14 @@
 
       window.SlideArr = SlideArr;
 
-      /* scrollup in mobile + text animation */
+      /* check bundle width size */
+      var landingBlockBundleItems = document.querySelectorAll('.landing-block-bundle-items');
+      landingBlockBundleItems = Array.prototype.slice.call(landingBlockBundleItems);
+      if (landingBlockBundleItems && landingBlockBundleItems.length > 0) {
+        landingBlockBundleItems[0].parentElement.style.width = (landingBlockBundleItems[0].offsetWidth + 21) * landingBlockBundleItems.length - 20 + 'px';
+      }
+
+      /* scrollup in mobile */
       var landingPageScrollUpBtn = document.getElementById(
         "landingPage-scrollUp-btn"
       );
@@ -1159,11 +1205,6 @@
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
       });
-
-      var landingBlockTextAnimation = document.querySelectorAll('.landing-block-text-animation');
-      landingBlockTextAnimation = Array.prototype.slice.call(landingBlockTextAnimation);
-
-      var scrollSection0 = document.getElementById('scroll-section-0');
 
       window.onscroll = function() {
         scrollFunction();
@@ -1181,12 +1222,6 @@
           landingPageScrollUpBtn.style.opacity = 0;
           landingPageScrollUpBtn.style.display = 'none';
         }
-
-        if (window.scrollY < scrollSection0.offsetHeight - window.innerHeight / 2) {
-          landingBlockTextAnimation[0].classList.remove('landing-block-text-animation-effect');
-        } else {
-          landingBlockTextAnimation[0].classList.add('landing-block-text-animation-effect');
-        }
       }
 
       /* compare slider */
@@ -1198,6 +1233,8 @@
           compareSliderContainer = document.getElementById(
             "compareSlider-container"
           ),
+          compareSliderLeft = document.getElementById('compareSliderLeft'),
+          compareSliderRight = document.getElementById('compareSliderRight'),
           divisor = document.getElementById("compareSlider-divisor"),
           divisor01 = document.getElementById("compareSlider-divisor-01"),
           divisor02 = document.getElementById("compareSlider-divisor-02"),
@@ -1302,6 +1339,16 @@
             divisor.style.left = x + "px";
           }
         }
+
+        compareSliderRight.addEventListener('click', function(e) {
+          x[0].style.width = "0px";
+          divisor.style.left = "0px";
+        });
+
+        compareSliderLeft.addEventListener('click', function(e) {
+          x[0].style.width = sliderImageWidth + "px";
+          divisor.style.left = sliderImageWidth + "px";
+        });
       }
 
       window.addEventListener("load", initComparisons);

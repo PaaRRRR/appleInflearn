@@ -2,6 +2,7 @@
 let yOffset = null; // window.pageYOffset 대신 쓸 변수
 let sceneWidth = 0;
 let sceneHeight = 0;
+let enterNewScene = false;
 let prevScrollHeight = 0; // 현재 스크롤 위치(yOffset)보다 이전에 위치한 스크롤 섹션들의 스크롤 높이값의 합
 let currentScene = 0; // 현재 활성화된(눈 앞에 보고있는) 씬(scroll-section)
 // let touchDown = false;
@@ -163,7 +164,7 @@ const sceneInfo = [
       svg_scale2: [0.2, 15, { start: 0.66, end: 0.76 }],
       video_opacity_in: [0, 1, { start: 0.66, end: 0.73 }],
       video_scale: [1, 0.75, { start: 0.78, end: 1 }],
-      video_opacity_out: [1, 0, { start: 0.8, end: 0.9 }]
+      video_opacity_out: [1, 0, { start: 0.8, end: 0.95 }]
     }
   }
 ];
@@ -418,6 +419,9 @@ function setLayout() {
   // sceneInfo[0].values.svg_scale0[0] = currentDevice.podSVGInitialScale;
   sceneInfo[0].values.svg_scale0[0] = calcPodORatio();
 
+  sceneInfo[0].values.video_opacity_out[2].end =
+    (targetScrollHeight - window.innerHeight) / targetScrollHeight;
+
   yOffset = window.pageYOffset;
   console.log("this is yOffset from setlayout", yOffset);
 }
@@ -425,7 +429,7 @@ function setLayout() {
 function calcValues(values, currentYOffset) {
   let rv;
   // 현재 씬(스크롤섹션)에서 스크롤된 범위를 비율로 구하기
-  const scrollHeight = sceneInfo[currentScene].scrollHeight;
+  const scrollHeight = sceneInfo[0].scrollHeight;
   // const currentYOffset = window.pageYOffset;
   const scrollRatio = currentYOffset / scrollHeight;
 
@@ -492,20 +496,16 @@ function calcValues(values, currentYOffset) {
  *
  */
 
-let isCleared = false;
-
 function playAnimation() {
-  const targetScene = sceneInfo[currentScene];
-  const objs = targetScene.objs;
-  const values = targetScene.values;
-  const currentYOffset = yOffset;
-  const scrollHeight = targetScene.scrollHeight;
-  const scrollRatio = currentYOffset / scrollHeight;
-
   switch (currentScene) {
     case 0:
-      // let sequence = Math.round(calcValues(values.imageSequence, currentYOffset));
-      // objs.context.drawImage(objs.videoImages[sequence], 0, 0);
+      const targetScene = sceneInfo[0];
+      const objs = targetScene.objs;
+      const values = targetScene.values;
+      const currentYOffset = yOffset;
+      const scrollHeight = targetScene.scrollHeight;
+      const scrollRatio = currentYOffset / scrollHeight;
+
       objs.canvas.style.opacity = calcValues(
         values.canvas_opacity,
         currentYOffset
@@ -685,7 +685,7 @@ function playAnimation() {
 
       // objs.podSVG.style.marginTop = "0";
 
-      const stickyElem = objs.videoContainer.parentElement.parentElement;
+      const stickyElem = objs.container.children[0];
 
       if (scrollRatio < 0.75) {
         objs.videoContainer.style.opacity = calcValues(
@@ -929,30 +929,55 @@ function android() {
   // return navigator.userAgent.match(/(iPad|iPhone|iPod)/i);
 }
 
+function scrollLoop() {
+  enterNewScene = false;
+  prevScrollHeight = 0;
+
+  if (delayedYOffset > sceneInfo[0].scrollHeight && currentScene == 0) {
+    enterNewScene = true;
+    currentScene = "non-sticky";
+    document.body.setAttribute("id", `show-scene-${currentScene}`);
+  } else if (
+    delayedYOffset < sceneInfo[0].scrollHeight &&
+    currentScene == "non-sticky"
+  ) {
+    enterNewScene = true;
+    if (currentScene === 0) return; // 브라우저 바운스 효과로 인해 마이너스가 되는 것을 방지(모바일)
+    currentScene = 0;
+    document.body.setAttribute("id", `show-scene-${currentScene}`);
+  }
+
+  if (enterNewScene) return;
+
+  playAnimation();
+}
+
 function loop() {
   delayedYOffset = delayedYOffset + (window.pageYOffset - delayedYOffset) * acc;
 
-  // this can be improve
-  const currentYOffset = delayedYOffset - prevScrollHeight;
-  const objs = sceneInfo[currentScene].objs;
-  const values = sceneInfo[currentScene].values;
-
   if (currentScene === 0) {
-    // this should be not work when firstCanvas over
-    let sequence = Math.round(calcValues(values.imageSequence, yOffset));
-    firstSceneSequence = sequence;
-    if (objs.videoImages[currentDeviceType][sequence]) {
-      // objs.context.drawImage(objs.videoImages[0], 0, 0);
-      // this is for jpg
-      // if (currentDeviceType == "desktop") {
-      //   objs.context.clearRect(0, 0, objs.canvas.width, objs.canvas.height);
-      // }
-      objs.context.drawImage(
-        objs.videoImages[currentDeviceType][sequence],
-        0,
-        0
-      );
-      currentSequence = sequence + "b";
+    // this can be improve
+    const currentYOffset = delayedYOffset - prevScrollHeight;
+    const objs = sceneInfo[currentScene].objs;
+    const values = sceneInfo[currentScene].values;
+
+    if (!enterNewScene) {
+      // this should be not work when firstCanvas over
+      let sequence = Math.round(calcValues(values.imageSequence, yOffset));
+      firstSceneSequence = sequence;
+      if (objs.videoImages[currentDeviceType][sequence]) {
+        // objs.context.drawImage(objs.videoImages[0], 0, 0);
+        // this is for jpg
+        // if (currentDeviceType == "desktop") {
+        //   objs.context.clearRect(0, 0, objs.canvas.width, objs.canvas.height);
+        // }
+        objs.context.drawImage(
+          objs.videoImages[currentDeviceType][sequence],
+          0,
+          0
+        );
+        currentSequence = sequence + "b";
+      }
     }
   }
 
@@ -1038,23 +1063,13 @@ window.addEventListener("load", () => {
 
   window.addEventListener("scroll", function() {
     yOffset = window.pageYOffset;
-    if (yOffset <= sceneInfo[currentScene].scrollHeight) {
-      if (
-        delayedYOffset < sceneInfo[currentScene].prevScrollHeight &&
-        currentScene === 0
-      ) {
-        return; // 브라우저 바운스 효과로 인해 마이너스가 되는 것을 방지(모바일)
-      }
 
-      playAnimation();
+    scrollLoop();
 
-      if (!rafState) {
-        rafId = requestAnimationFrame(loop);
-        rafState = true;
-      }
+    if (!rafState) {
+      rafId = requestAnimationFrame(loop);
+      rafState = true;
     }
-
-    // console.log("hello currentScene", currentSequence, yOffset);
   });
 
   window.addEventListener("resize", () => {
