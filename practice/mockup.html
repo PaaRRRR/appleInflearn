@@ -656,7 +656,7 @@
                 <div
                   style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; bottom: 0; background: #eee;"
                 >
-                  <div class="compareSlider-imgBox">
+                  <div class="compareSlider-imgBox" id="compareSliderRight">
                     <img src="./assets/images/compare-pivoSilver.jpg" />
                   </div>
                   <div id="compareSlider-divisor">
@@ -667,6 +667,7 @@
 
                   <div
                     class="compareSlider-imgBox compareSlider-imgBox-overlay"
+                    id="compareSliderLeft"
                   >
                     <img src="./assets/images/compare-pivoPod.jpg" />
                   </div>
@@ -734,6 +735,63 @@
               class="landing-block-bundle-shop-scrollX landing-block-mediaBox-media landing-block-horizontalPadding-mid "
             >
               <div class="landing-block-bundle-shop-box">
+                <div class="landing-block-bundle-items">
+                  <div class="landing-block-bundle-items-imageBox">
+                    <img src="" />
+                  </div>
+                  <div class="items-block-items-product-name">Starter Pack</div>
+                  <div class="landing-block-items-price">
+                    <span class="items-original-price">$269</span
+                    ><span class="items-discount-price">$159</span>
+                  </div>
+                  <div
+                    class="landing-block-oval-btn landing-block-items-AddToCart-btn"
+                  >
+                    Add to cart
+                  </div>
+                  <div class="landing-block-items-LearnMore-btn">
+                    <a href="">Learn more ></a>
+                  </div>
+                </div>
+
+                <div class="landing-block-bundle-items">
+                  <div class="landing-block-bundle-items-imageBox">
+                    <img src="" />
+                  </div>
+                  <div class="items-block-items-product-name">Starter Pack</div>
+                  <div class="landing-block-items-price">
+                    <span class="items-original-price">$269</span
+                    ><span class="items-discount-price">$159</span>
+                  </div>
+                  <div
+                    class="landing-block-oval-btn landing-block-items-AddToCart-btn"
+                  >
+                    Add to cart
+                  </div>
+                  <div class="landing-block-items-LearnMore-btn">
+                    <a href="">Learn more ></a>
+                  </div>
+                </div>
+
+                <div class="landing-block-bundle-items">
+                  <div class="landing-block-bundle-items-imageBox">
+                    <img src="" />
+                  </div>
+                  <div class="items-block-items-product-name">Starter Pack</div>
+                  <div class="landing-block-items-price">
+                    <span class="items-original-price">$269</span
+                    ><span class="items-discount-price">$159</span>
+                  </div>
+                  <div
+                    class="landing-block-oval-btn landing-block-items-AddToCart-btn"
+                  >
+                    Add to cart
+                  </div>
+                  <div class="landing-block-items-LearnMore-btn">
+                    <a href="">Learn more ></a>
+                  </div>
+                </div>
+
                 <div class="landing-block-bundle-items">
                   <div class="landing-block-bundle-items-imageBox">
                     <img src="" />
@@ -1151,6 +1209,13 @@
 
       window.SlideArr = SlideArr;
 
+      /* check bundle width size */
+      var landingBlockBundleItems = document.querySelectorAll('.landing-block-bundle-items');
+      landingBlockBundleItems = Array.prototype.slice.call(landingBlockBundleItems);
+      if (landingBlockBundleItems && landingBlockBundleItems.length > 0) {
+        landingBlockBundleItems[0].parentElement.style.width = (landingBlockBundleItems[0].offsetWidth + 21) * landingBlockBundleItems.length - 20 + 'px';
+      }
+
       /* scrollup in mobile */
       var landingPageScrollUpBtn = document.getElementById(
         "landingPage-scrollUp-btn"
@@ -1187,6 +1252,8 @@
           compareSliderContainer = document.getElementById(
             "compareSlider-container"
           ),
+          compareSliderLeft = document.getElementById('compareSliderLeft'),
+          compareSliderRight = document.getElementById('compareSliderRight'),
           divisor = document.getElementById("compareSlider-divisor"),
           divisor01 = document.getElementById("compareSlider-divisor-01"),
           divisor02 = document.getElementById("compareSlider-divisor-02"),
@@ -1291,6 +1358,16 @@
             divisor.style.left = x + "px";
           }
         }
+
+        compareSliderRight.addEventListener('click', function(e) {
+          x[0].style.width = "0px";
+          divisor.style.left = "0px";
+        });
+
+        compareSliderLeft.addEventListener('click', function(e) {
+          x[0].style.width = sliderImageWidth + "px";
+          divisor.style.left = sliderImageWidth + "px";
+        });
       }
 
       window.addEventListener("load", initComparisons);
