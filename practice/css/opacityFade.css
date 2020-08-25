@@ -172,6 +172,7 @@ body.before-load {
 
 #scroll-section-0 {
   color: white;
+  overflow: hidden;
   /* background: #0ca4d3; */
 }
 
