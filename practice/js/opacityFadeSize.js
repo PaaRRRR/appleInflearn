@@ -1095,6 +1095,39 @@ window.addEventListener("load", () => {
     }, 500);
   }
 
+  function disableScroll() {
+    document.body.style.overflow = "hidden";
+    document.querySelector("html").scrollTop = window.scrollY;
+  }
+
+  function enableScroll() {
+    document.body.style.overflow = null;
+  }
+
+  function scrollStop(callback) {
+    if (!callback || typeof callback !== "function") return;
+
+    var isScrolling;
+
+    window.addEventListener(
+      "scroll",
+      function(e) {
+        window.clearTimeout(isScrolling);
+
+        isScrolling = setTimeout(function() {
+          callback();
+        }, 66);
+      },
+      false
+    );
+  }
+
+  scrollStop(function() {
+    console.log("scrolling has stopped.");
+    setTimeout(enableScroll, 500);
+    // enableScroll();
+  });
+
   window.addEventListener("scroll", function() {
     newnewScene = false;
     yOffset = window.pageYOffset;
@@ -1108,7 +1141,8 @@ window.addEventListener("load", () => {
     }
 
     if (newnewScene && isFirstTime) {
-      window.addEventListener("scroll", noScroll);
+      disableScroll();
+      // window.addEventListener("scroll", noScroll);
       // window.scrollTo(0, sceneInfo[0].scrollHeight - window.innerHeight * 3);
       isFirstTime = false;
       return;
