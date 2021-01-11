@@ -10,16 +10,11 @@
       rel="stylesheet"
     /> -->
     <link rel="stylesheet" href="./css/default.css" />
-    <link rel="stylesheet" href="./css/pivo.css" />
+    <link rel="stylesheet" href="./css/opacityFade.css" />
   </head>
   <body class="before-load local-nav-sticky">
-    <div class="loading">
-      <svg class="loading-circle">
-        <circle cx="50%" cy="50%" r="25"></circle>
-      </svg>
-    </div>
     <div class="container">
-      <nav class="global-nav">
+      <nav class="global-nav" style="display: none;">
         <div class="global-nav-links">
           <div class="global-nav-links-left">
             <a href="#">
@@ -36,8 +31,8 @@
               <a href="#" class="global-nav-item">Shop</a>
               <a href="#" class="global-nav-item">Support</a>
             </div>
-
-            <button class="buyNow_btn">Buy Now</button>
+            <input id="texttexttext" type="text" />
+            <button id="buyNow_btn1" class="buyNow_btn">Buy Now</button>
             <a href="#" class="global-nav-item" style="position: relative;">
               <div class="icon-cart_icon"></div>
               <div class="icon-cart_badge">3</div>
@@ -46,118 +41,109 @@
         </div>
       </nav>
 
-      <section
-        class="scroll-section"
-        id="scroll-section-0"
-        style="background: #446a78;"
-      >
-        <div class="sticky-elem sticky-elem-canvas">
-          <canvas id="video-canvas-0" width="1440" height="1080"></canvas>
-          <!-- <canvas id="video-canvas-0" width="360" height="640"></canvas> -->
-        </div>
+      <section class="scroll-section" id="scroll-section-0">
+        <div class="sticky-elem">
+          <div class="sticky-elem-frame">
+            <!-- first animation box -->
+            <div class="frame-box">
+              <div style="width: 100%; height: 100%; margin: auto;">
+                <div class="main-message c">
+                  <p style="text-align: left; line-height: 1.2;">
+                    Take<br />waaaaay<br />better <br />
+                    shots
+                  </p>
+                </div>
+              </div>
 
-        <div class="sticky-elem main-message-box">
-          <div class="main-message a">
-            <p class="main-message-a-up">Like a cameraman</p>
-            <p class="main-message-a-down">just way better!</p>
-          </div>
+              <canvas id="video-canvas-0" width="1440" height="1080"></canvas>
+            </div>
 
-          <div class="main-message b">
-            <p>
-              <img
-                class="svgAnimationLetter2 main-message-b-up"
-                src="./assets/images/POD_logo_website.png"
-                style="vertical-align: bottom;"
-              />
-            </p>
+            <!-- second animation box -->
+            <div class="frame-box main-message-box">
+              <div class="main-message a">
+                <p class="main-message-a-up">Like a <span>cameraman</span></p>
+                <p class="main-message-a-down" style="margin-top:3px;">
+                  just way better!
+                </p>
+              </div>
 
-            <!-- <p class="main-message-b-up">pod</p> -->
-            <p class="main-message-b-down">
-              <span
-                class="main-message-b-down-origin-price"
-                style="opacity: 0.5;"
-                >from $159</span
-              >
-              $109
-            </p>
-          </div>
+              <div class="main-message b">
+                <p>
+                  <img
+                    class="svgAnimationLetter2 main-message-b-up"
+                    src="./assets/images/pod_logo_final.svg"
+                    style="vertical-align: bottom;"
+                  />
+                </p>
 
-          <div class="main-message c">
-            <p style="text-align: left;">
+                <!-- <p class="main-message-b-up">pod</p> -->
+                <p class="main-message-b-down">
+                  <span
+                    class="main-message-b-down-origin-price"
+                    style="opacity: 0.5;"
+                    >from $159</span
+                  >
+                  $109
+                </p>
+              </div>
+
+              <!-- <div class="main-message c">
+            <p style="text-align: left; line-height: 1.14;">
               Take<br />waaaaaaay<br />better <br />
               shots
             </p>
+          </div> -->
+            </div>
+
+            <!-- third animation box -->
+            <div class="frame-box podLetterBox" style="z-index: 3;">
+              <canvas
+                id="image-canvas"
+                width="1920"
+                height="1080"
+                style="max-height: unset;"
+              >
+                Your browser does not support the canvas element.
+              </canvas>
+            </div>
+            <!-- this one is for pd -->
+            <div class="frame-box podLetterBox" style="z-index: 3;">
+              <canvas
+                id="image-canvas1"
+                width="1920"
+                height="1080"
+                style="max-height: unset;"
+              >
+                Your browser does not support the canvas element.
+              </canvas>
+            </div>
+
+            <div class="frame-box videoContainer2" style="z-index: 2;">
+              <video
+                class="video videoContainer2LocalVideo"
+                muted
+                autoplay
+                playsinline
+                loop
+                src="https://cdn.shopify.com/s/files/1/2065/8833/files/UGl2byB2aWRlbyBpbnRyby5tcDQ.mp4?v=1597985499"
+              ></video>
+
+              <span
+                id="wistia_full_u95be3ftux"
+                class="landing-block-oval-btn videoContainer2PlayBtn wistia_embed wistia_async_u95be3ftux popover=true popoverContent=link popoverPreventScroll=true"
+              >
+                <a href="#">
+                  <span class="landing-block-playBtn-icon"></span>
+                  <span
+                    style="margin-left: 20px; font-size: 18px; letter-spacing: -0.5px;"
+                    >Watch full video</span
+                  >
+                </a>
+              </span>
+            </div>
           </div>
         </div>
-
-        <!-- <div class="sticky-elem main-message a">
-          <p>
-            <span class="main-message-a-up">Like a cameraman</span>
-            <br />
-            <span class="main-message-a-down">just way better!</span>
-          </p>
-        </div>
-
-        <div class="sticky-elem main-message b">
-          <p>
-            <img
-              class="svgAnimationLetter main-message-b-up"
-              src="./assets/images/POD_logo_website.png"
-              style="max-width: 257px;"
-            />
-            <span class="main-message-b-up">pod</span>
-            <br />
-            <span class="main-message-b-down">
-              <span
-                class="main-message-b-down-origin-price"
-                style="opacity: 0.5;"
-                >from $159</span
-              >
-              $109
-            </span>
-          </p>
-        </div>
-
-        <div class="sticky-elem main-message c">
-          <p style="text-align: left;">
-            Take<br />waaaaaaay<br />better <br />
-            shots
-          </p>
-        </div> -->
       </section>
-
-      <section
-        class="scroll-section"
-        id="scroll-section-1"
-        style="text-align: center; background: #446a78;"
-      >
-        <!-- <p class="svgAnimationLetter">
-          pod
-        </p> -->
-        <img
-          class="svgAnimationLetter"
-          src="./assets/images/POD_logo_website.png"
-        />
-      </section>
-
-      <section
-        class="scroll-section"
-        id="scroll-section-2"
-        style="position: relative; background: wheat; z-index: 1;"
-      >
-        <div class="videoContainer">
-          <video
-            class="video"
-            muted
-            autoplay
-            playsinline
-            loop
-            src="https://www.apple.com//105/media/us/iphone-se/2020/90024c0f-285a-4bf5-af04-2c38de97b06e/anim/4k-video/large.mp4"
-          ></video>
-        </div>
-      </section>
-
-      <section style="height: 100vh; background: mediumslateblue;"></section>
     </div>
     <script src="./js/index.js"></script>
   </body>
